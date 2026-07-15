@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO -->
+  <title id="seoTitle">Pallet Loading Optimizer & Carton Stacking 3D Simulator</title>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2965119835410946"
+     crossorigin="anonymous"></script>
+  <meta name="description" id="seoDesc" content="Enter carton box dimensions and pallet size to compute the optimal load stacking pattern in 3D simulation. Supports interlocking, clearance spacing, and layers.">
+  <!-- meta keywords intentionally omitted: Google has ignored it for ranking
+       since 2009, so it only leaks keyword strategy to competitors. -->
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://pallet-loading-layout-optimizer.pages.dev/">
+  <meta name="author" content="Pallet Loading Optimizer">
+  <meta name="theme-color" content="#0284C7">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Pallet Loading Optimizer">
+  <meta property="og:url" content="https://pallet-loading-layout-optimizer.pages.dev/">
+  <meta property="og:title" id="ogTitle" content="Pallet Loading Optimizer & Carton Stacking 3D Simulator">
+  <meta property="og:description" id="ogDesc" content="Enter carton box dimensions and pallet size to compute the optimal load stacking pattern in 3D simulation. Supports interlocking, clearance spacing, and layers.">
+  <meta property="og:locale" id="ogLocale" content="en_US">
+  <meta property="og:image" content="https://pallet-loading-layout-optimizer.pages.dev/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Pallet Loading Optimizer - 3D pallet stacking simulation">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" id="twTitle" content="Pallet Loading Optimizer & Carton Stacking 3D Simulator">
+  <meta name="twitter:description" id="twDesc" content="Enter carton box dimensions and pallet size to compute the optimal load stacking pattern in 3D simulation. Supports interlocking, clearance spacing, and layers.">
+  <meta name="twitter:image" content="https://pallet-loading-layout-optimizer.pages.dev/og-image.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #F8FAFC;          /* Slate 50 (Light Background) */
+      --panel: #FFFFFF;       /* White Card Panels */
+      --panel-2: #F1F5F9;     /* Slate 100 Panels */
+      --line: #E2E8F0;        /* Slate 200 Borders */
+      --line-soft: #F8FAFC;   /* Slate 50 Soft borders */
+      --ink: #0F172A;         /* Slate 900 Core Ink */
+      --ink-dim: #475569;     /* Slate 600 Sub titles */
+      --ink-faint: #94A3B8;   /* Slate 400 Annotations */
+      --ink-white: #0F172A;   /* Primary titles */
+      --cyan: #0284C7;        /* Slate Sky 600 Core */
+      --cyan-dim: rgba(2, 132, 199, 0.08);
+      --amber: #D97706;       /* Premium deep amber */
+      --amber-dim: rgba(217, 119, 6, 0.08);
+      --danger: #EF4444;
+      --radius: 12px;
+      --sans: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --mono: 'IBM Plex Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--cyan), var(--amber));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #FFFFFF;
+      font-size: 18px;
+    }
+    .brand-text h1 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .brand-text span {
+      font-size: 11px;
+      color: var(--ink-faint);
+      display: block;
+      font-family: var(--mono);
+    }
+
+    /* Language Flags Selector */
+    .lang-selector {
+      display: flex;
+      gap: 8px;
+    }
+    .lang-btn {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 6px 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--ink-dim);
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .lang-btn.active {
+      border-color: var(--cyan);
+      color: var(--cyan);
+      background: var(--cyan-dim);
+      box-shadow: 0 0 10px rgba(2, 132, 199, 0.1);
+    }
+    .lang-btn:hover:not(.active) {
+      border-color: var(--ink-dim);
+      color: var(--ink);
+    }
+
+    /* Layout Wrapper */
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* AdSense Placeholder style */
+    .adsense-placeholder {
+      background: var(--panel);
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+      margin: 16px 0;
+      text-align: center;
+      color: var(--ink-faint);
+      font-family: var(--mono);
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 90px;
+      position: relative;
+      overflow: hidden;
+    }
+    .adsense-placeholder::before {
+      content: 'GOOGLE ADSENSE';
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--cyan);
+      opacity: 0.7;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    /* Step System */
+    .step-container {
+      width: 100%;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .hidden {
+      display: none !important;
+      opacity: 0;
+    }
+
+    /* Step 1: Input Card Form */
+    .input-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      max-width: 680px;
+      margin: 0 auto;
+      box-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
+      overflow: hidden;
+    }
+    .card-header {
+      background: var(--panel-2);
+      border-bottom: 1px solid var(--line);
+      padding: 20px 24px;
+    }
+    .card-header h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--ink-white);
+    }
+    .card-header p {
+      font-size: 13px;
+      color: var(--ink-dim);
+      margin-top: 4px;
+    }
+
+    .form-group-title {
+      font-family: var(--sans);
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--ink);
+      padding: 16px 24px;
+      border-bottom: 2px solid var(--cyan);
+      background: var(--panel-2);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    @media (max-width: 580px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+    
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .field label {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--ink-dim);
+    }
+    .input-unit {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    .input-unit input, .input-unit select {
+      width: 100%;
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: var(--ink-white);
+      padding: 10px 42px 10px 12px;
+      font-family: var(--mono);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .input-unit select {
+      padding-right: 32px;
+      appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 14px;
+    }
+    .input-unit input:focus, .input-unit select:focus {
+      border-color: var(--cyan);
+    }
+    .input-unit .unit {
+      position: absolute;
+      right: 12px;
+      font-size: 12px;
+      color: var(--ink-faint);
+      font-weight: 500;
+    }
+
+    .dims-field {
+      grid-column: span 2;
+    }
+    @media (max-width: 580px) {
+      .dims-field { grid-column: span 1; }
+    }
+    .dims-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    .dim-sub {
+      position: relative;
+    }
+    .dim-sub span {
+      position: absolute;
+      top: -7px;
+      left: 8px;
+      background: var(--panel);
+      padding: 0 4px;
+      font-size: 9px;
+      color: var(--ink-faint);
+      font-family: var(--mono);
+    }
+    .dim-sub input {
+      text-align: center;
+      padding-top: 12px;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 4px 0;
+      user-select: none;
+    }
+    .checkbox-row input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--cyan);
+      cursor: pointer;
+    }
+    .checkbox-row span {
+      font-size: 13px;
+      color: var(--ink-dim);
+    }
+
+    .card-footer {
+      padding: 24px;
+      text-align: center;
+      background: var(--panel-2);
+      border-top: 1px solid var(--line);
+    }
+    
+    .btn-calc {
+      width: 100%;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      border: none;
+      border-radius: 8px;
+      color: #FFFFFF;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.2);
+      transition: all 0.2s;
+    }
+    .btn-calc:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.3);
+    }
+
+    /* Loader Screen */
+    .loader-card {
+      max-width: 480px;
+      margin: 80px auto;
+      text-align: center;
+    }
+    .spinner {
+      width: 56px;
+      height: 56px;
+      border: 4px solid var(--line);
+      border-top-color: var(--cyan);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .loader-card p {
+      font-size: 15px;
+      color: var(--ink-dim);
+    }
+
+    /* Result Dashboard Layout */
+    .result-section {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 1024px) {
+      .result-section { grid-template-columns: 1fr; }
+    }
+
+    .dashboard-panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .dashboard-title {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--amber);
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+    }
+    .kpi-card {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--line-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .kpi-card.main {
+      background: rgba(2, 132, 199, 0.02);
+    }
+    .kpi-card.accent {
+      background: rgba(217, 119, 6, 0.02);
+    }
+    .kpi-label {
+      font-size: 12px;
+      color: var(--ink-dim);
+      font-weight: 600;
+    }
+    .kpi-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ink-white);
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+    .kpi-value span {
+      font-size: 13px;
+      color: var(--ink-dim);
+      font-weight: 400;
+    }
+    .kpi-value.large {
+      font-size: 30px;
+      color: var(--cyan);
+    }
+    .kpi-value.accent-val {
+      font-size: 30px;
+      color: var(--amber);
+    }
+    .kpi-sub {
+      font-size: 11.5px;
+      color: var(--ink-faint);
+    }
+
+    .graphics-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .viz-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .viz-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .viz-head h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink-white);
+    }
+    .pattern-badge {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--cyan-dim);
+      color: var(--cyan);
+      background: rgba(2, 132, 199, 0.04);
+    }
+
+    svg.viz {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+    }
+    svg#isoSvg {
+      background: radial-gradient(ellipse at 50% 30%, #FFFFFF 0%, #F1F5F9 78%);
+      border: 1px solid var(--line);
+    }
+
+    .legend {
+      display: flex;
+      gap: 16px;
+      margin-top: 14px;
+      font-size: 11px;
+      color: var(--ink-dim);
+      justify-content: center;
+    }
+    .legend .li {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend .sw {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    .orient-strip {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line-soft);
+      justify-content: center;
+    }
+    .orient-strip .oi {
+      font-size: 11.5px;
+      color: var(--ink-dim);
+      font-family: var(--mono);
+    }
+    .orient-strip .oi b {
+      color: var(--cyan);
+      font-weight: 600;
+    }
+
+    .result-grid-bottom {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 960px) {
+      .result-grid-bottom { grid-template-columns: 1fr; }
+    }
+
+    .btn-reset-container {
+      margin-top: 24px;
+      text-align: center;
+    }
+    .btn-reset {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 12px 32px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-reset:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    /* SEO / crawlable content section */
+    .seo-content {
+      max-width: 880px;
+      width: 100%;
+      margin: 40px auto 0;
+      padding: 28px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+    .seo-content h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 30px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--cyan);
+    }
+    .seo-content h2:first-child { margin-top: 0; }
+    .seo-content p {
+      font-size: 13.5px;
+      color: var(--ink-dim);
+      line-height: 1.8;
+    }
+    .seo-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+    .seo-table th, .seo-table td {
+      border: 1px solid var(--line);
+      padding: 9px 12px;
+      text-align: left;
+    }
+    .seo-table th {
+      background: var(--panel-2);
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .seo-table td { color: var(--ink-dim); }
+    .seo-table td:nth-child(2) { font-family: var(--mono); white-space: nowrap; }
+    .seo-faq details {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      background: var(--panel-2);
+      overflow: hidden;
+    }
+    .seo-faq summary {
+      cursor: pointer;
+      padding: 13px 14px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink);
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .seo-faq summary::-webkit-details-marker { display: none; }
+    .seo-faq summary::after {
+      content: '+';
+      color: var(--cyan);
+      font-weight: 700;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+    .seo-faq details[open] summary::after { content: '−'; }
+    .seo-faq details p {
+      padding: 0 14px 14px;
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.8;
+      background: var(--panel);
+    }
+
+    footer.bottom-info {
+      text-align: center;
+      margin-top: auto;
+      padding: 40px 24px 24px;
+      font-size: 11.5px;
+      color: var(--ink-faint);
+      line-height: 1.6;
+      border-top: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.8);
+    }
+    .warn-box {
+      display: none;
+      background: rgba(239, 68, 68, 0.04);
+      border: 1px solid var(--danger);
+      color: var(--danger);
+      font-size: 13px;
+      padding: 14px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-family: var(--mono);
+      text-align: center;
+    }
+    .warn-box.show { display: block; }
+
+    /* Print-only header (hidden on screen) */
+    .print-header {
+      display: none;
+    }
+
+    @media print {
+      @page {
+        size: A4 portrait;
+        /* margin:0 suppresses the browser's own header/footer
+           (top-left date, URL, page number). Content margins are
+           supplied by .container padding below. */
+        margin: 0;
+      }
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      body {
+        background: #FFFFFF !important;
+        color: #0F172A !important;
+        display: block !important;
+        min-height: 0 !important;
+        height: auto !important;
+        overflow: visible !important;
+        font-size: 10px !important;
+      }
+      /* Hide all non-result elements */
+      header,
+      .adsense-placeholder,
+      .btn-reset-container,
+      footer,
+      .lang-selector,
+      .warn-box,
+      .seo-content,
+      #stepInput,
+      #stepLoading {
+        display: none !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        visibility: hidden !important;
+      }
+      /* Force show result, force hide others regardless of .hidden class */
+      #stepInput,
+      #stepInput.step-container,
+      #stepLoading,
+      #stepLoading.step-container {
+        display: none !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        visibility: hidden !important;
+      }
+      #stepResult,
+      #stepResult.step-container,
+      #stepResult.step-container.hidden,
+      #stepResult.hidden {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        height: auto !important;
+      }
+      .container {
+        display: block !important;
+        flex: none !important;
+        height: auto !important;
+        min-height: 0 !important;
+        padding: 12mm !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        overflow: visible !important;
+      }
+      /* Dynamic Report Title */
+      .print-header {
+        display: block !important;
+        font-family: var(--sans);
+        font-size: 16px;
+        font-weight: 800;
+        color: #0284C7;
+        border-bottom: 3px double #0284C7;
+        padding: 4px 0 8px 0;
+        margin-bottom: 14px;
+        text-align: center;
+        letter-spacing: 0.02em;
+      }
+      .print-header .print-date {
+        display: block;
+        font-size: 10px;
+        font-weight: 400;
+        color: #64748B;
+        margin-top: 4px;
+        letter-spacing: 0;
+      }
+      /* Result layout — block flow so pagination fills page 1 first.
+         A CSS grid cannot fragment across page boundaries, so the whole
+         grid was pushed to page 2, leaving page 1 blank. */
+      .result-section {
+        display: block !important;
+      }
+      .result-section > .dashboard-panel {
+        width: 100% !important;
+        margin-bottom: 12px !important;
+      }
+      /* Lay the sidebar KPIs out in a compact row on the report */
+      .dashboard-panel {
+        display: block !important;
+      }
+      .dashboard-panel .dashboard-title { width: 100% !important; }
+      .dashboard-panel .kpi-card {
+        display: inline-block !important;
+        width: 32.8% !important;
+        vertical-align: top !important;
+        border-bottom: none !important;
+        border-right: 1px solid #E2E8F0 !important;
+      }
+      .result-section > .graphics-panel {
+        width: 100% !important;
+      }
+      .dashboard-panel {
+        border: 1.5px solid #CBD5E1 !important;
+        background: #F8FAFC !important;
+        border-radius: 6px !important;
+        box-shadow: none !important;
+        page-break-inside: avoid !important;
+      }
+      .dashboard-panel .adsense-placeholder {
+        display: none !important;
+        height: 0 !important;
+        visibility: hidden !important;
+      }
+      .dashboard-title {
+        font-size: 11px !important;
+        padding: 8px 12px !important;
+      }
+      .kpi-card {
+        padding: 8px 12px !important;
+        border-bottom: 1px solid #E2E8F0 !important;
+      }
+      .kpi-label {
+        font-size: 9px !important;
+        margin-bottom: 2px !important;
+      }
+      .kpi-value {
+        font-size: 16px !important;
+      }
+      .kpi-value span {
+        font-size: 10px !important;
+      }
+      .kpi-value.large {
+        font-size: 20px !important;
+      }
+      .kpi-value.accent-val {
+        font-size: 20px !important;
+      }
+      .kpi-sub {
+        font-size: 8.5px !important;
+      }
+      .graphics-panel {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+      }
+      .viz-card {
+        border: 1.5px solid #CBD5E1 !important;
+        border-radius: 6px !important;
+        padding: 10px !important;
+        box-shadow: none !important;
+        page-break-inside: avoid !important;
+      }
+      .viz-head h3 {
+        font-size: 11px !important;
+      }
+      .result-grid-bottom {
+        display: grid !important;
+        grid-template-columns: 1.5fr 1fr !important;
+        gap: 10px !important;
+        page-break-inside: avoid !important;
+      }
+      .result-grid-bottom .viz-card {
+        margin: 0 !important;
+      }
+      svg.viz {
+        max-width: 100% !important;
+        height: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand">
+      <div class="brand-logo">P</div>
+      <div class="brand-text">
+        <h1 id="txtHeaderBrand">Pallet Loading Layout Optimizer</h1>
+        <span id="txtHeaderSub">Pallet Loading Optimizer </span>
+      </div>
+    </div>
+    <div class="lang-selector">
+      <button class="lang-btn" onclick="switchLang('ko')" id="btnLangKo">🇰🇷 ko</button>
+      <button class="lang-btn active" onclick="switchLang('en')" id="btnLangEn">🇺🇸 en</button>
+      <button class="lang-btn" onclick="switchLang('zh')" id="btnLangZh">🇨🇳 zh</button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <div class="container">
+    <!-- Print-only Report Title Header (Hidden on screen) -->
+    <div id="printReportTitle" class="print-header"></div>
+    
+    <!-- TOP LEADERBOARD AD placeholder -->
+    <div class="adsense-placeholder" style="max-width: 970px; width: 100%; margin: 0 auto 24px;">
+      <div style="font-size: 12px; color: var(--ink-dim);">AdSense Banner Area (728×90 / 970×90)</div>
+    </div>
+
+    <!-- ERROR WARNING BOX -->
+    <div class="warn-box" id="warnBox"></div>
+
+    <!-- ==============================================
+         STEP 1: INPUT SCREEN
+         ============================================== -->
+    <div id="stepInput" class="step-container">
+      <div class="input-card">
+        <div class="card-header">
+          <h2 id="txtFormTitle">Input Stacking Specs</h2>
+          <p id="txtFormSub">Enter box and pallet dimensions to calculate optimal efficiency.</p>
+        </div>
+        
+        <!-- UNIT SETTINGS -->
+        <div class="form-group-title" id="txtGrpUnits">00 · UNIT SETTINGS</div>
+        <div class="form-row">
+          <div class="field">
+            <label id="lblLenUnit">Length Unit</label>
+            <div class="input-unit">
+              <select id="lenUnit" onchange="changeUnits()">
+                <option value="mm" selected>mm (Millimeters)</option>
+                <option value="cm">cm (Centimeters)</option>
+                <option value="inch">inch (Inches)</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label id="lblWeightUnit">Weight Unit</label>
+            <div class="input-unit">
+              <select id="weightUnit" onchange="changeUnits()">
+                <option value="kg" selected>kg (Kilograms)</option>
+                <option value="lb">lb (Pounds)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- PALLET SPEC -->
+        <div class="form-group-title" id="txtGrpPallet">01 · PALLET INFO</div>
+        <div class="form-row">
+          <div class="field">
+            <label id="lblPalletType">Pallet Type</label>
+            <div class="input-unit">
+              <select id="palletType">
+                <option value="T11" selected id="optPalletT11">T11 / KR·JP Standard (1100×1100 mm)</option>
+                <option value="euro" id="optPalletEuro">Euro Pallet EPAL / Europe Standard (1200×800 mm)</option>
+                <option value="us" id="optPalletUS">US Standard GMA / North America (1219×1016 mm / 48×40 in)</option>
+                <option value="iso" id="optPalletISO">ISO Industrial / Global Standard (1200×1000 mm)</option>
+                <option value="aus" id="optPalletAus">Australian Standard Pallet (1165×1165 mm)</option>
+                <option value="custom" id="optPalletCustom">Custom Size</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label id="lblPalletDims">Pallet Size (L × W × H)</label>
+            <div class="dims-inputs">
+              <div class="dim-sub">
+                <span id="tagPalletL">L (mm)</span>
+                <input type="number" id="palletL" value="1100" disabled>
+              </div>
+              <div class="dim-sub">
+                <span id="tagPalletW">W (mm)</span>
+                <input type="number" id="palletW" value="1100" disabled>
+              </div>
+              <div class="dim-sub">
+                <span id="tagPalletH">H (mm)</span>
+                <input type="number" id="palletH" value="150" disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HEIGHT & WEIGHT LIMIT -->
+        <div class="form-group-title" id="txtGrpHeight">02 · HEIGHT & LIMIT</div>
+        <div class="form-row">
+          <div class="field">
+            <label id="lblMaxHeight">Max Stacking Height</label>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <div class="input-unit">
+                <input type="number" id="maxHeight" value="1650" min="500" max="3000" step="10" oninput="syncHeightSlider()">
+                <span class="unit unit-len">mm</span>
+              </div>
+              <input type="range" id="maxHeightSlider" min="500" max="3000" step="10" value="1650" style="accent-color: var(--cyan); cursor: pointer; margin-top: 4px;" oninput="syncHeightInput()">
+            </div>
+          </div>
+          <div class="field">
+            <label id="lblMaxLoadWeight">Max Load Weight</label>
+            <div class="input-unit">
+              <input type="number" id="maxLoadWeight" value="950" min="1" step="10">
+              <span class="unit unit-weight">kg</span>
+            </div>
+          </div>
+          <div class="field" style="grid-column: span 2;">
+            <label id="lblPalletInclusion">Pallet Included</label>
+            <div style="padding: 4px 0;">
+              <label class="checkbox-row">
+                <input type="checkbox" id="includePalletH" checked>
+                <span id="lblIncludeCheck">Include pallet height in total limit</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARTON BOX SPEC -->
+        <div class="form-group-title" id="txtGrpCarton">03 · CARTON SPEC</div>
+        <div class="form-row">
+          <div class="field" style="grid-column: span 2;">
+            <label class="checkbox-row">
+              <input type="checkbox" id="orientFree">
+              <span id="lblOrientCheck">Auto Orientation (3-axis rotate)</span>
+            </label>
+          </div>
+          
+          <div class="field dims-field">
+            <label id="lblBoxDims">Box Dimensions (L × W × H)</label>
+            <div class="dims-inputs">
+              <div class="dim-sub">
+                <span id="tagBoxL">L (mm)</span>
+                <input type="number" id="boxL" value="480">
+              </div>
+              <div class="dim-sub">
+                <span id="tagBoxW">W (mm)</span>
+                <input type="number" id="boxW" value="380">
+              </div>
+              <div class="dim-sub">
+                <span id="tagBoxH">H (mm)</span>
+                <input type="number" id="boxH" value="320">
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label id="lblBoxGap">Box Clearance Gap</label>
+            <div class="input-unit">
+              <input type="number" id="boxGap" value="5" min="0">
+              <span class="unit unit-len">mm</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label id="lblPcsPerBox">Pcs per Box</label>
+            <div class="input-unit">
+              <input type="number" id="pcsPerBox" value="10" min="1">
+              <span class="unit">EA/Box</span>
+            </div>
+          </div>
+          <div class="field">
+            <label id="lblStackRule">Stacking Rule</label>
+            <div class="input-unit">
+              <select id="stackRule">
+                <option value="interlock" selected id="optRuleInter">Interlocking (Alternating A/B)</option>
+                <option value="column" id="optRuleCol">Column Stack (Same Layer)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field" style="grid-column: span 2;">
+            <label id="lblBoxWeight">Weight per Box</label>
+            <div class="input-unit">
+              <input type="number" id="boxWeight" value="" min="0.1" step="0.1" placeholder="If blank, max stack regardless of limit">
+              <span class="unit unit-weight">kg</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <button class="btn-calc" onclick="triggerCalculation()">
+            <span id="btnCalculate">Calculate Optimal Layout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ==============================================
+         STEP 2: 1.2-SECOND LOADING TRANSITION
+         ============================================== -->
+    <div id="stepLoading" class="step-container hidden">
+      <div class="loader-card">
+        <div class="spinner"></div>
+        <p id="txtLoadingMsg">Computing the best stacking configuration...</p>
+        
+        <!-- Loading interstitial Ad Placeholder -->
+        <div class="adsense-placeholder" style="margin-top: 40px; min-height: 250px;">
+          <div style="font-size: 12px; color: var(--ink-dim);">Google AdSense Interstitial Ad / Banner Zone (300×250)</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ==============================================
+         STEP 3: RESULTS STATE
+         ============================================== -->
+    <div id="stepResult" class="step-container hidden">
+      <div class="result-section">
+        
+        <!-- Results Sidebar KPIs -->
+        <div class="dashboard-panel">
+          <div class="dashboard-title">
+            <span id="txtDshTitle">Optimization Results</span>
+            <span class="n">DASHBOARD</span>
+          </div>
+
+          <!-- KPI: Boxes per Layer -->
+          <div class="kpi-card">
+            <div class="kpi-label" id="lblKpiPerLayer">Boxes / Layer</div>
+            <div class="kpi-value" id="kpiPerLayer">— <span>Box / Layer</span></div>
+            <div class="kpi-sub" id="txtSubPerLayer">Optimal box count placed per single layer</div>
+          </div>
+
+          <!-- KPI: Stacking Layers -->
+          <div class="kpi-card">
+            <div class="kpi-label" id="lblKpiLayers">Stack Layers</div>
+            <div class="kpi-value" id="kpiLayers">— <span>Layers</span></div>
+            <div class="kpi-sub" id="kpiHeightUse">Layers within max height</div>
+          </div>
+
+          <!-- KPI: Total Boxes -->
+          <div class="kpi-card main">
+            <div class="kpi-label" id="lblKpiTotal">Total Boxes Stacked</div>
+            <div class="kpi-value large" id="kpiTotal">— <span>Box</span></div>
+            <div class="kpi-sub" id="kpiTotalSub">Boxes per layer × Layers</div>
+          </div>
+
+          <!-- KPI: Total Products -->
+          <div class="kpi-card accent">
+            <div class="kpi-label" id="lblKpiTotalPcs">Total Products Loaded</div>
+            <div class="kpi-value accent-val" id="kpiTotalPcs">— <span>EA</span></div>
+            <div class="kpi-sub" id="kpiTotalPcsSub">Total boxes × pcs per box</div>
+          </div>
+
+          <!-- KPI: Occupancy % -->
+          <div class="kpi-card">
+            <div class="kpi-label" id="lblKpiOcc">Pallet Area Occupancy</div>
+            <div class="kpi-value" id="kpiOcc">— <span>%</span></div>
+            <div class="kpi-sub" id="kpiPattern">Best efficiency pattern</div>
+          </div>
+
+          <!-- KPI: Total Stacking Weight -->
+          <div class="kpi-card">
+            <div class="kpi-label" id="lblKpiWeight">Total Load Weight (Excl. Pallet)</div>
+            <div class="kpi-value" id="kpiWeight">— <span>kg</span></div>
+            <div class="kpi-sub" id="kpiWeightSub">No weight limit</div>
+          </div>
+          
+          <!-- Mid-sidebar Ad Placeholder -->
+          <div class="adsense-placeholder" style="margin: 16px; min-height: 200px; flex: 1;">
+            <div style="font-size: 11px; color: var(--ink-dim);">AdSense Sidebar Ad (250×250 / 250×300)</div>
+          </div>
+        </div>
+
+        <!-- Graphics Display Cards -->
+        <div class="graphics-panel">
+          
+          <!-- 3D VIEW CARD -->
+          <div class="viz-card">
+            <div class="viz-head">
+              <h3 id="txtTitle3D">3D VIEW · 45° Isometric Top View</h3>
+              <span class="pattern-badge" id="patternBadge">—</span>
+            </div>
+            <svg class="viz" id="isoSvg" viewBox="0 0 860 560"></svg>
+            <div class="legend">
+              <div class="li"><span class="sw" style="background:var(--cyan)"></span><span id="txtLegHor">Horizontal Box</span></div>
+              <div class="li"><span class="sw" style="background:var(--amber)"></span><span id="txtLegVer">Vertical Box</span></div>
+              <div class="li"><span class="sw" style="background:#5A3F1C;border:1px solid #7A5A22"></span><span id="txtLegPal">Pallet</span></div>
+            </div>
+            <div class="orient-strip" id="orientStrip"></div>
+          </div>
+
+          <!-- 2D TOP VIEW & SIDE VIEW CARD -->
+          <div class="result-grid-bottom">
+            <div class="viz-card">
+              <div class="viz-head">
+                <h3 id="txtTitle2D">TOP VIEW · Flat Layer Layout</h3>
+              </div>
+              <div id="topSvgContainer" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 200px; text-align: center;">
+                  <div style="font-size: 11.5px; font-weight: 600; color: var(--ink-dim); margin-bottom: 6px;" id="labelLayerA">Layer A Layout</div>
+                  <svg class="viz" id="topSvg" viewBox="0 0 480 480" style="max-width: 320px; margin: 0 auto;"></svg>
+                </div>
+                <div id="layerBBlock" style="flex: 1; min-width: 200px; text-align: center;">
+                  <div style="font-size: 11.5px; font-weight: 600; color: var(--ink-dim); margin-bottom: 6px;" id="lblLayerB">Layer B Layout</div>
+                  <svg class="viz" id="topSvgB" viewBox="0 0 480 480" style="max-width: 320px; margin: 0 auto;"></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="viz-card">
+              <div class="viz-head">
+                <h3 id="txtTitleSide">Section Summary (Side)</h3>
+              </div>
+              <svg class="viz" id="sideSvg" viewBox="0 0 240 480" style="max-height: 380px;"></svg>
+            </div>
+          </div>
+
+          <!-- BOTTOM ACTIONS -->
+          <div class="btn-reset-container" style="display: flex; gap: 12px; justify-content: center; margin-top: 24px; flex-wrap: wrap;">
+            <button class="btn-reset" onclick="resetCalculator()">
+              <span id="btnBackToInput">← Back & Edit inputs</span>
+            </button>
+            <button class="btn-calc" onclick="savePdf()" style="max-width: 280px; background: linear-gradient(135deg, #10B981, #059669); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);" id="btnSavePdf">💾 Save PDF Report</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ==============================================
+         CRAWLABLE CONTENT (rendered statically in Korean so search engines
+         get it without executing JS; switchLang() re-renders for en/zh)
+         ============================================== -->
+    <section class="seo-content" id="seoContent">
+      <h2 id="seoIntroH">What is the Pallet Loading Optimizer?</h2>
+      <p id="seoIntroP">The Pallet Loading Optimizer is a free web tool that works out how many carton boxes fit on a single layer, how many layers you can stack, and how much of the pallet footprint gets covered — all from your box and pallet dimensions. It evaluates grid, pinwheel and mixed-block patterns to find the arrangement that loads the most boxes, then draws the result as a 3D isometric view and flat layer diagrams. No install or sign-up needed, and the result can be saved as a PDF report.</p>
+
+      <h2 id="seoStdH">Standard Pallet Size Comparison</h2>
+      <table class="seo-table" id="seoStdTable"><thead><tr><th>Pallet Type</th><th>Size (mm)</th><th>Main Region</th></tr></thead><tbody><tr><td>T11 (Asia Pallet)</td><td>1,100 × 1,100</td><td>Korea · Japan</td></tr><tr><td>Euro Pallet EPAL</td><td>1,200 × 800</td><td>Europe</td></tr><tr><td>US GMA Standard</td><td>1,219 × 1,016</td><td>North America (48 × 40 in)</td></tr><tr><td>ISO Industrial</td><td>1,200 × 1,000</td><td>Global standard</td></tr><tr><td>Australian Standard</td><td>1,165 × 1,165</td><td>Australia</td></tr></tbody></table>
+
+      <h2 id="seoFaqH">Frequently Asked Questions (FAQ)</h2>
+      <div class="seo-faq" id="seoFaqList"><details open><summary>How is pallet area occupancy calculated?</summary><p>It is the combined footprint of the boxes actually placed on one layer, divided by the pallet footprint. Four 480×380mm boxes on a 1,100×1,100mm pallet give (4 × 480 × 380) ÷ (1,100 × 1,100) = 60.3%. Clearance gaps between boxes are not area the boxes occupy, so they are excluded.</p></details><details><summary>What is the difference between a T11 and a Euro pallet?</summary><p>The T11 is a 1,100×1,100mm square pallet, the Korean and Japanese standard, while the Euro pallet (EPAL) is a 1,200×800mm rectangle, the European standard. Being square, the T11 lets you rotate boxes 90° freely, which favours interlocking and pinwheel patterns. The Euro pallet is sized to European truck and container widths for transport efficiency.</p></details><details><summary>How does interlocked stacking differ from column stacking?</summary><p>Column stacking places every layer in the same orientation, so box corners line up vertically for the highest compression strength — but the layers are not tied together and topple more easily. Interlocking alternates the arrangement between odd and even layers so they key into each other, reducing collapse in transit, though misaligned corners lower compression strength somewhat.</p></details><details><summary>Why should I set a box clearance gap?</summary><p>Real cartons often come out a few millimetres larger than their nominal size because of board thickness, joint tolerance and content bulge. Allowing a 3–5mm gap prevents the case where boxes fit on paper but not on the floor. The gap is applied when checking whether a layout fits, but is not counted in the area occupancy.</p></details><details><summary>When is the pinwheel pattern useful?</summary><p>It applies when the box length plus width is less than or equal to one side of the pallet. A 620×440mm box on a 1,100×1,100mm pallet gives 620+440=1,060 ≤ 1,100, so four boxes can be rotated into a pinwheel. It leaves a hole in the centre but often loads more boxes than a plain grid.</p></details><details><summary>How do I decide the maximum stacking height?</summary><p>Take the lowest of your container interior height, warehouse rack clearance and forklift specification. A 40ft standard container is about 2,390mm inside. Always check whether the pallet’s own height (typically 150mm) counts toward that limit — the “Include pallet height in total limit” option controls this.</p></details></div>
+    </section>
+
+    <!-- BOTTOM LEADERBOARD AD -->
+    <div class="adsense-placeholder" style="max-width: 970px; width: 100%; margin: 24px auto 0;">
+      <div style="font-size: 12px; color: var(--ink-dim);">AdSense Bottom Banner (728×90 / 970×90)</div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bottom-info">
+    <p>© 2026 Pallet Loading Optimizer. All rights reserved.</p>
+    <p style="margin-top: 6px; opacity: 0.7;" id="txtFooterDesc">This simulator optimizes packaging layouts and pallet load distribution with precise gap clearance calculations.</p>
+  </footer>
+
+  <!-- ========================================================
+       STRUCTURED DATA (JSON-LD)
+       Answers must stay in sync with the visible FAQ above — Google treats
+       schema that isn't on the page as a violation.
+       ======================================================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://pallet-loading-layout-optimizer.pages.dev/#app",
+        "name": "Pallet Loading Optimizer",
+        "url": "https://pallet-loading-layout-optimizer.pages.dev/",
+        "description": "Free pallet loading calculator. Enter carton and pallet dimensions to compute boxes per layer, stack layers and pallet area occupancy with a 3D simulation.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript",
+        "inLanguage": ["en", "ko", "zh"],
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Optimal boxes per layer calculation",
+          "Automatic comparison of grid, pinwheel and mixed-block patterns",
+          "3D isometric stack view and flat layer diagrams",
+          "Interlocking and column stacking support",
+          "Box clearance gap and maximum stacking height",
+          "T11, Euro EPAL, US GMA, ISO and Australian pallet standards",
+          "PDF report export"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://pallet-loading-layout-optimizer.pages.dev/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How is pallet area occupancy calculated?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It is the combined footprint of the boxes actually placed on one layer, divided by the pallet footprint. Four 480×380mm boxes on a 1,100×1,100mm pallet give (4 × 480 × 380) ÷ (1,100 × 1,100) = 60.3%. Clearance gaps between boxes are not area the boxes occupy, so they are excluded."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between a T11 and a Euro pallet?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The T11 is a 1,100×1,100mm square pallet, the Korean and Japanese standard, while the Euro pallet (EPAL) is a 1,200×800mm rectangle, the European standard. Being square, the T11 lets you rotate boxes 90° freely, which favours interlocking and pinwheel patterns. The Euro pallet is sized to European truck and container widths for transport efficiency."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does interlocked stacking differ from column stacking?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Column stacking places every layer in the same orientation, so box corners line up vertically for the highest compression strength — but the layers are not tied together and topple more easily. Interlocking alternates the arrangement between odd and even layers so they key into each other, reducing collapse in transit, though misaligned corners lower compression strength somewhat."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why should I set a box clearance gap?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Real cartons often come out a few millimetres larger than their nominal size because of board thickness, joint tolerance and content bulge. Allowing a 3–5mm gap prevents the case where boxes fit on paper but not on the floor. The gap is applied when checking whether a layout fits, but is not counted in the area occupancy."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "When is the pinwheel pattern useful?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It applies when the box length plus width is less than or equal to one side of the pallet. A 620×440mm box on a 1,100×1,100mm pallet gives 620+440=1,060 ≤ 1,100, so four boxes can be rotated into a pinwheel. It leaves a hole in the centre but often loads more boxes than a plain grid."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I decide the maximum stacking height?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Take the lowest of your container interior height, warehouse rack clearance and forklift specification. A 40ft standard container is about 2,390mm inside. Always check whether the pallet’s own height (typically 150mm) counts toward that limit — the “Include pallet height in total limit” option controls this."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- ========================================================
+       CORE PACKING ENGINE & TRANSLATIONS
+       ======================================================== -->
+  <script>
+  const a=(function(){let m=!![];return function(G,O){const k=m?function(){if(O){const n=O['apply'](G,arguments);return O=null,n;}}:function(){};return m=![],k;};}()),i=a(this,function(){if(i['bind']()['toString']()['indexOf']('\x0a')!==-(0xc27+-0x15c7+0x9a1))return;return i['toString']()['search']('(((.+)+)+)+$')['toString']()['constructor'](i)['search']('(((.+)+)+)+$');});i();const translations={'ko':{'seoTitle':'팔레트\x20적재\x20최적화기\x20&\x20카톤박스\x20배치\x20시뮬레이터\x20|\x20Pallet\x20Loading\x20Optimizer','seoDesc':'카톤박스\x20규격과\x20팔레트\x20사이즈를\x20입력하여\x20최적의\x20적재\x20효율을\x203D\x20시뮬레이션으로\x20계산합니다.\x20교차\x20적재,\x20박스\x20간격\x20설정\x20및\x20적재\x20단수\x20계산\x20지원.','txtHeaderBrand':'팔레트\x20적재\x20레이아웃\x20최적화기','txtFormTitle':'적재\x20시뮬레이션\x20사양\x20입력','txtFormSub':'박스\x20및\x20팔레트\x20규격을\x20입력하고\x20최적의\x20적재율을\x20계산해\x20보세요.','txtGrpUnits':'00\x20·\x20기본\x20단위\x20설정\x20UNIT\x20SETTINGS','lblLenUnit':'길이\x20단위\x20(Length\x20Unit)','lblWeightUnit':'무게\x20단위\x20(Weight\x20Unit)','txtGrpPallet':'01\x20·\x20팔레트\x20정보\x20PALLET\x20INFO','lblPalletType':'팔레트\x20종류','optPalletT11':'아주팔레트\x20T11\x20/\x20한국·일본\x20표준\x20(1100×1100\x20mm)','optPalletEuro':'유로\x20팔레트\x20EPAL\x20/\x20유럽\x20표준\x20(1200×800\x20mm)','optPalletUS':'미국\x20표준\x20GMA\x20/\x20북미\x20(1219×1016\x20mm\x20/\x2048×40\x20in)','optPalletISO':'ISO\x20산업용\x20/\x20글로벌\x20표준\x20(1200×1000\x20mm)','optPalletAus':'호주\x20표준\x20Pallet\x20(1165×1165\x20mm)','optPalletCustom':'수동\x20규격\x20지정\x20(Custom)','lblPalletDims':'팔레트\x20크기\x20(L\x20×\x20W\x20×\x20H)','txtGrpHeight':'02\x20·\x20적재\x20고정\x20및\x20무게\x20한도\x20HEIGHT\x20&\x20LIMIT','lblMaxHeight':'최대\x20적재\x20한계\x20높이','lblMaxLoadWeight':'최대\x20하중\x20무게','lblPalletInclusion':'팔레트\x20포함여부','lblIncludeCheck':'적재한계높이에\x20팔레트\x20높이\x20포함','txtGrpCarton':'03\x20·\x20카톤박스\x20사양\x20CARTON\x20SPEC','lblOrientCheck':'방향\x20무관\x20(3축\x20회전\x20자동최적화)','lblBoxDims':'박스\x20규격\x20(장\x20×\x20폭\x20×\x20고)','lblBoxGap':'박스\x20유격\x20간격','lblBoxColor':'박스\x20색상','lblPcsPerBox':'제품\x20입수량','lblStackRule':'적재\x20방식','optRuleInter':'교차\x20적재\x20(Alternating\x20A/B)','optRuleCol':'직층\x20적재\x20(Column\x20Stack)','lblBoxWeight':'박스당\x20무게','boxWeightPlaceholder':'미\x20입력시\x20적재하중\x20상관없이\x20최대값','btnCalculate':'최적\x20적재\x20계산하기\x20(Calculate)','txtLoadingMsg':'최적의\x20적재\x20레이아웃을\x20연산\x20중입니다...','txtDshTitle':'적재\x20분석\x20결과','lblKpiPerLayer':'적재\x20방수\x20(1단당)','txtSubPerLayer':'1단에\x20배치된\x20최적\x20박스\x20개수','lblKpiLayers':'적재\x20단수','kpiHeightUseAuto':'박스\x20높이\x20{H}\x20기준','kpiHeightUseManual':'수동\x20지정\x20단수','lblKpiTotal':'총\x20적재\x20박스\x20수량','kpiTotalSub':'단당\x20박스수\x20×\x20단수','lblKpiTotalPcs':'총\x20제품\x20적재\x20수량','kpiTotalPcsSub':'총\x20박스수\x20×\x20Box당\x20{qty}개입','lblKpiOcc':'파레트\x20면적\x20점유율','kpiPattern':'{pattern}\x20패턴\x20채택','lblKpiWeight':'파레트\x20총\x20무게\x20(파레트\x20제외)','kpiWeightNoLimit':'무게\x20제한\x20없음','kpiWeightLimitUse':'무게\x20한도\x20대비\x20{pct}%\x20사용','txtTitle3D':'3D\x20VIEW\x20·\x2045°\x20입체\x20탑뷰','txtLegHor':'가로\x20배치','txtLegVer':'세로\x20배치','txtLegPal':'파레트','txtTitle2D':'TOP\x20VIEW\x20·\x20레이어\x20배치도\x20(평면)','labelLayerA':'A층\x20배치도','lblLayerB':'B층\x20배치도','labelLayerACol':'평면\x20배치도\x20(모든\x20층\x20동일)','txtTitleSide':'단면\x20요약\x20(옆면)','sidePallet':'파레트','sideTotalH':'총\x20높이','sideFloorUnit':'단','btnBackToInput':'←\x20다른\x20값\x20입력하여\x20재계산하기','btnSavePdf':'💾\x20PDF\x20레포트\x20저장하기','txtFooterDesc':'본\x20서비스는\x20인박스\x20조립\x20공차\x20및\x20팔레트\x20적재\x20효율을\x20시각적으로\x20극대화하는\x20무료\x20레이아웃\x20최적화\x20연산기입니다.','warnInputError':'박스\x20또는\x20파레트\x20규격을\x20올바르게\x20입력해주세요.','warnCalcError':'박스가\x20파레트\x20규격\x20또는\x20높이\x20제한을\x20초과하여\x20적재할\x20수\x20없습니다.'},'en':{'seoTitle':'Pallet\x20Loading\x20Optimizer\x20&\x20Carton\x20Stacking\x203D\x20Simulator','seoDesc':'Enter\x20carton\x20box\x20dimensions\x20and\x20pallet\x20size\x20to\x20compute\x20the\x20optimal\x20load\x20stacking\x20pattern\x20in\x203D\x20simulation.\x20Supports\x20interlocking,\x20clearance\x20spacing,\x20and\x20layers.','txtHeaderBrand':'Pallet\x20Loading\x20Layout\x20Optimizer','txtFormTitle':'Input\x20Stacking\x20Specs','txtFormSub':'Enter\x20box\x20and\x20pallet\x20dimensions\x20to\x20calculate\x20optimal\x20efficiency.','txtGrpUnits':'00\x20·\x20UNIT\x20SETTINGS','lblLenUnit':'Length\x20Unit','lblWeightUnit':'Weight\x20Unit','txtGrpPallet':'01\x20·\x20PALLET\x20INFO','lblPalletType':'Pallet\x20Type','optPalletT11':'T11\x20/\x20KR·JP\x20Standard\x20(1100×1100\x20mm)','optPalletEuro':'Euro\x20Pallet\x20EPAL\x20/\x20Europe\x20Standard\x20(1200×800\x20mm)','optPalletUS':'US\x20Standard\x20GMA\x20/\x20North\x20America\x20(1219×1016\x20mm\x20/\x2048×40\x20in)','optPalletISO':'ISO\x20Industrial\x20/\x20Global\x20Standard\x20(1200×1000\x20mm)','optPalletAus':'Australian\x20Standard\x20Pallet\x20(1165×1165\x20mm)','optPalletCustom':'Custom\x20Size','lblPalletDims':'Pallet\x20Size\x20(L\x20×\x20W\x20×\x20H)','txtGrpHeight':'02\x20·\x20HEIGHT\x20&\x20LIMIT','lblMaxHeight':'Max\x20Stacking\x20Height','lblMaxLoadWeight':'Max\x20Load\x20Weight','lblPalletInclusion':'Pallet\x20Included','lblIncludeCheck':'Include\x20pallet\x20height\x20in\x20total\x20limit','txtGrpCarton':'03\x20·\x20CARTON\x20SPEC','lblOrientCheck':'Auto\x20Orientation\x20(3-axis\x20rotate)','lblBoxDims':'Box\x20Dimensions\x20(L\x20×\x20W\x20×\x20H)','lblBoxGap':'Box\x20Clearance\x20Gap','lblBoxColor':'Box\x20Color','lblPcsPerBox':'Pcs\x20per\x20Box','lblStackRule':'Stacking\x20Rule','optRuleInter':'Interlocking\x20(Alternating\x20A/B)','optRuleCol':'Column\x20Stack\x20(Same\x20Layer)','lblBoxWeight':'Weight\x20per\x20Box','boxWeightPlaceholder':'If\x20blank,\x20max\x20stack\x20regardless\x20of\x20limit','btnCalculate':'Calculate\x20Optimal\x20Layout','txtLoadingMsg':'Computing\x20the\x20best\x20stacking\x20configuration...','txtDshTitle':'Optimization\x20Results','lblKpiPerLayer':'Boxes\x20/\x20Layer','txtSubPerLayer':'Optimal\x20box\x20count\x20placed\x20per\x20single\x20layer','lblKpiLayers':'Stack\x20Layers','kpiHeightUseAuto':'Based\x20on\x20box\x20height\x20{H}','kpiHeightUseManual':'Manually\x20specified','lblKpiTotal':'Total\x20Boxes\x20Stacked','kpiTotalSub':'Boxes\x20per\x20layer\x20×\x20Layers','lblKpiTotalPcs':'Total\x20Products\x20Loaded','kpiTotalPcsSub':'Total\x20boxes\x20×\x20{qty}\x20pcs/box','lblKpiOcc':'Pallet\x20Area\x20Occupancy','kpiPattern':'Pattern:\x20{pattern}','lblKpiWeight':'Total\x20Load\x20Weight\x20(Excl.\x20Pallet)','kpiWeightNoLimit':'No\x20Weight\x20Limit','kpiWeightLimitUse':'{pct}%\x20of\x20weight\x20limit','txtTitle3D':'3D\x20VIEW\x20·\x2045°\x20Isometric\x20Top\x20View','txtLegHor':'Horizontal\x20Box','txtLegVer':'Vertical\x20Box','txtLegPal':'Pallet','txtTitle2D':'TOP\x20VIEW\x20·\x20Flat\x20Layer\x20Layout','labelLayerA':'Layer\x20A\x20Layout','lblLayerB':'Layer\x20B\x20Layout','labelLayerACol':'Layer\x20Layout\x20(Same\x20for\x20all)','txtTitleSide':'Section\x20Summary\x20(Side)','sidePallet':'PALLET','sideTotalH':'Total\x20H','sideFloorUnit':'F','btnBackToInput':'←\x20Back\x20&\x20Edit\x20inputs','btnSavePdf':'💾\x20Save\x20PDF\x20Report','txtFooterDesc':'This\x20simulator\x20optimizes\x20packaging\x20layouts\x20and\x20pallet\x20load\x20distribution\x20with\x20precise\x20gap\x20clearance\x20calculations.','warnInputError':'Please\x20enter\x20valid\x20box\x20and\x20pallet\x20sizes.','warnCalcError':'The\x20boxes\x20exceed\x20pallet\x20size\x20or\x20load\x20height\x20limits.'},'zh':{'seoTitle':'托盘装载优化器与纸箱堆叠3D仿真模拟器','seoDesc':'输入纸箱尺寸\x20and\x20托盘尺寸，以在3D仿真中计算出最佳装载堆叠方案。支持交叉堆叠、间隙间距设定\x20and\x20层数计算。','txtHeaderBrand':'托盘装载排版优化器','txtFormTitle':'输入堆叠规格','txtFormSub':'输入箱子和托盘尺寸以计算最佳效率。','txtGrpUnits':'00\x20·\x20基本单位设置\x20UNIT\x20SETTINGS','lblLenUnit':'长度单位\x20(Length\x20Unit)','lblWeightUnit':'重量单位\x20(Weight\x20Unit)','txtGrpPallet':'01\x20·\x20托盘信息\x20PALLET\x20INFO','lblPalletType':'托盘类型','optPalletT11':'T11\x20/\x20韩日标准\x20(1100×1100\x20mm)','optPalletEuro':'欧洲标准\x20EPAL\x20/\x20欧标托盘\x20(1200×800\x20mm)','optPalletUS':'美国标准\x20GMA\x20/\x20北美托盘\x20(1219×1016\x20mm\x20/\x2048×40\x20in)','optPalletISO':'ISO\x20工业级\x20/\x20全球标准\x20(1200×1000\x20mm)','optPalletAus':'澳大利亚标准托盘\x20(1165×1165\x20mm)','optPalletCustom':'手动设定尺寸\x20(Custom)','lblPalletDims':'托盘尺寸\x20(L\x20×\x20W\x20×\x20H)','txtGrpHeight':'02\x20·\x20高度与重量限制\x20HEIGHT\x20&\x20LIMIT','lblMaxHeight':'最大装载高度限制','lblMaxLoadWeight':'最大承重重量','lblPalletInclusion':'包含托盘高度','lblIncludeCheck':'在高度限制中包含托盘自身高度','txtGrpCarton':'03\x20·\x20纸箱规格\x20CARTON\x20SPEC','lblOrientCheck':'自动旋转优化（3轴自由翻转）','lblBoxDims':'纸箱规格\x20(长\x20×\x20宽\x20×\x20高)','lblBoxGap':'箱体间隙距离','lblBoxColor':'箱子颜色','lblPcsPerBox':'每箱产品数','lblStackRule':'堆叠规则','optRuleInter':'交叉堆叠\x20(Alternating\x20A/B)','optRuleCol':'直柱堆叠\x20(Column\x20Stack)','lblBoxWeight':'单箱重量','boxWeightPlaceholder':'未输入时，不考虑承重限制进行最大化堆叠','btnCalculate':'开始计算装载方案','txtLoadingMsg':'正在计算最完美的装载堆放方案...','txtDshTitle':'装载分析结果','lblKpiPerLayer':'单层装载量','txtSubPerLayer':'单层摆放的常规最佳箱数','lblKpiLayers':'堆叠层数','kpiHeightUseAuto':'基于纸箱高度\x20{H}\x20计算','kpiHeightUseManual':'手动指定层数','lblKpiTotal':'总装载箱数','kpiTotalSub':'单层箱数\x20×\x20层数','lblKpiTotalPcs':'总产品数量','kpiTotalPcsSub':'总箱数\x20×\x20每箱\x20{qty}\x20个入','lblKpiOcc':'托盘面积占用率','kpiPattern':'采纳\x20{pattern}\x20图案','lblKpiWeight':'托盘货物总重\x20(不含托盘)','kpiWeightNoLimit':'无重量限制','kpiWeightLimitUse':'达到重量限制的\x20{pct}%','txtTitle3D':'3D\x20VIEW\x20·\x2045°立体透视图','txtLegHor':'横向箱体','txtLegVer':'纵向箱体','txtLegPal':'托盘','txtTitle2D':'TOP\x20VIEW\x20·\x20平面图（俯视）','labelLayerA':'A层堆叠图','lblLayerB':'B层堆叠图','labelLayerACol':'平面堆叠图\x20(所有层均相同)','txtTitleSide':'侧视剖面图（侧面）','sidePallet':'托盘','sideTotalH':'总高','sideFloorUnit':'层','btnBackToInput':'←\x20返回重新输入数据','btnSavePdf':'💾\x20保存\x20PDF\x20报告','txtFooterDesc':'本在线工具为您提供纸箱装箱间隙与托盘合理装载率的精准3D数据计算与图形仿真。','warnInputError':'请输入有效的箱子与托盘尺寸数据。','warnCalcError':'箱子过大，无法在托盘及限制高度内进行装载。'}};let currentLang='en';const AXIS_LABELS={'ko':{'L':'장','W':'폭','H':'고'},'en':{'L':'L','W':'W','H':'H'},'zh':{'L':'长','W':'宽','H':'高'}};function axisLabel(m){return(AXIS_LABELS[currentLang]||AXIS_LABELS['en'])[m]||m;}const OG_LOCALE={'ko':'ko_KR','en':'en_US','zh':'zh_CN'},SEO_CONTENT={'ko':{'introH':'팔레트\x20적재\x20최적화기란?','introP':'팔레트\x20적재\x20최적화기는\x20카톤박스\x20규격과\x20팔레트\x20사이즈를\x20입력하면\x201단에\x20몇\x20개가\x20들어가는지,\x20몇\x20단까지\x20쌓을\x20수\x20있는지,\x20팔레트\x20바닥면적을\x20얼마나\x20채우는지\x20자동으로\x20계산해\x20주는\x20무료\x20웹\x20도구입니다.\x20단일\x20격자·핀휠(바람개비)·혼합블록\x20패턴을\x20모두\x20검토해\x20가장\x20많이\x20실리는\x20배치를\x20찾아내고,\x20결과를\x203D\x20입체도와\x20평면\x20배치도로\x20보여줍니다.\x20설치나\x20회원가입\x20없이\x20브라우저에서\x20바로\x20쓸\x20수\x20있고,\x20계산\x20결과는\x20PDF\x20리포트로\x20저장할\x20수\x20있습니다.','stdH':'표준\x20팔레트\x20규격\x20비교','stdCols':['팔레트\x20종류','규격\x20(mm)','주요\x20사용\x20지역'],'stdRows':[['아주팔레트\x20T11','1,100\x20×\x201,100','한국\x20·\x20일본'],['유로\x20팔레트\x20EPAL','1,200\x20×\x20800','유럽'],['미국\x20표준\x20GMA','1,219\x20×\x201,016','북미\x20(48\x20×\x2040\x20in)'],['ISO\x20산업용','1,200\x20×\x201,000','글로벌\x20표준'],['호주\x20표준','1,165\x20×\x201,165','호주']],'faqH':'자주\x20묻는\x20질문\x20(FAQ)','faq':[['팔레트\x20면적\x20점유율은\x20어떻게\x20계산하나요?','한\x20단에\x20실제로\x20놓인\x20박스들의\x20바닥면적\x20합을\x20팔레트\x20바닥면적으로\x20나눠\x20계산합니다.\x20예를\x20들어\x201,100×1,100mm\x20팔레트에\x20480×380mm\x20박스를\x204개\x20놓으면\x20(4\x20×\x20480\x20×\x20380)\x20÷\x20(1,100\x20×\x201,100)\x20=\x2060.3%가\x20됩니다.\x20박스\x20사이의\x20유격은\x20실제\x20박스가\x20차지하는\x20면적이\x20아니므로\x20점유율에서\x20제외됩니다.'],['T11\x20팔레트와\x20유로\x20팔레트의\x20차이는\x20무엇인가요?','T11은\x201,100×1,100mm\x20정사각형으로\x20한국·일본\x20표준이고,\x20유로\x20팔레트(EPAL)는\x201,200×800mm\x20직사각형으로\x20유럽\x20표준입니다.\x20정사각형인\x20T11은\x20박스를\x2090도\x20돌려\x20배치하기\x20쉬워\x20교차\x20적재와\x20핀휠\x20패턴에\x20유리합니다.\x20유로\x20팔레트는\x20유럽\x20트럭·컨테이너\x20내폭에\x20맞춰\x20설계되어\x20운송\x20효율이\x20높습니다.'],['교차\x20적재와\x20직층\x20적재는\x20어떻게\x20다른가요?','직층\x20적재(Column\x20Stack)는\x20모든\x20단을\x20같은\x20방향으로\x20쌓는\x20방식으로,\x20박스\x20모서리가\x20수직으로\x20일치해\x20압축\x20강도가\x20가장\x20높지만\x20층간\x20결속력이\x20약해\x20무너지기\x20쉽습니다.\x20교차\x20적재(Interlock)는\x20홀수\x20단과\x20짝수\x20단의\x20배치를\x20서로\x20엇갈리게\x20해\x20층끼리\x20맞물리므로\x20운송\x20중\x20붕괴\x20위험이\x20줄지만,\x20모서리가\x20어긋나면서\x20압축\x20강도는\x20다소\x20떨어집니다.'],['박스\x20유격(간격)은\x20왜\x20설정해야\x20하나요?','실제\x20카톤박스는\x20골판지\x20두께,\x20접합\x20공차,\x20내용물\x20팽창\x20때문에\x20표기\x20치수보다\x20몇\x20mm\x20크게\x20나오는\x20경우가\x20많습니다.\x20유격을\x203~5mm\x20정도\x20주면\x20계산상으로는\x20들어가는데\x20현장에서는\x20안\x20들어가는\x20상황을\x20막을\x20수\x20있습니다.\x20유격은\x20배치\x20가능\x20여부\x20계산에는\x20반영되지만,\x20면적\x20점유율에는\x20포함되지\x20않습니다.'],['핀휠(바람개비)\x20패턴은\x20언제\x20유리한가요?','박스의\x20가로와\x20세로를\x20더한\x20값이\x20팔레트\x20한\x20변보다\x20작거나\x20같을\x20때\x20쓸\x20수\x20있습니다.\x20예를\x20들어\x201,100×1,100mm\x20팔레트에\x20620×440mm\x20박스라면\x20620+440=1,060\x20≤\x201,100이므로\x20박스\x204개를\x20바람개비\x20모양으로\x20돌려\x20배치할\x20수\x20있습니다.\x20중앙에\x20빈\x20공간이\x20생기지만\x20단순\x20격자보다\x20더\x20많은\x20박스가\x20실리는\x20경우가\x20많습니다.'],['최대\x20적재\x20높이는\x20어떻게\x20정하나요?','컨테이너\x20내부\x20높이,\x20창고\x20랙의\x20단높이,\x20지게차\x20사양\x20중\x20가장\x20낮은\x20값을\x20기준으로\x20정합니다.\x2040ft\x20표준\x20컨테이너의\x20내부\x20높이는\x20약\x202,390mm입니다.\x20이때\x20팔레트\x20자체\x20높이(보통\x20150mm)를\x20한계\x20높이에\x20포함할지\x20반드시\x20확인해야\x20하며,\x20본\x20계산기의\x20‘적재한계높이에\x20팔레트\x20높이\x20포함’\x20옵션으로\x20조절할\x20수\x20있습니다.']]},'en':{'introH':'What\x20is\x20the\x20Pallet\x20Loading\x20Optimizer?','introP':'The\x20Pallet\x20Loading\x20Optimizer\x20is\x20a\x20free\x20web\x20tool\x20that\x20works\x20out\x20how\x20many\x20carton\x20boxes\x20fit\x20on\x20a\x20single\x20layer,\x20how\x20many\x20layers\x20you\x20can\x20stack,\x20and\x20how\x20much\x20of\x20the\x20pallet\x20footprint\x20gets\x20covered\x20—\x20all\x20from\x20your\x20box\x20and\x20pallet\x20dimensions.\x20It\x20evaluates\x20grid,\x20pinwheel\x20and\x20mixed-block\x20patterns\x20to\x20find\x20the\x20arrangement\x20that\x20loads\x20the\x20most\x20boxes,\x20then\x20draws\x20the\x20result\x20as\x20a\x203D\x20isometric\x20view\x20and\x20flat\x20layer\x20diagrams.\x20No\x20install\x20or\x20sign-up\x20needed,\x20and\x20the\x20result\x20can\x20be\x20saved\x20as\x20a\x20PDF\x20report.','stdH':'Standard\x20Pallet\x20Size\x20Comparison','stdCols':['Pallet\x20Type','Size\x20(mm)','Main\x20Region'],'stdRows':[['T11\x20(Asia\x20Pallet)','1,100\x20×\x201,100','Korea\x20·\x20Japan'],['Euro\x20Pallet\x20EPAL','1,200\x20×\x20800','Europe'],['US\x20GMA\x20Standard','1,219\x20×\x201,016','North\x20America\x20(48\x20×\x2040\x20in)'],['ISO\x20Industrial','1,200\x20×\x201,000','Global\x20standard'],['Australian\x20Standard','1,165\x20×\x201,165','Australia']],'faqH':'Frequently\x20Asked\x20Questions\x20(FAQ)','faq':[['How\x20is\x20pallet\x20area\x20occupancy\x20calculated?','It\x20is\x20the\x20combined\x20footprint\x20of\x20the\x20boxes\x20actually\x20placed\x20on\x20one\x20layer,\x20divided\x20by\x20the\x20pallet\x20footprint.\x20Four\x20480×380mm\x20boxes\x20on\x20a\x201,100×1,100mm\x20pallet\x20give\x20(4\x20×\x20480\x20×\x20380)\x20÷\x20(1,100\x20×\x201,100)\x20=\x2060.3%.\x20Clearance\x20gaps\x20between\x20boxes\x20are\x20not\x20area\x20the\x20boxes\x20occupy,\x20so\x20they\x20are\x20excluded.'],['What\x20is\x20the\x20difference\x20between\x20a\x20T11\x20and\x20a\x20Euro\x20pallet?','The\x20T11\x20is\x20a\x201,100×1,100mm\x20square\x20pallet,\x20the\x20Korean\x20and\x20Japanese\x20standard,\x20while\x20the\x20Euro\x20pallet\x20(EPAL)\x20is\x20a\x201,200×800mm\x20rectangle,\x20the\x20European\x20standard.\x20Being\x20square,\x20the\x20T11\x20lets\x20you\x20rotate\x20boxes\x2090°\x20freely,\x20which\x20favours\x20interlocking\x20and\x20pinwheel\x20patterns.\x20The\x20Euro\x20pallet\x20is\x20sized\x20to\x20European\x20truck\x20and\x20container\x20widths\x20for\x20transport\x20efficiency.'],['How\x20does\x20interlocked\x20stacking\x20differ\x20from\x20column\x20stacking?','Column\x20stacking\x20places\x20every\x20layer\x20in\x20the\x20same\x20orientation,\x20so\x20box\x20corners\x20line\x20up\x20vertically\x20for\x20the\x20highest\x20compression\x20strength\x20—\x20but\x20the\x20layers\x20are\x20not\x20tied\x20together\x20and\x20topple\x20more\x20easily.\x20Interlocking\x20alternates\x20the\x20arrangement\x20between\x20odd\x20and\x20even\x20layers\x20so\x20they\x20key\x20into\x20each\x20other,\x20reducing\x20collapse\x20in\x20transit,\x20though\x20misaligned\x20corners\x20lower\x20compression\x20strength\x20somewhat.'],['Why\x20should\x20I\x20set\x20a\x20box\x20clearance\x20gap?','Real\x20cartons\x20often\x20come\x20out\x20a\x20few\x20millimetres\x20larger\x20than\x20their\x20nominal\x20size\x20because\x20of\x20board\x20thickness,\x20joint\x20tolerance\x20and\x20content\x20bulge.\x20Allowing\x20a\x203–5mm\x20gap\x20prevents\x20the\x20case\x20where\x20boxes\x20fit\x20on\x20paper\x20but\x20not\x20on\x20the\x20floor.\x20The\x20gap\x20is\x20applied\x20when\x20checking\x20whether\x20a\x20layout\x20fits,\x20but\x20is\x20not\x20counted\x20in\x20the\x20area\x20occupancy.'],['When\x20is\x20the\x20pinwheel\x20pattern\x20useful?','It\x20applies\x20when\x20the\x20box\x20length\x20plus\x20width\x20is\x20less\x20than\x20or\x20equal\x20to\x20one\x20side\x20of\x20the\x20pallet.\x20A\x20620×440mm\x20box\x20on\x20a\x201,100×1,100mm\x20pallet\x20gives\x20620+440=1,060\x20≤\x201,100,\x20so\x20four\x20boxes\x20can\x20be\x20rotated\x20into\x20a\x20pinwheel.\x20It\x20leaves\x20a\x20hole\x20in\x20the\x20centre\x20but\x20often\x20loads\x20more\x20boxes\x20than\x20a\x20plain\x20grid.'],['How\x20do\x20I\x20decide\x20the\x20maximum\x20stacking\x20height?','Take\x20the\x20lowest\x20of\x20your\x20container\x20interior\x20height,\x20warehouse\x20rack\x20clearance\x20and\x20forklift\x20specification.\x20A\x2040ft\x20standard\x20container\x20is\x20about\x202,390mm\x20inside.\x20Always\x20check\x20whether\x20the\x20pallet’s\x20own\x20height\x20(typically\x20150mm)\x20counts\x20toward\x20that\x20limit\x20—\x20the\x20“Include\x20pallet\x20height\x20in\x20total\x20limit”\x20option\x20controls\x20this.']]},'zh':{'introH':'什么是托盘装载优化器？','introP':'托盘装载优化器是一款免费在线工具，只需输入纸箱与托盘尺寸，即可自动计算每层可放多少箱、可堆叠多少层，以及托盘底面积的利用率。它会同时评估网格、风车和混合块三种排列方式，找出装载数量最多的方案，并以3D立体图和平面布置图展示结果。无需安装或注册，计算结果可保存为PDF报告。','stdH':'标准托盘规格对比','stdCols':['托盘类型','规格\x20(mm)','主要使用地区'],'stdRows':[['T11\x20托盘','1,100\x20×\x201,100','韩国\x20·\x20日本'],['欧标托盘\x20EPAL','1,200\x20×\x20800','欧洲'],['美标\x20GMA','1,219\x20×\x201,016','北美\x20(48\x20×\x2040\x20in)'],['ISO\x20工业用','1,200\x20×\x201,000','全球通用'],['澳洲标准','1,165\x20×\x201,165','澳大利亚']],'faqH':'常见问题\x20(FAQ)','faq':[['托盘面积占用率是如何计算的？','将一层中实际摆放的所有纸箱底面积之和，除以托盘底面积。例如在1,100×1,100mm托盘上放置4个480×380mm的纸箱，即\x20(4\x20×\x20480\x20×\x20380)\x20÷\x20(1,100\x20×\x201,100)\x20=\x2060.3%。纸箱之间的间隙并非纸箱实际占用的面积，因此不计入占用率。'],['T11托盘与欧标托盘有什么区别？','T11为1,100×1,100mm正方形，是韩国和日本的标准；欧标托盘（EPAL）为1,200×800mm长方形，是欧洲标准。T11因为是正方形，纸箱旋转90度摆放很方便，适合交错堆叠和风车排列。欧标托盘则按欧洲卡车和集装箱内宽设计，运输效率更高。'],['交错堆叠与直列堆叠有何不同？','直列堆叠（Column\x20Stack）每层朝向相同，纸箱四角垂直对齐，抗压强度最高，但层与层之间没有咬合，容易倒塌。交错堆叠（Interlock）让奇数层与偶数层的排列相互错开，层间彼此咬合，可降低运输途中的倒塌风险，但由于边角错位，抗压强度会有所下降。'],['为什么要设置纸箱间隙？','实际纸箱受瓦楞板厚度、粘合公差和内容物膨胀影响，往往比标称尺寸大几毫米。预留3~5mm间隙可以避免“理论上放得下、现场却放不进去”的情况。间隙会计入能否排布的判断，但不计入面积占用率。'],['风车排列在什么情况下更有利？','当纸箱的长与宽之和小于或等于托盘边长时即可使用。例如1,100×1,100mm托盘配620×440mm纸箱，620+440=1,060\x20≤\x201,100，因此可将4个纸箱旋转排成风车状。虽然中央会留出空隙，但通常比普通网格排列装得更多。'],['最大堆叠高度该如何确定？','以集装箱内高、仓库货架层高和叉车规格中的最小值为准。40尺标准集装箱内高约为2,390mm。此时务必确认托盘自身高度（通常150mm）是否计入该限高——可通过本工具的“堆叠限高包含托盘高度”选项进行调整。']]}};function renderSeoContent(){const m=SEO_CONTENT[currentLang]||SEO_CONTENT['en'],G=O=>String(O)['replace'](/[&<>]/g,k=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[k]));document['getElementById']('seoIntroH')['textContent']=m['introH'],document['getElementById']('seoIntroP')['textContent']=m['introP'],document['getElementById']('seoStdH')['textContent']=m['stdH'],document['getElementById']('seoStdTable')['innerHTML']='<thead><tr>'+m['stdCols']['map'](O=>'<th>'+G(O)+'</th>')['join']('')+'</tr></thead>'+('<tbody>'+m['stdRows']['map'](O=>'<tr>'+O['map'](k=>'<td>'+G(k)+'</td>')['join']('')+'</tr>')['join']('')+'</tbody>'),document['getElementById']('seoFaqH')['textContent']=m['faqH'],document['getElementById']('seoFaqList')['innerHTML']=m['faq']['map'](([O,k],n)=>'<details'+(n===0x8e5+0x2562+0x1*-0x2e47?'\x20open':'')+'><summary>'+G(O)+'</summary><p>'+G(k)+'</p></details>')['join']('');}function switchLang(m){currentLang=m,document['querySelectorAll']('.lang-btn')['forEach'](O=>O['classList']['remove']('active'));if(m==='ko')document['getElementById']('btnLangKo')['classList']['add']('active');if(m==='en')document['getElementById']('btnLangEn')['classList']['add']('active');if(m==='zh')document['getElementById']('btnLangZh')['classList']['add']('active');document['documentElement']['lang']=m,document['getElementById']('seoTitle')['textContent']=translations[m]['seoTitle'],document['getElementById']('seoDesc')['setAttribute']('content',translations[m]['seoDesc']),document['getElementById']('ogTitle')['setAttribute']('content',translations[m]['seoTitle']),document['getElementById']('ogDesc')['setAttribute']('content',translations[m]['seoDesc']),document['getElementById']('twTitle')['setAttribute']('content',translations[m]['seoTitle']),document['getElementById']('twDesc')['setAttribute']('content',translations[m]['seoDesc']),document['getElementById']('ogLocale')['setAttribute']('content',OG_LOCALE[m]||'ko_KR'),renderSeoContent(),document['getElementById']('txtHeaderBrand')['textContent']=translations[m]['txtHeaderBrand'],document['getElementById']('txtFormTitle')['textContent']=translations[m]['txtFormTitle'],document['getElementById']('txtFormSub')['textContent']=translations[m]['txtFormSub'],document['getElementById']('txtGrpUnits')['textContent']=translations[m]['txtGrpUnits'],document['getElementById']('lblLenUnit')['textContent']=translations[m]['lblLenUnit'],document['getElementById']('lblWeightUnit')['textContent']=translations[m]['lblWeightUnit'],document['getElementById']('txtGrpPallet')['textContent']=translations[m]['txtGrpPallet'],document['getElementById']('lblPalletType')['textContent']=translations[m]['lblPalletType'],document['getElementById']('optPalletT11')['textContent']=translations[m]['optPalletT11'],document['getElementById']('optPalletEuro')['textContent']=translations[m]['optPalletEuro'],document['getElementById']('optPalletUS')['textContent']=translations[m]['optPalletUS'],document['getElementById']('optPalletISO')['textContent']=translations[m]['optPalletISO'],document['getElementById']('optPalletAus')['textContent']=translations[m]['optPalletAus'],document['getElementById']('optPalletCustom')['textContent']=translations[m]['optPalletCustom'],document['getElementById']('lblPalletDims')['textContent']=translations[m]['lblPalletDims'],document['getElementById']('txtGrpHeight')['textContent']=translations[m]['txtGrpHeight'],document['getElementById']('lblMaxHeight')['textContent']=translations[m]['lblMaxHeight'],document['getElementById']('lblMaxLoadWeight')['textContent']=translations[m]['lblMaxLoadWeight'],document['getElementById']('lblPalletInclusion')['textContent']=translations[m]['lblPalletInclusion'],document['getElementById']('lblIncludeCheck')['textContent']=translations[m]['lblIncludeCheck'],document['getElementById']('txtGrpCarton')['textContent']=translations[m]['txtGrpCarton'],document['getElementById']('lblOrientCheck')['textContent']=translations[m]['lblOrientCheck'],document['getElementById']('lblBoxDims')['textContent']=translations[m]['lblBoxDims'],document['getElementById']('lblBoxGap')['textContent']=translations[m]['lblBoxGap'],document['getElementById']('lblPcsPerBox')['textContent']=translations[m]['lblPcsPerBox'],document['getElementById']('lblStackRule')['textContent']=translations[m]['lblStackRule'],document['getElementById']('optRuleInter')['textContent']=translations[m]['optRuleInter'],document['getElementById']('optRuleCol')['textContent']=translations[m]['optRuleCol'],document['getElementById']('lblBoxWeight')['textContent']=translations[m]['lblBoxWeight'],document['getElementById']('btnCalculate')['textContent']=translations[m]['btnCalculate'],document['getElementById']('txtLoadingMsg')['textContent']=translations[m]['txtLoadingMsg'],document['getElementById']('txtDshTitle')['textContent']=translations[m]['txtDshTitle'],document['getElementById']('lblKpiPerLayer')['textContent']=translations[m]['lblKpiPerLayer'],document['getElementById']('txtSubPerLayer')['textContent']=translations[m]['txtSubPerLayer'],document['getElementById']('lblKpiLayers')['textContent']=translations[m]['lblKpiLayers'],document['getElementById']('lblKpiTotal')['textContent']=translations[m]['lblKpiTotal'],document['getElementById']('kpiTotalSub')['textContent']=translations[m]['kpiTotalSub'],document['getElementById']('lblKpiTotalPcs')['textContent']=translations[m]['lblKpiTotalPcs'],document['getElementById']('lblKpiOcc')['textContent']=translations[m]['lblKpiOcc'],document['getElementById']('lblKpiWeight')['textContent']=translations[m]['lblKpiWeight'],document['getElementById']('txtTitle3D')['textContent']=translations[m]['txtTitle3D'],document['getElementById']('txtLegHor')['textContent']=translations[m]['txtLegHor'],document['getElementById']('txtLegVer')['textContent']=translations[m]['txtLegVer'],document['getElementById']('txtLegPal')['textContent']=translations[m]['txtLegPal'],document['getElementById']('txtTitle2D')['textContent']=translations[m]['txtTitle2D'];const G=document['getElementById']('stackRule')['value']==='interlock';document['getElementById']('labelLayerA')['textContent']=G?translations[m]['labelLayerA']:translations[m]['labelLayerACol'],document['getElementById']('lblLayerB')['textContent']=translations[m]['lblLayerB'],document['getElementById']('txtTitleSide')['textContent']=translations[m]['txtTitleSide'],document['getElementById']('btnBackToInput')['textContent']=translations[m]['btnBackToInput'],document['getElementById']('btnSavePdf')['textContent']=translations[m]['btnSavePdf'],document['getElementById']('txtFooterDesc')['textContent']=translations[m]['txtFooterDesc'],document['getElementById']('boxWeight')['placeholder']=translations[m]['boxWeightPlaceholder'],changeUnits();if(activeBestPackGlobal)calculateLayout();}function savePdf(){const m={'ko':'PALLET\x20LOADING\x20REPORT\x20/\x20팔레트\x20적재\x20분석\x20보고서','en':'PALLET\x20LOADING\x20LAYOUT\x20REPORT','zh':'PALLET\x20LOADING\x20REPORT\x20/\x20托盘装载分析报告'},G={'ko':'출력일시','en':'Generated','zh':'生成日期'},O=new Date(),k=O['getFullYear']()+'-'+String(O['getMonth']()+(-0xe*0x162+0x18b*0x12+-0x869))['padStart'](0xd*-0x201+0x16d1+0x1*0x33e,'0')+'-'+String(O['getDate']())['padStart'](0x25e6+0x23ed+0x49d1*-0x1,'0')+'\x20'+String(O['getHours']())['padStart'](0x199*0x8+0x15cd+-0x2293,'0')+':'+String(O['getMinutes']())['padStart'](-0x1b63+-0x6*0x1a1+0x252b,'0'),n=document['getElementById']('printReportTitle');n['innerHTML']=(m[currentLang]||m['en'])+'<span\x20class=\x22print-date\x22>'+(G[currentLang]||G['en'])+':\x20'+k+'</span>';const r=document['getElementById']('stepResult'),j=r['classList']['contains']('hidden');r['classList']['remove']('hidden'),r['style']['display']='block',window['print'](),j&&(r['classList']['add']('hidden'),r['style']['display']='');}let prevLenUnit='mm',prevWeightUnit='kg';function getLenFactor(){const m=document['getElementById']('lenUnit')['value'];if(m==='cm')return-0x7e6*-0x4+0xe5f+-0x2ded;if(m==='inch')return-0x9c9*-0x2+0x110b*0x1+0x1242*-0x2+0.3999999999999986;return-0xf63+0x3*-0x49+0x103f;}function getWeightFactor(){const m=document['getElementById']('weightUnit')['value'];if(m==='lb')return-0x1481+0xe60+0x621+0.45359237;return-0x4*-0x513+0x16eb*0x1+-0x2*0x159b;}function changeUnits(){const m=document['getElementById']('lenUnit')['value'],G=document['getElementById']('weightUnit')['value'];if(m!==prevLenUnit){let O=0x1*0xb38+-0x13cd+-0xe*-0x9d;if(prevLenUnit==='cm')O=0x1*0x1fb1+0x1a93+-0x3a3a;if(prevLenUnit==='inch')O=-0x2328+0x1cd2+0x66f+0.3999999999999986;let k=0x115c*-0x2+0x26*0xf+0x207f;if(m==='cm')k=-0x1e0d+0x125c+0xb*0x111;if(m==='inch')k=0xde0+-0x1*0x813+-0x5b4+0.3999999999999986;const n=w=>{const S=document['getElementById'](w),Q=parseFloat(S['value']);if(!isNaN(Q)){const e=Q*O,t=e/k;S['value']=k===-0x56d*-0x1+-0x1*0x4af+0x1b*-0x7?Math['round'](t):parseFloat(t['toFixed'](0x1fda+-0x1*0x1349+0xc90*-0x1));}},r=['palletL','palletW','palletH','maxHeight','boxL','boxW','boxH','boxGap'];r['forEach'](n);const j=document['getElementById']('maxHeightSlider');if(m==='cm')j['min']=-0x18d5+-0x26*-0x5b+0xb85,j['max']=-0x18b2+-0x1c4f+0x362d,j['step']=0x1*-0x865+0xf9e+0x1*-0x738;else m==='inch'?(j['min']=-0x561+-0x1*0x1066+0x15db,j['max']=-0xb2b*-0x2+0x1f05+-0x34e3*0x1,j['step']=0xc1*0x9+-0x9d2+0x309+0.5):(j['min']=-0x3*0xbc9+0x1acd+0xa82,j['max']=-0x1e35+-0x2031+0x2*0x250f,j['step']=-0x1b89+0x1de1*0x1+-0x24e);j['value']=document['getElementById']('maxHeight')['value'],prevLenUnit=m;}if(G!==prevWeightUnit){let w=0x1499*-0x1+-0x2210+-0x1b55*-0x2;if(prevWeightUnit==='lb')w=0x4*-0x2d5+-0x24d6+-0x1815*-0x2+0.45359237;let S=0xb2a+0x2*-0xcbb+0xe4d*0x1;if(G==='lb')S=-0x4d7+0x1c81+0x17aa*-0x1+0.45359237;const Q=t=>{const b=document['getElementById'](t),D=parseFloat(b['value']);if(!isNaN(D)&&b['value']!==''){const J=D*w,u=J/S;b['value']=S===-0x2301+0xf3e+0x4*0x4f1?Math['round'](u):parseFloat(u['toFixed'](-0x67*-0x47+-0x19cf+0x2c1*-0x1));}},e=['maxLoadWeight','boxWeight'];e['forEach'](Q),prevWeightUnit=G;}document['querySelectorAll']('.unit-len')['forEach'](t=>t['textContent']=m),document['querySelectorAll']('.unit-weight')['forEach'](t=>t['textContent']=G),document['getElementById']('tagPalletL')['textContent']='L\x20('+m+')',document['getElementById']('tagPalletW')['textContent']='W\x20('+m+')',document['getElementById']('tagPalletH')['textContent']='H\x20('+m+')',document['getElementById']('tagBoxL')['textContent']=axisLabel('L')+'\x20('+m+')',document['getElementById']('tagBoxW')['textContent']=axisLabel('W')+'\x20('+m+')',document['getElementById']('tagBoxH')['textContent']=axisLabel('H')+'\x20('+m+')',activeBestPackGlobal&&updateTranslatedKpis(activeBestPackGlobal);}function fillGrid(m,G,O,k,n,r){if(O<=0x19cd*0x1+0x46d+-0x92*0x35||k<=-0x1ac6*0x1+0xfd*0x23+0x45*-0x1d)return{'count':0x0,'rects':[]};const w={'nx':Math['floor'](O/n),'ny':Math['floor'](k/r),'w':n,'h':r},S={'nx':Math['floor'](O/r),'ny':Math['floor'](k/n),'w':r,'h':n},Q=w['nx']*w['ny']>=S['nx']*S['ny']?w:S,e=[];for(let t=0x208f+-0x1*0x5ab+0x6b9*-0x4;t<Q['nx'];t++)for(let D=0x245*0x11+-0x2647*0x1+-0x4e;D<Q['ny'];D++)e['push']({'x':m+t*Q['w'],'y':G+D*Q['h'],'w':Q['w'],'h':Q['h'],'rot':Q['w']===r});return{'count':Q['nx']*Q['ny'],'rects':e};}function gridForced(m,G,O,k){const n=Math['floor'](m/O),r=Math['floor'](G/k),w=[];for(let S=0x6a7+0x66+0x13*-0x5f;S<n;S++)for(let Q=0x1d8+-0x1*-0xa66+-0xc3e;Q<r;Q++)w['push']({'x':S*O,'y':Q*k,'w':O,'h':k,'rot':![]});return{'count':n*r,'rects':w,'pattern':'단일그리드'};}function pinwheelPack(m,G,O,k){if(O===k)return{'count':-(-0xac5+-0x1*0xaa3+0x1569),'rects':[],'pattern':'핀휠'};let n={'count':-(-0x161*0x4+-0x1d51+0x22d6),'rects':[],'pattern':'핀휠'};const r=Math['floor'](m/O),w=Math['floor'](G/k);for(let S=-0x1e09+0x79*-0x47+0x1b*0x25b;S<=r;S++){const Q=Math['floor']((G-S*O)/k);if(Q<=0x238f*0x1+-0x1ffd+0x1*-0x392)continue;const e=S*O,t=Q*k;if(e+t>m||e+t>G)continue;const D=S*Q,J=Math['floor'](t/k),u=Math['floor'](e/O),T=J*u,Y=(D+T)*(0x1558+0x98c+-0x1ee2);if(Y>n['count']){const R=[],E=e+t,x=Math['floor']((m-E)/(0x3ef*0x3+-0xa9d+-0x1*0x12e)),I=Math['floor']((G-E)/(-0x13c7+-0x20a6+0x346f));for(let g=-0x167e+-0x6*0x1f+0x8*0x2e7;g<S;g++)for(let z=-0x120b+-0x2c*-0x13+0xec7;z<Q;z++)R['push']({'x':x+g*O,'y':I+z*k,'w':O,'h':k,'rot':![]});for(let f=-0x1742+0x12e*0x4+0x128a;f<J;f++)for(let N=-0x1fc+-0x1ac1+0x1cbd*0x1;N<u;N++)R['push']({'x':x+e+f*k,'y':I+N*O,'w':k,'h':O,'rot':!![]});for(let q=0x1f0d+-0x249b*0x1+0x58e;q<S;q++)for(let K=0x1*0x1e37+0x15*-0xc3+-0xe38;K<Q;K++)R['push']({'x':x+t+q*O,'y':I+e+K*k,'w':O,'h':k,'rot':![]});for(let C=-0x200b+0x369+0x1ca2;C<J;C++)for(let X=-0xcbe+-0x8fa+-0x15b8*-0x1;X<u;X++)R['push']({'x':x+C*k,'y':I+t+X*O,'w':k,'h':O,'rot':!![]});n={'count':Y,'rects':R,'pattern':'핀휠'};}}return n;}function hybridPack(m,G,O,k){let n={'count':-(0x1dc2+0x1be2+-0x39a3),'rects':[],'pattern':'혼합블록'};const r=Math['floor'](m/O);for(let Q=0x26b*0x4+-0x1138+0x78d;Q<r;Q++){const e=Q*O,t=m-e,D=fillGrid(-0x1*-0x1c43+-0x8*0x449+0x605,-0x23d9+-0x22f3*0x1+0x46cc,e,G,O,k),J=fillGrid(e,0xe5e+-0x145b+-0x3*-0x1ff,t,G,k,O),u=D['count']+J['count'];if(u>n['count'])n={'count':u,'rects':[...D['rects'],...J['rects']],'pattern':'혼합블록'};}const j=Math['floor'](m/k);for(let T=0x17e7+0x21ff+0x39e5*-0x1;T<j;T++){const Y=T*k,R=m-Y,E=fillGrid(0x2*0x96e+-0x80*0x11+-0x66*0x1a,0x5b*-0x36+-0x3*-0x58e+-0x36*-0xc,Y,G,k,O),x=fillGrid(Y,-0x588+-0x1*-0x1c78+-0x16f0,R,G,O,k),I=E['count']+x['count'];if(I>n['count'])n={'count':I,'rects':[...E['rects'],...x['rects']],'pattern':'혼합블록'};}const w=Math['floor'](G/k);for(let g=0x2037*-0x1+-0x15ad+0x35e5;g<w;g++){const z=g*k,f=G-z,N=fillGrid(-0x2207+-0x1e2e*-0x1+0xc5*0x5,0xfc3*-0x1+0x9bc+-0x607*-0x1,m,z,O,k),q=fillGrid(0xf1*-0x1+-0x105c+0x2b*0x67,z,m,f,k,O),K=N['count']+q['count'];if(K>n['count'])n={'count':K,'rects':[...N['rects'],...q['rects']],'pattern':'혼합블록'};}const S=Math['floor'](G/O);for(let C=-0x2401+0x15b*0x1c+-0xa6*0x3;C<S;C++){const X=C*O,l=G-X,p=fillGrid(-0x1b87+-0x1*0x37f+0x1f06,-0x1723+-0x16f*0x9+0x240a,m,X,k,O),v=fillGrid(-0x5*-0x2e8+-0xb08+-0x380,X,m,l,O,k),A=p['count']+v['count'];if(A>n['count'])n={'count':A,'rects':[...p['rects'],...v['rects']],'pattern':'혼합블록'};}return n;}function bestPack(m,G,O,k){const n=[gridForced(m,G,O,k),gridForced(m,G,k,O),pinwheelPack(m,G,O,k),hybridPack(m,G,O,k)]['filter'](r=>r['count']>0x13*-0x97+0x5a1+0x15*0x44);if(n['length']===0x12f3+-0x36*-0x13+0x28d*-0x9)return{'count':0x0,'rects':[],'pattern':'N/A'};return n['reduce']((r,j)=>{if(j['count']>r['count'])return j;if(j['count']===r['count']){if(j['pattern']==='핀휠'&&r['pattern']==='혼합블록')return j;if(r['pattern']==='단일그리드')return r;}return r;});}let activeBestPackGlobal=null;function triggerCalculation(){const m=document['getElementById']('warnBox');m['classList']['remove']('show');const G=parseFloat(document['getElementById']('palletL')['value'])||-0x1698+0x62c+0x106c,O=parseFloat(document['getElementById']('palletW')['value'])||-0xf7d+-0x166b+0x25e8,k=parseFloat(document['getElementById']('boxL')['value'])||-0x265d*0x1+-0x505*0x3+0x356c,n=parseFloat(document['getElementById']('boxW')['value'])||0x156*-0xe+0xdd5+0x1*0x4df,r=parseFloat(document['getElementById']('boxH')['value'])||0xd35+0x2a*-0xb2+0xfff;if(G<=-0x7*0x243+-0x26*0x1+0xffb||O<=0x15f1+0x1*-0x1443+-0x1ae||k<=0x9d8+-0x1*0x1381+-0x1*-0x9a9||n<=0x76*-0x24+0xfe8+0x58*0x2||r<=0x1089+-0x1*0x8cb+0x1*-0x7be){m['textContent']=translations[currentLang]['warnInputError'],m['classList']['add']('show'),window['scrollTo']({'top':0x0,'behavior':'smooth'});return;}document['getElementById']('stepInput')['classList']['add']('hidden'),document['getElementById']('stepLoading')['classList']['remove']('hidden'),setTimeout(()=>{const j=calculateLayout();document['getElementById']('stepLoading')['classList']['add']('hidden'),j?document['getElementById']('stepResult')['classList']['remove']('hidden'):document['getElementById']('stepInput')['classList']['remove']('hidden');},0x116a+0x228e+-0x2f48);}function resetCalculator(){document['getElementById']('stepResult')['classList']['add']('hidden'),document['getElementById']('stepInput')['classList']['remove']('hidden'),activeBestPackGlobal=null,window['scrollTo']({'top':0x0,'behavior':'smooth'});}function centerRects(m,G,O){if(m['length']===0x1*0x1f26+-0xbfe+-0x8*0x265)return m;let k=Infinity,n=-Infinity,j=Infinity,w=-Infinity;for(const b of m){k=Math['min'](k,b['x']),n=Math['max'](n,b['x']+b['w']),j=Math['min'](j,b['y']),w=Math['max'](w,b['y']+b['h']);}const S=n-k,Q=w-j,e=(G-S)/(0x1a79+0x6b+-0x1ae2)-k,t=(O-Q)/(-0x3d7+-0x2361+0x273a)-j;return m['map'](D=>({...D,'x':D['x']+e,'y':D['y']+t}));}function getBLayerRects(m,G,O,k){return m['map'](n=>{return{'x':G+k-n['x']-n['w'],'y':n['y'],'w':n['w'],'h':n['h'],'rot':n['rot']};});}function calculateLayout(){const m=getLenFactor(),G=getWeightFactor(),O=(parseFloat(document['getElementById']('palletL')['value'])||-0x1*-0x9f7+0x1c62+0x2659*-0x1)*m,k=(parseFloat(document['getElementById']('palletW')['value'])||-0x3*0x185+-0x1ece+-0xb*-0x337)*m,n=(parseFloat(document['getElementById']('palletH')['value'])||0x1fcd+0x1a33+-0x3a00)*m,r=[(parseFloat(document['getElementById']('boxL')['value'])||-0x1c*-0x73+0xf3*0x7+0x7*-0x2bf)*m,(parseFloat(document['getElementById']('boxW')['value'])||-0x98*0x10+0x1ea4+-0x1524)*m,(parseFloat(document['getElementById']('boxH')['value'])||0x89*-0x2c+-0xe55+0x25e1)*m],j=parseInt(document['getElementById']('pcsPerBox')['value'])||-0x22b1+0x209a+-0x1*-0x218,w=(parseFloat(document['getElementById']('boxGap')['value'])||-0xb*-0x174+-0x1aea+0xaee*0x1)*m,S=(parseFloat(document['getElementById']('maxHeight')['value'])||-0x182e*-0x1+0xd*0x181+-0x2bbb)*m,Q=parseFloat(document['getElementById']('boxWeight')['value']),e=isNaN(Q)?-0x7ed*-0x1+-0x77c*0x3+0xe87:Q*G,t=(parseFloat(document['getElementById']('maxLoadWeight')['value'])||0xdb7+-0x3a9*0x2+-0x3*0xe5)*G,b=O+w,D=k+w,J=[r[-0x1e*-0xf2+0x950+-0x96b*0x4]+w,r[0x394*-0x2+-0x28*-0x71+-0xa7f]+w,r[0x1d*-0xb+-0x1d7+0x318]],u=document['getElementById']('includePalletH')['checked']?S-n:S,T=document['getElementById']('orientFree')['checked'],Y=T?[{'a':r[-0x5*0x79e+0x205*0x13+0x49*-0x1]+w,'b':r[0x1c6*0x3+0x2*-0xac2+0x1033]+w,'h':r[-0xa*0x16+0x114e+-0x1070],'la':'L','lb':'W','lh':'H'},{'a':r[-0xb9b*-0x1+0x2091+-0x2c2c]+w,'b':r[-0xdbd*-0x1+-0x1ace+-0x1*-0xd13]+w,'h':r[0x315+0x7b+-0x38f*0x1],'la':'L','lb':'H','lh':'W'},{'a':r[-0x134a+-0x1*-0x1c8b+-0x940]+w,'b':r[0xde1+0xbf1+-0xe*0x1d8]+w,'h':r[-0x172e*-0x1+0xef8*-0x1+-0x836],'la':'W','lb':'H','lh':'L'}]:[{'a':r[0xed*-0x5+0xd*0x1a1+0x4*-0x423]+w,'b':r[-0x1*-0x2388+-0x751*-0x5+-0x481c]+w,'h':r[-0xefd*0x2+0x103f+0xdbd*0x1],'la':'L','lb':'W','lh':'H'}];let R=null;for(const E of Y){const x=bestPack(b,D,E['a'],E['b']);if(x['count']<=-0x1*-0xa55+-0x2657+0x1c02)continue;let I=Math['max'](Math['floor'](u/E['h']),0x631+0xf1*0x1e+-0x226f);if(e>0x1*-0x1ea6+-0x2211+0x40b7){const f=Math['max'](Math['floor'](t/(x['count']*e)),-0x2*0xf32+-0x5*-0x2d1+0x104f*0x1);I=Math['min'](I,f);}const g=x['count']*I,z={...x,'footprint':E,'layers':I,'total':g};if(!R||g>R['total']||g===R['total']&&x['count']>R['count'])R=z;}if(!R||R['total']<=-0x11c7+0x4a+0x117d){const N=document['getElementById']('warnBox');return N['textContent']=translations[currentLang]['warnCalcError'],N['classList']['add']('show'),window['scrollTo']({'top':0x0,'behavior':'smooth'}),![];}return R['rects']=centerRects(R['rects'],b,D),activeBestPackGlobal={...R,'boxWeightKg':e,'maxLoadWeightKg':t},updateTranslatedKpis(activeBestPackGlobal),drawTop(O,k,R,w),draw3D(O,k,n,R,w),drawSide(n,R,S,document['getElementById']('includePalletH')['checked'],w),!![];}function updateTranslatedKpis(m){const G=getLenFactor(),O=getWeightFactor(),k=document['getElementById']('lenUnit')['value'],n=document['getElementById']('weightUnit')['value'],r=(parseFloat(document['getElementById']('boxGap')['value'])||-0x2591+-0x12be+0x384f)*G,j=(parseFloat(document['getElementById']('palletL')['value'])||0x2044+-0x18df+0x765*-0x1)*G,w=(parseFloat(document['getElementById']('palletW')['value'])||0x4*0xc6+0x2281+0x2599*-0x1)*G,S=parseInt(document['getElementById']('pcsPerBox')['value'])||0x10b1*-0x1+-0x6d*0x4c+-0x2e*-0x111,Q=m['footprint']['a']-r,e=m['footprint']['b']-r,t=m['rects']['reduce']((K,W)=>K+(W['w']-r)*(W['h']-r),-0x25dd+0x2214+0x3c9),b=Math['min'](t/(j*w)*(-0x4f5+-0x2*0xb92+0x1c7d),-0x2b1+0x30*0x1d+-0x25b),D=m['total']*S,J=Q/G,u=e/G,T=m['footprint']['h']/G,Y=K=>G===0x218f+-0x72d*0x1+0x1a61*-0x1?Math['round'](K):K['toFixed'](0x25c7+-0x3ba+0x883*-0x4),R=K=>O===0x231e+0x2051+0x4d1*-0xe?Math['round'](K):K['toFixed'](0x53*-0x65+0x2570*-0x1+0x4630),E=currentLang==='ko'?'박스':currentLang==='zh'?'箱':'Box',x=currentLang==='ko'?'단':currentLang==='zh'?'层':'Layers',I=currentLang==='ko'?'Box/단':currentLang==='zh'?'箱/层':'Box/Layer',g=currentLang==='ko'?'Box\x20/\x20단':currentLang==='zh'?'箱\x20/\x20层':'Box\x20/\x20Layer';document['getElementById']('kpiTotal')['innerHTML']=fmt(m['total'])+('\x20<span\x20style=\x22font-size:13px;color:var(--ink-dim);font-weight:400;margin-left:4px;\x22>'+E+'</span>'),document['getElementById']('kpiTotalSub')['textContent']=fmt(m['count'])+('\x20'+I+'\x20×\x20')+m['layers']+('\x20'+x),document['getElementById']('kpiOcc')['innerHTML']=b['toFixed'](0xbc*0x17+-0x2149+-0x1066*-0x1)+'\x20<span\x20style=\x22font-size:13px;color:var(--ink-dim);font-weight:400;margin-left:4px;\x22>%</span>';let z=m['pattern'];if(currentLang==='zh'){if(m['pattern']==='단일그리드')z='网格';if(m['pattern']==='风车'||m['pattern']==='핀휠')z='风车';if(m['pattern']==='혼합블록')z='混合';}else{if(currentLang==='en'){if(m['pattern']==='단일그리드')z='Grid';if(m['pattern']==='핀휠')z='Pinwheel';if(m['pattern']==='혼합블록')z='Block';}}document['getElementById']('kpiPattern')['textContent']=translations[currentLang]['kpiPattern']['replace']('{pattern}',z),document['getElementById']('kpiPerLayer')['innerHTML']=fmt(m['count'])+('\x20<span\x20style=\x22font-size:13px;color:var(--ink-dim);font-weight:400;margin-left:4px;\x22>'+g+'</span>'),document['getElementById']('kpiLayers')['innerHTML']=m['layers']+('\x20<span\x20style=\x22font-size:13px;color:var(--ink-dim);font-weight:400;margin-left:4px;\x22>'+x+'</span>'),document['getElementById']('kpiHeightUse')['textContent']=translations[currentLang]['kpiHeightUseAuto']['replace']('{H}',Y(T)+'\x20'+k),document['getElementById']('kpiTotalPcs')['innerHTML']=fmt(D)+'\x20<span\x20style=\x22font-size:13px;color:var(--cyan);font-weight:400;margin-left:4px;\x22>EA</span>',document['getElementById']('kpiTotalPcsSub')['textContent']=translations[currentLang]['kpiTotalPcsSub']['replace']('{qty}',S);if(m['boxWeightKg']>0xc56+-0x2567+0x17*0x117){const K=m['total']*m['boxWeightKg'],W=K/O,C=(K/m['maxLoadWeightKg']*(-0x11bc+0xb82+-0xb*-0x9a))['toFixed'](-0x69*-0x17+-0x26a5+0x1d37);document['getElementById']('kpiWeight')['innerHTML']=R(W)+('\x20<span\x20style=\x22font-size:13px;color:var(--ink-dim);font-weight:400;margin-left:4px;\x22>'+n+'</span>'),document['getElementById']('kpiWeightSub')['textContent']=translations[currentLang]['kpiWeightLimitUse']['replace']('{pct}',C);}else document['getElementById']('kpiWeight')['innerHTML']='—',document['getElementById']('kpiWeightSub')['textContent']=translations[currentLang]['kpiWeightNoLimit'];document['getElementById']('patternBadge')['textContent']=z['toUpperCase']();const f=axisLabel(m['footprint']['la']),N=axisLabel(m['footprint']['lb']),q=axisLabel(m['footprint']['lh']);document['getElementById']('orientStrip')['innerHTML']='<span\x20class=\x22oi\x22>'+f+'\x20<b>'+Y(J)+k+'</b>\x20→\x20X</span>'+('<span\x20class=\x22oi\x22>'+N+'\x20<b>'+Y(u)+k+'</b>\x20→\x20Y</span>')+('<span\x20class=\x22oi\x22>'+q+'\x20<b>'+Y(T)+k+'</b>\x20→\x20Z</span>');}const AZ=Math['PI']/(-0x1156+-0xc9d+-0x1df7*-0x1),EL=Math['PI']/(0x4e*-0xd+0x5*-0x2a7+0x113d),cA=Math['cos'](AZ),sA=Math['sin'](AZ),cE=Math['cos'](EL),sE=Math['sin'](EL);function iso(m,G,O){return{'sx':(m-O)*cA,'sy':(m+O)*sA*sE-G*cE};}function draw3D(m,G,O,k,n){const w=getLenFactor(),S=document['getElementById']('lenUnit')['value'],Q=i1=>w===-0x3*0x6d+0x1260+0x4*-0x446?Math['round'](i1):i1['toFixed'](0x19b1+0xb*0x26d+-0x345f),e=document['getElementById']('isoSvg'),b=0x9b*0x9+0xc5*-0x24+0x1*0x199d,D=0x10bf+-0xda9+-0xe6,J=0x1b5b+-0x159d+-0x59b,u=k['footprint']['h'],T=O+u*k['layers'],Y=Math['max'](m,G)*(-0x1bf1+0x19fc+0x1f5+0.09)*(0x1*-0x1969+0xc5c+-0x1*-0xd0e+0.8999999999999999);let R=Infinity,E=-Infinity,x=Infinity,I=-Infinity;for(const i1 of[0x897+0x15d5+-0x1e6c,m+Y])for(const i2 of[-0x2*-0x22f+0x653+-0xab1,T])for(const i3 of[0x940+0x1f8d+-0x28cd,G+Y]){const i4=iso(i1,i2,i3);R=Math['min'](R,i4['sx']),E=Math['max'](E,i4['sx']),x=Math['min'](x,i4['sy']),I=Math['max'](I,i4['sy']);}const g=Math['min']((b-J*(0x470+-0x1f81+-0xef*-0x1d))/(E-R),(D-J*(-0x1d7f+0x3a*-0x22+0x2535))/(I-x)),z=J-R*g+(b-J*(-0x1*0x20b7+0xe4+-0x1fd5*-0x1)-(E-R)*g)/(0xb8c+-0x1801+0xc77*0x1),f=J-x*g+(D-J*(-0x1*0x543+0x9*-0x3+0x560)-(I-x)*g)/(0x1741+0x1*0xa09+0x2*-0x10a4);function N(i5,i6,i7){const i8=iso(i5,i6,i7);return{'x':z+i8['sx']*g,'y':f+i8['sy']*g};}function q(i5){return i5['map'](i6=>i6['x']['toFixed'](0x47c+-0x1*-0x21d4+-0x264f)+','+i6['y']['toFixed'](0x239e+0x1c00+0x5*-0xcb9))['join']('\x20');}function K(i5,i6,i7,i8,i9,ii,ia,iP,iL,im){const iG={'010':N(i5,i6+i9,i7),'110':N(i5+i8,i6+i9,i7),'111':N(i5+i8,i6+i9,i7+ii),'011':N(i5,i6+i9,i7+ii),'100':N(i5+i8,i6,i7),'101':N(i5+i8,i6,i7+ii),'001':N(i5,i6,i7+ii)},iO='<polygon\x20points=\x22'+q([iG['010'],iG['110'],iG['111'],iG['011']])+'\x22\x20fill=\x22'+ia+'\x22\x20stroke=\x22'+im+'\x22\x20stroke-width=\x220.6\x22/>',ik='<polygon\x20points=\x22'+q([iG['100'],iG['110'],iG['111'],iG['101']])+'\x22\x20fill=\x22'+iP+'\x22\x20stroke=\x22'+im+'\x22\x20stroke-width=\x220.6\x22/>',ir='<polygon\x20points=\x22'+q([iG['001'],iG['101'],iG['111'],iG['011']])+'\x22\x20fill=\x22'+iL+'\x22\x20stroke=\x22'+im+'\x22\x20stroke-width=\x220.6\x22/>',ij=i5+i8/(-0x1a*0x81+0xc8d+-0x1*-0x8f)+(i7+ii/(0x1fcf+-0x1*-0xa62+-0x2a2f))+i6*(-0x1cc4+-0x1466+0x312b+0.6000000000000001);return{'depth':ij,'svg':iO+ik+ir};}const C=[],X=K(0x1c89+-0x8ad+-0x13dc,-0x10*-0x53+-0xe05*0x2+0x16da,0x7f*-0x12+0x21c8+-0x18da,m,O,G,'#8B5A2B','#6F4721','#5C3A1A','#A06E3F');X['depth']=-(0x1d3cc6+0xeea86+-0x19f*0x11d3),C['push'](X);const l='#D2A06A',v=l,F=adjustColor(l,-(0x5*0xc7+-0x25*-0x7b+-0x159b)),c=adjustColor(l,-(0x7a*-0x2b+0x2*-0xc0c+-0x2*-0x165a)),o=adjustColor(l,-0x1*-0x2f5+-0x4f*-0x34+0x1*-0x12f2),M=adjustColor(l,-(0x453+-0x336+-0x113)),H=M,y=adjustColor(M,-(0x1cc6*-0x1+0x1d0b*0x1+-0x36)),Z=adjustColor(M,-(-0x1349+0x1451+0x1a*-0x9)),U=adjustColor(M,0x16f*-0x6+-0x257d+-0x6*-0x7b1),V=document['getElementById']('stackRule')['value'];for(let i5=0xb1d+0x52d+-0x56e*0x3;i5<k['layers'];i5++){const i6=O+i5*u,i7=V==='interlock'&&i5%(0x977*0x2+0x9ea+-0x1cd6)===-0x2246+0x7a5+0xd51*0x2,i8=i7?getBLayerRects(k['rects'],m,G,n):k['rects'];for(const i9 of i8){const ii=i9['rot'],ia=ii?H:v,iP=ii?y:F,iL=ii?Z:c,im=ii?U:o,iG=i9['x']+n/(-0x2511+-0x4*-0x638+0xc33),iO=i9['y']+n/(-0x3f*0x2d+-0x2662+0x3177),ik=i9['w']-n,ir=i9['h']-n;C['push'](K(iG,i6,iO,ik,u,ir,ia,iP,iL,im));}}C['sort']((ij,iw)=>ij['depth']-iw['depth']);let h=C['map'](ij=>ij['svg'])['join']('');const i0=N(m/(0xfa4*0x1+0x1*-0x101+-0xea1*0x1),-0x30*0x40+0xa*0x39e+-0x374*0x7,G/(0x959+-0x1861+-0x46*-0x37));h='<ellipse\x20cx=\x22'+i0['x']+'\x22\x20cy=\x22'+(i0['y']+(0x2*0x599+-0x4b4*0x4+0x7a2*0x1))+'\x22\x20rx=\x22'+m*g*(-0x2*-0x143+-0xf36+0xcb0+0.55)+'\x22\x20ry=\x22'+m*g*(0x1*0x1a87+-0x1edd+0x456+0.18)+'\x22\x20fill=\x22#000\x22\x20opacity=\x220.12\x22/>'+h;if(k['rects']['length']){const ij=k['layers']-(0x2009+-0x125d+0x1*-0xdab),iw=O+ij*u,iS=V==='interlock'&&ij%(-0x235e+-0x1cc6*0x1+-0x66*-0xa1)===0x826*0x1+0x1*-0xf2b+0x706,iQ=iS?getBLayerRects(k['rects'],m,G,n):k['rects'],ie=iQ['reduce']((il,ip)=>ip['x']+ip['w']+(ip['y']+ip['h'])>il['x']+il['w']+(il['y']+il['h'])?ip:il,iQ[0x4*0xa3+0x16b9+-0x1945]),it=ie['rot']?k['footprint']['lb']:k['footprint']['la'],ib=ie['rot']?k['footprint']['b']-n:k['footprint']['a']-n,iD=ie['rot']?k['footprint']['la']:k['footprint']['lb'],iJ=ie['rot']?k['footprint']['a']-n:k['footprint']['b']-n,iu=ie['x']+n/(-0xb58+0x5de+0x57c),iT=ie['y']+n/(0x269*0xd+-0x41f+-0x1b34),iY=ie['w']-n,iR=ie['h']-n,iE=iu+iY,ix=iT+iR,iI=iw+u,ig=N(iE,iI,ix),iz=N(iu,iI,ix),iN=N(iE,iI,iT),iq=N(iE,iw,ix),iK=0x5d3+-0x1*-0xaef+-0x10a8,iW=N(iu+iY/(-0x1*0x1faf+-0x15+0x7*0x48a),iw+u/(-0xb25+0x2455*-0x1+0x2f7c),iT+iR/(0x465+0x1*-0x422+0x5*-0xd)),iC=il=>{const ip=[...il]['reduce']((iv,iA)=>iv+(/[ㄱ-힝㐀-鿿]/['test'](iA)?0x211c+0x2656+-0x4770:-0x45b+0x21b*0x6+-0x846),-0x114d*0x1+-0x246+-0x1393*-0x1);return Math['max'](0xc49*0x1+0x84a+0x1b*-0xc1,ip*(-0x42*0x64+0x1f4e+-0x16*0x40+0.7000000000000002)+(0x146d+-0x2497+0x40f*0x4));},iX=[{'c2':iz,'color':'#D97706','text':axisLabel(it)+'\x20'+Q(ib/w)+S},{'c2':iN,'color':'#0284C7','text':axisLabel(iD)+'\x20'+Q(iJ/w)+S},{'c2':iq,'color':'#10B981','text':axisLabel(k['footprint']['lh'])+'\x20'+Q(u/w)+S}];for(const il of iX){il['w']=iC(il['text']);const ip=il['c2']['x']-ig['x'],iv=il['c2']['y']-ig['y'],iA=Math['hypot'](ip,iv)||-0x141+-0x121*0x8+0xa4a;il['ux']=ip/ iA,il['uy']=iv/ iA;let iF=-il['uy'],ic=il['ux'];const io=ig['x']+il['ux']*iA/(-0x1e89+-0x6d*0x25+-0x2e4c*-0x1),id=ig['y']+il['uy']*iA/(-0x8*-0x1f6+0x1*-0x17c2+0xb*0xbc),iM=Math['hypot'](io+iF-iW['x'],id+ic-iW['y']),is=Math['hypot'](io-iF-iW['x'],id-ic-iW['y']);iM<is&&(iF=-iF,ic=-ic);const iH=Math['max'](iA*(-0x23b*0x10+-0x1cfe+0x40ae+0.55),-0x851+-0x7ef*-0x2+-0x1*0x755);il['lx']=ig['x']+il['ux']*Math['min'](iH,iA),il['ly']=ig['y']+il['uy']*Math['min'](iH,iA),il['ox']=ig['x']+il['ux']*iH+iF*(0x1*-0x1d77+-0x1*0x1841+-0x8*-0x6b9),il['oy']=ig['y']+il['uy']*iH+ic*(0x5*0x71b+0x1*-0x6b5+-0x6*0x4cb);}for(let iy=-0xe2d+0xe7*0x20+0x47*-0x35;iy<0x2*0x361+0x1*-0x3c3+-0x3*0xe5;iy++){let iZ=![];for(let iU=-0x50+0xbde+-0x1ed*0x6;iU<iX['length'];iU++)for(let iV=iU+(0x6*0x12e+-0x4*0x2f1+0x4b1*0x1);iV<iX['length'];iV++){const iB=iX[iU],ih=iX[iV];let a0=ih['ox']-iB['ox'],a1=ih['oy']-iB['oy'];const a2=iB['w']/(0x3*0xc1a+-0x1254+-0x73*0x28)+ih['w']/(0x269*-0xa+-0x2009+0x3*0x12b7)+(0x1436+0x1*0xad+0x1*-0x14db)-Math['abs'](a0),a3=iK+(0x35c+-0x2da+-0x3d*0x2)-Math['abs'](a1);if(a2<=0x478+-0x5b3*0x1+-0x3*-0x69||a3<=-0x1701+0x17cf+0x67*-0x2)continue;iZ=!![];if(a3<=a2){if(a1===0x19fa+0x1*0x1286+-0x2c80)a1=0xc04+-0xd91*-0x1+-0x1994;const a4=Math['sign'](a1)*a3/(0x55*0x13+-0x147f+0x2e*0x4f);iB['oy']-=a4,ih['oy']+=a4;}else{if(a0===-0x1*-0x14e9+0x380+0x1*-0x1869)a0=-0xdb*-0x2d+0x8*-0x4d8+0xb*0x6;const a5=Math['sign'](a0)*a2/(0x303+0x2*-0x11e9+0x1*0x20d1);iB['ox']-=a5,ih['ox']+=a5;}}if(!iZ)break;}for(const a6 of iX){a6['ox']=Math['max'](a6['w']/(0x1*-0xbf+0x5*-0x3d+0x1f2)+(0x126a*-0x2+-0x1e5d+-0x1*-0x4333),Math['min'](b-a6['w']/(-0x1ede+-0xbeb+-0x139*-0x23)-(0x1*0x21af+0x1*0x160d+0x2*-0x1bdd),a6['ox'])),a6['oy']=Math['max'](iK/(0x6*0x446+-0x5c7*0x6+0x908)+(0x1fca+0x17aa+0x5e*-0x97),Math['min'](D-iK/(-0x11d1+0x2c*-0x3+0x1257)-(-0x9b3*-0x3+-0x1413+-0x904),a6['oy']));const a7={'x':a6['c2']['x']-a6['ux']*(-0x181e+-0x185*0x9+0x25d5)-a6['uy']*(-0x219e+0x10f*0x13+-0x3*-0x482),'y':a6['c2']['y']-a6['uy']*(0xdfd*0x2+0x2b8+-0x8*0x3d5)+a6['ux']*(0x1*0x1bef+0xa2d+0x571*-0x7)},a8={'x':a6['c2']['x']-a6['ux']*(-0x872*0x1+0x10b*0x11+-0x93f)+a6['uy']*(-0x1844+-0x34*0x6e+0x2ea1),'y':a6['c2']['y']-a6['uy']*(0x154*-0x2+-0x1*0x95d+0x93*0x15)-a6['ux']*(0x1631+-0x3e5+-0x1247)};h+='<g>'+('<line\x20x1=\x22'+ig['x']+'\x22\x20y1=\x22'+ig['y']+'\x22\x20x2=\x22'+a6['c2']['x']+'\x22\x20y2=\x22'+a6['c2']['y']+'\x22\x20stroke=\x22'+a6['color']+'\x22\x20stroke-width=\x223.5\x22\x20stroke-linecap=\x22round\x22/>')+('<polygon\x20points=\x22'+a6['c2']['x']+','+a6['c2']['y']+'\x20'+a7['x']+','+a7['y']+'\x20'+a8['x']+','+a8['y']+'\x22\x20fill=\x22'+a6['color']+'\x22/>')+('<line\x20x1=\x22'+a6['lx']+'\x22\x20y1=\x22'+a6['ly']+'\x22\x20x2=\x22'+a6['ox']+'\x22\x20y2=\x22'+a6['oy']+'\x22\x20stroke=\x22'+a6['color']+'\x22\x20stroke-width=\x221.2\x22\x20stroke-dasharray=\x222,2\x22\x20opacity=\x220.9\x22/>')+('<rect\x20x=\x22'+(a6['ox']-a6['w']/(-0x973*0x2+-0x5b5+0x189d))+'\x22\x20y=\x22'+(a6['oy']-iK/(0x2205*-0x1+-0x22e7*0x1+0x2*0x2277))+'\x22\x20width=\x22'+a6['w']+'\x22\x20height=\x22'+iK+'\x22\x20fill=\x22#FFFFFF\x22\x20stroke=\x22'+a6['color']+'\x22\x20stroke-width=\x222\x22\x20rx=\x224\x22/>')+('<text\x20x=\x22'+a6['ox']+'\x22\x20y=\x22'+(a6['oy']+(0x138b*0x1+-0x65*0x44+0x74e))+'\x22\x20fill=\x22#0F172A\x22\x20font-family=\x22IBM\x20Plex\x20Mono,\x20monospace,\x20sans-serif\x22\x20font-size=\x2212\x22\x20text-anchor=\x22middle\x22\x20font-weight=\x22700\x22>'+a6['text']+'</text>')+'</g>';}}e['innerHTML']=h;}function drawTop(m,G,O,k){const n=getLenFactor(),r=document['getElementById']('lenUnit')['value'],j=e=>n===0x28c*-0x3+0x1979+0x2*-0x8ea?Math['round'](e):e['toFixed'](-0x1e31+-0x3fd*-0x1+0x1a35),w=(e,t)=>{const b=0x29*-0x19+0x1434+-0x1005,D=-0x51*-0x1d+0xca7+-0x13f4*0x1,J=(D-b*(0x7*0x491+0xa9*-0xd+-0xb0*0x22))/Math['max'](m,G),u=b+(Math['max'](m,G)-m)*J/(-0x115f+0x10ce+0x93),T=b+(Math['max'](m,G)-G)*J/(0x3*-0x9cd+-0x25d7*-0x1+-0x86e);let Y='';Y+='<rect\x20x=\x22'+u+'\x22\x20y=\x22'+T+'\x22\x20width=\x22'+m*J+'\x22\x20height=\x22'+G*J+'\x22\x20fill=\x22none\x22\x20stroke=\x22#D97706\x22\x20stroke-width=\x221.5\x22\x20stroke-dasharray=\x226\x204\x22/>';const R='#D2A06A';for(const E of t){const x=E['rot']?adjustColor(R,-(-0x129*-0x1+-0x1*0xb17+-0x4fc*-0x2)):R,I=E['rot']?adjustColor(R,-(0x1*0x221f+-0x188c+-0x97a)):adjustColor(R,0x805+-0x3*0x9d+0x61f*-0x1),g=E['x']+k/(0x1*-0x17c9+-0x69a+0x1e65),z=E['y']+k/(-0x2f*0x67+0x785+0xb66),f=E['w']-k,N=E['h']-k;Y+='<rect\x20x=\x22'+(u+g*J)+'\x22\x20y=\x22'+(T+z*J)+'\x22\x20width=\x22'+f*J+'\x22\x20height=\x22'+N*J+'\x22\x20fill=\x22'+x+'\x22\x20stroke=\x22'+I+'\x22\x20stroke-width=\x221\x22\x20rx=\x221\x22/>';}Y+=dimLine(u,T-(0x1f71+-0x1*-0x1fe7+-0x3f4a*0x1),u+m*J,T-(-0x2*0x86b+-0x3*-0x3f+0x1027),j(m/n)+'\x20'+r,'h'),Y+=dimLine(u-(-0x1572+-0x18a4+0x2e24),T,u-(0x36b*0x6+0x1d26+-0x319a),T+G*J,j(G/n)+'\x20'+r,'v'),e['innerHTML']=Y;},S=document['getElementById']('topSvg');w(S,O['rects']);const Q=document['getElementById']('stackRule')['value'];if(Q==='interlock'){document['getElementById']('layerBBlock')['style']['display']='block',document['getElementById']('labelLayerA')['textContent']=translations[currentLang]['labelLayerA'];const e=document['getElementById']('topSvgB'),t=getBLayerRects(O['rects'],m,G,k);w(e,t);}else document['getElementById']('layerBBlock')['style']['display']='none',document['getElementById']('labelLayerA')['textContent']=translations[currentLang]['labelLayerACol'];}function dimLine(m,G,O,k,n,r){const j=r==='h'?{'x':(m+O)/(-0x75*-0x2+-0x1*-0xb07+-0x1*0xbef),'y':G-(-0x3*-0x236+-0x1105+0xa69)}:{'x':m-(-0x5bd+0x57a+-0xd*-0x7),'y':(G+k)/(0x1871*0x1+0xc82*0x1+-0x24f1)};let w='<line\x20x1=\x22'+m+'\x22\x20y1=\x22'+G+'\x22\x20x2=\x22'+O+'\x22\x20y2=\x22'+k+'\x22\x20stroke=\x22#94A3B8\x22\x20stroke-width=\x221\x22/>';return w+='<line\x20x1=\x22'+m+'\x22\x20y1=\x22'+(G-(0x929+-0x1ae5+0x11c0))+'\x22\x20x2=\x22'+m+'\x22\x20y2=\x22'+(G+(-0x6b*0x28+0x1*0x1ad2+-0xa16*0x1))+'\x22\x20stroke=\x22#94A3B8\x22\x20stroke-width=\x221\x22/>',w+='<line\x20x1=\x22'+O+'\x22\x20y1=\x22'+(k-(-0x165+-0x4*0x62f+-0x1*-0x1a25))+'\x22\x20x2=\x22'+O+'\x22\x20y2=\x22'+(k+(-0x7d3+-0x19c2+0x2199))+'\x22\x20stroke=\x22#94A3B8\x22\x20stroke-width=\x221\x22/>',w+='<text\x20x=\x22'+j['x']+'\x22\x20y=\x22'+j['y']+'\x22\x20fill=\x22#64748B\x22\x20font-family=\x22IBM\x20Plex\x20Mono,\x20monospace\x22\x20font-size=\x2210.5\x22\x20text-anchor=\x22middle\x22\x20transform=\x22'+(r==='v'?'rotate(-90\x20'+j['x']+'\x20'+j['y']+')':'')+'\x22>'+n+'</text>',w;}function drawSide(m,G,O,k,n){const r=getLenFactor(),j=document['getElementById']('lenUnit')['value'],w=C=>r===0x11e6+-0x4a*-0x3+-0x12c3?Math['round'](C):C['toFixed'](-0x29c+-0x1abf+0x1d5c),S=document['getElementById']('sideSvg'),Q=0x1ada+0x14f7+0x443*-0xb,e=-0x20af+0x1af1+-0x27*-0x32,t=0x4*-0x5ba+-0x447+0x1d*0xf1,b=-0x1dfb+-0x2103+0x3f16,D=0x2*0x56c+-0x1146+0x6aa,J=G['footprint']['h'],u=J*G['layers'],T=k?u+m:u+m,Y=Math['max'](O,T),R=(e-t-b)/Y,E=e-t;let x='';x+='<line\x20x1=\x22'+(D-(0x2*0xf60+-0x7*-0x313+0x1af*-0x1f))+'\x22\x20y1=\x22'+E+'\x22\x20x2=\x22'+(Q-(-0x1c5c+-0x11*0xe+-0x4*-0x755))+'\x22\x20y2=\x22'+E+'\x22\x20stroke=\x22#E2E8F0\x22\x20stroke-width=\x221\x22/>';const I=m*R;x+='<rect\x20x=\x22'+D+'\x22\x20y=\x22'+(E-I)+'\x22\x20width=\x22120\x22\x20height=\x22'+I+'\x22\x20fill=\x22#8B5A2B\x22\x20stroke=\x22#6F4721\x22\x20stroke-width=\x221\x22/>',x+='<text\x20x=\x22'+(D+(-0x1*0x16b5+-0x76*0x1d+-0x2cb*-0xd))+'\x22\x20y=\x22'+(E-I/(0x15a1+0x848+-0x1de7)+(-0x27*0x31+-0x7b5+0xf30))+'\x22\x20fill=\x22#FFFFFF\x22\x20font-family=\x22IBM\x20Plex\x20Mono\x22\x20font-size=\x229\x22\x20text-anchor=\x22middle\x22>'+translations[currentLang]['sidePallet']+'</text>';const g='#D2A06A',z=g,f=adjustColor(g,0xb*-0x1+-0xa78+0xa92),N=adjustColor(g,-(-0xd12+-0x2b7*-0x7+-0x5e5)),q=adjustColor(g,-(0x206c+0x388+-0x23db));let K=E-I;const W=J*R;for(let C=-0xa1e+0x4a8*-0x7+0x2ab6;C<G['layers'];C++){K-=W;const X=C%(0xe10+-0x2b3*-0xd+-0x3125)===-0xea*0x22+0xcb5*-0x1+0x2bc9?z:N,l=C%(-0x18*0x18e+-0x1a67+0x5cb*0xb)===0x7dc+-0x1e71+0x1695?f:q;x+='<rect\x20x=\x22'+D+'\x22\x20y=\x22'+K+'\x22\x20width=\x22120\x22\x20height=\x22'+Math['max'](W-(-0xb*0x124+0x7d2+-0xad*-0x7+0.5),0x16f4+-0x7a7+-0x1*0xf4c)+'\x22\x20fill=\x22'+X+'\x22\x20stroke=\x22'+l+'\x22\x20stroke-width=\x220.75\x22/>',x+='<text\x20x=\x22'+(D+(-0x1216*-0x2+0x19c0+-0x3db0))+'\x22\x20y=\x22'+(K+W/(-0x1672+0x2223+-0xbaf)+(0x49*-0x65+0x1c*0xee+0x2c8))+'\x22\x20fill=\x22#FFFFFF\x22\x20font-family=\x22IBM\x20Plex\x20Mono\x22\x20font-size=\x228.5\x22\x20text-anchor=\x22middle\x22\x20opacity=\x220.8\x22>'+(C+(-0xa27+0x19*-0x44+0x10cc))+translations[currentLang]['sideFloorUnit']+'\x20('+(C%(-0x1*0xe48+-0x2639+-0x3483*-0x1)===-0x14c5+0x251e+-0x1d1*0x9?'A':'B')+')</text>';}x+='<text\x20x=\x22'+Q/(-0x1*-0x1721+-0x234d+0xc2e)+'\x22\x20y=\x22'+(E+(0x146d+-0x1*-0xb29+-0x1f84))+'\x22\x20fill=\x22#475569\x22\x20font-family=\x22IBM\x20Plex\x20Mono\x22\x20font-size=\x2210\x22\x20text-anchor=\x22middle\x22>'+translations[currentLang]['sideTotalH']+':\x20'+w(T/r)+j+'</text>',S['innerHTML']=x;}function adjustColor(m,O){let k=parseInt(m['replace']('#',''),0x4*-0x259+0x7ef+-0x1*-0x185),n=Math['round']((-0x1*-0x925+0x499*0x6+-0x7*0x53f+0.5499999999999998)*O),r=(k>>0x7cc*0x3+-0x10d9+-0x229*0x3)+n,j=(k>>-0x2*-0x344+0x261a+-0x2c9a&-0x989*0x1+0x10ad+-0x1*0x625)+n,w=(k&0x1672+-0x1188+0x3b*-0x11)+n;return'#'+(-0x15d35d4*-0x1+-0x6d22ae+0xfecda+(r<0x35e+0x38b*0x4+-0x181*0xb?r<-0x5*0x34+0x1*-0x2513+0x2617*0x1?0x252b*-0x1+-0x828+0x2d53:r:-0x7*-0x238+0x13*0x1b5+-0x3*0xfa8)*(0x8aed+-0x601+0x7b14*0x1)+(j<-0x5c8+0x2*-0xac6+-0x1c53*-0x1?j<-0x1854+-0x77*-0x3d+0x407*-0x1?-0x26a6+0x26c+-0x2*-0x121d:j:-0x6a*-0x3b+0x14f*-0x2+0x1*-0x14d1)*(-0xce5*-0x2+-0x11c4*-0x1+-0x2a8e)+(w<-0x19c*-0x8+-0xf*-0x6b+0x1226*-0x1?w<0x623*0x2+0x8*0x119+0xf5*-0x16?-0x11*-0xca+-0x3*-0x179+-0x11d5:w:0x1*0x487+0x13cc+-0x1754))['toString'](-0x3a*0x62+-0x1*0x1fec+0x3630)['slice'](0x1c10+0x14c8+-0x30d7*0x1);}function fmt(m){return m['toLocaleString']('ko-KR');}document['getElementById']('palletType')['addEventListener']('change',m=>{const G=getLenFactor(),O=m['target']['value']==='custom';document['getElementById']('palletL')['disabled']=!O,document['getElementById']('palletW')['disabled']=!O,document['getElementById']('palletH')['disabled']=!O;if(!O){let k=-0x1497+-0xf81+0x2864,n=-0x1b81*-0x1+-0x74*-0x8+0x1ad5*-0x1,r=0x4*0x209+0x6*0x5fd+0x15be*-0x2;if(m['target']['value']==='euro')k=-0xece*0x2+-0xd3e+-0x2f8a*-0x1,n=-0x16e4+-0x1*-0xed5+-0x199*-0x7,r=0x13*-0xef+0x1074+0x1d9;else{if(m['target']['value']==='us')k=-0x20b1+0x3ae*0x7+-0xbb2*-0x1,n=-0x281+-0x1bac+0x2225,r=-0x11d*-0x13+-0x9e*-0x15+-0x1*0x219b;else{if(m['target']['value']==='iso')k=0x2*0xb4+-0x1d*0x12f+-0xc89*-0x3,n=-0x923*0x4+0x1a6b*-0x1+-0x3ef*-0x11,r=-0x265*-0x6+-0x2fc+-0xacc;else m['target']['value']==='aus'&&(k=-0x671+-0x21d4+-0x1*-0x2cd2,n=-0x3*0x185+0xfa2+0x343*-0x2,r=-0x2*-0x49d+-0x1e1*-0x11+-0x2895);}}document['getElementById']('palletL')['value']=(k/G)['toFixed'](G===-0x5c0*-0x6+0x1*0xd67+-0x2fe6?0x1fab+-0x11*0x238+-0x1*-0x60d:-0x1afa+0x1387*0x1+0x774),document['getElementById']('palletW')['value']=(n/G)['toFixed'](G===-0x6cd*-0x5+0x517+-0x2717?0xa8b*0x1+0x1*0xad9+0x2*-0xab2:-0x1a74+0x11c4+0x1bd*0x5),document['getElementById']('palletH')['value']=(r/G)['toFixed'](G===0x2*-0x1fb+0xe2b+-0xa34?-0x53*-0x27+-0x1*0x1faf+0x985*0x2:0x88d*-0x4+-0x1b3*-0xb+0xf84);}}),window['syncHeightSlider']=function(){const m=document['getElementById']('maxHeight')['value'];document['getElementById']('maxHeightSlider')['value']=m;},window['syncHeightInput']=function(){const m=document['getElementById']('maxHeightSlider')['value'];document['getElementById']('maxHeight')['value']=m;},switchLang('en');
+  </script>
+
+  <!-- ========================================================
+       DEVELOPMENT MANUAL / JS OBFUSCATION GUIDELINE
+       ========================================================
+       이 파일의 적재 연산 코드를 배포용 서비스로 올릴 때 외부 유출을 막는 
+       난독화 방법은 아래와 같습니다.
+
+       [난독화 도구 활용 절차]
+       1. 무료 온라인 난독화 사이트에 접속합니다.
+          - https://obfuscator.io (강력 추천)
+          - 또는 https://www.terser.org
+       2. 이 파일의 <script> 태그 안에 있는 자바스크립트 소스코드만 복사합니다.
+       3. Obfuscator 설정에서 다음 옵션들을 켜줍니다:
+          - Compact: true (코드 한줄 압축)
+          - Self Defending: true (임의 수정/분석 시 실행 중단)
+          - String Array: true (문자열을 배열화하여 숨김)
+          - Transform Object Keys: true (객체 변수 키 숨김)
+       4. [Obfuscate] 버튼을 클릭해 변환된 난독화 코드를 복사하여 
+          이 HTML의 <script> 영역에 덮어씁니다.
+          이렇게 하면 일반 사용자가 F12 개발자도구로 소스를 보아도 
+          알고리즘 구조를 100% 해독하기가 불가능해집니다.
+       ======================================================== -->
+</body>
+</html>
