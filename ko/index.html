@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- SEO -->
-  <title id="seoTitle">Pallet Loading Optimizer &amp; Carton Stacking 3D Simulator</title>
+  <title id="seoTitle">팔레트 적재 최적화기 &amp; 카톤박스 배치 시뮬레이터 | Pallet Loading Optimizer</title>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2965119835410946"
      crossorigin="anonymous"></script>
-  <meta name="description" id="seoDesc" content="Enter carton box dimensions and pallet size to compute the optimal load stacking pattern in 3D simulation. Supports interlocking, clearance spacing, and layers.">
+  <meta name="description" id="seoDesc" content="카톤박스 규격과 팔레트 사이즈를 입력하여 최적의 적재 효율을 3D 시뮬레이션으로 계산합니다. 교차 적재, 박스 간격 설정 및 적재 단수 계산 지원.">
   <!-- meta keywords intentionally omitted: Google has ignored it for ranking
        since 2009, so it only leaks keyword strategy to competitors. -->
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <link rel="canonical" href="https://pallet-loading-layout-optimizer.pages.dev/">
+  <link rel="canonical" href="https://pallet-loading-layout-optimizer.pages.dev/ko/">
   <link rel="alternate" hreflang="en" href="https://pallet-loading-layout-optimizer.pages.dev/">
   <link rel="alternate" hreflang="ko" href="https://pallet-loading-layout-optimizer.pages.dev/ko/">
   <link rel="alternate" hreflang="zh" href="https://pallet-loading-layout-optimizer.pages.dev/zh/">
@@ -29,10 +29,10 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Pallet Loading Optimizer">
-  <meta property="og:url" content="https://pallet-loading-layout-optimizer.pages.dev/">
-  <meta property="og:title" id="ogTitle" content="Pallet Loading Optimizer & Carton Stacking 3D Simulator">
-  <meta property="og:description" id="ogDesc" content="Enter carton box dimensions and pallet size to compute the optimal load stacking pattern in 3D simulation. Supports interlocking, clearance spacing, and layers.">
-  <meta property="og:locale" id="ogLocale" content="en_US">
+  <meta property="og:url" content="https://pallet-loading-layout-optimizer.pages.dev/ko/">
+  <meta property="og:title" id="ogTitle" content="팔레트 적재 최적화기 & 카톤박스 배치 시뮬레이터 | Pallet Loading Optimizer">
+  <meta property="og:description" id="ogDesc" content="카톤박스 규격과 팔레트 사이즈를 입력하여 최적의 적재 효율을 3D 시뮬레이션으로 계산합니다. 교차 적재, 박스 간격 설정 및 적재 단수 계산 지원.">
+  <meta property="og:locale" id="ogLocale" content="ko_KR">
   <meta property="og:image" content="https://pallet-loading-layout-optimizer.pages.dev/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -40,8 +40,8 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" id="twTitle" content="Pallet Loading Optimizer & Carton Stacking 3D Simulator">
-  <meta name="twitter:description" id="twDesc" content="Enter carton box dimensions and pallet size to compute the optimal load stacking pattern in 3D simulation. Supports interlocking, clearance spacing, and layers.">
+  <meta name="twitter:title" id="twTitle" content="팔레트 적재 최적화기 & 카톤박스 배치 시뮬레이터 | Pallet Loading Optimizer">
+  <meta name="twitter:description" id="twDesc" content="카톤박스 규격과 팔레트 사이즈를 입력하여 최적의 적재 효율을 3D 시뮬레이션으로 계산합니다. 교차 적재, 박스 간격 설정 및 적재 단수 계산 지원.">
   <meta name="twitter:image" content="https://pallet-loading-layout-optimizer.pages.dev/og-image.png">
 
   <!-- Google Fonts -->
@@ -881,15 +881,15 @@
     <div class="brand">
       <div class="brand-logo">P</div>
       <div class="brand-text">
-        <h1 id="txtHeaderBrand">Pallet Loading Layout Optimizer</h1>
+        <h1 id="txtHeaderBrand">팔레트 적재 레이아웃 최적화기</h1>
         <span id="txtHeaderSub">Pallet Loading Optimizer </span>
       </div>
     </div>
     <!-- real links, not JS toggles: each language is its own indexable URL and
          crawlers must be able to follow them -->
     <div class="lang-selector">
-      <a class="lang-btn" href="/ko/" id="btnLangKo" hreflang="ko">🇰🇷 ko</a>
-      <a class="lang-btn active" href="/" id="btnLangEn" hreflang="en">🇺🇸 en</a>
+      <a class="lang-btn active" href="/ko/" id="btnLangKo" hreflang="ko">🇰🇷 ko</a>
+      <a class="lang-btn" href="/" id="btnLangEn" hreflang="en">🇺🇸 en</a>
       <a class="lang-btn" href="/zh/" id="btnLangZh" hreflang="zh">🇨🇳 zh</a>
     </div>
   </header>
@@ -913,15 +913,15 @@
     <div id="stepInput" class="step-container">
       <div class="input-card">
         <div class="card-header">
-          <h2 id="txtFormTitle">Input Stacking Specs</h2>
-          <p id="txtFormSub">Enter box and pallet dimensions to calculate optimal efficiency.</p>
+          <h2 id="txtFormTitle">적재 시뮬레이션 사양 입력</h2>
+          <p id="txtFormSub">박스 및 팔레트 규격을 입력하고 최적의 적재율을 계산해 보세요.</p>
         </div>
         
         <!-- UNIT SETTINGS -->
-        <div class="form-group-title" id="txtGrpUnits">00 · UNIT SETTINGS</div>
+        <div class="form-group-title" id="txtGrpUnits">00 · 기본 단위 설정 UNIT SETTINGS</div>
         <div class="form-row">
           <div class="field">
-            <label id="lblLenUnit">Length Unit</label>
+            <label id="lblLenUnit">길이 단위 (Length Unit)</label>
             <div class="input-unit">
               <select id="lenUnit" onchange="changeUnits()">
                 <option value="mm" selected>mm (Millimeters)</option>
@@ -931,7 +931,7 @@
             </div>
           </div>
           <div class="field">
-            <label id="lblWeightUnit">Weight Unit</label>
+            <label id="lblWeightUnit">무게 단위 (Weight Unit)</label>
             <div class="input-unit">
               <select id="weightUnit" onchange="changeUnits()">
                 <option value="kg" selected>kg (Kilograms)</option>
@@ -942,23 +942,23 @@
         </div>
 
         <!-- PALLET SPEC -->
-        <div class="form-group-title" id="txtGrpPallet">01 · PALLET INFO</div>
+        <div class="form-group-title" id="txtGrpPallet">01 · 팔레트 정보 PALLET INFO</div>
         <div class="form-row">
           <div class="field">
-            <label id="lblPalletType">Pallet Type</label>
+            <label id="lblPalletType">팔레트 종류</label>
             <div class="input-unit">
               <select id="palletType">
-                <option value="T11" selected id="optPalletT11">T11 / KR·JP Standard (1100×1100 mm)</option>
-                <option value="euro" id="optPalletEuro">Euro Pallet EPAL / Europe Standard (1200×800 mm)</option>
-                <option value="us" id="optPalletUS">US Standard GMA / North America (1219×1016 mm / 48×40 in)</option>
-                <option value="iso" id="optPalletISO">ISO Industrial / Global Standard (1200×1000 mm)</option>
-                <option value="aus" id="optPalletAus">Australian Standard Pallet (1165×1165 mm)</option>
-                <option value="custom" id="optPalletCustom">Custom Size</option>
+                <option value="T11" selected id="optPalletT11">아주팔레트 T11 / 한국·일본 표준 (1100×1100 mm)</option>
+                <option value="euro" id="optPalletEuro">유로 팔레트 EPAL / 유럽 표준 (1200×800 mm)</option>
+                <option value="us" id="optPalletUS">미국 표준 GMA / 북미 (1219×1016 mm / 48×40 in)</option>
+                <option value="iso" id="optPalletISO">ISO 산업용 / 글로벌 표준 (1200×1000 mm)</option>
+                <option value="aus" id="optPalletAus">호주 표준 Pallet (1165×1165 mm)</option>
+                <option value="custom" id="optPalletCustom">수동 규격 지정 (Custom)</option>
               </select>
             </div>
           </div>
           <div class="field">
-            <label id="lblPalletDims">Pallet Size (L × W × H)</label>
+            <label id="lblPalletDims">팔레트 크기 (L × W × H)</label>
             <div class="dims-inputs">
               <div class="dim-sub">
                 <span id="tagPalletL">L (mm)</span>
@@ -977,10 +977,10 @@
         </div>
 
         <!-- HEIGHT & WEIGHT LIMIT -->
-        <div class="form-group-title" id="txtGrpHeight">02 · HEIGHT &amp; LIMIT</div>
+        <div class="form-group-title" id="txtGrpHeight">02 · 적재 고정 및 무게 한도 HEIGHT &amp; LIMIT</div>
         <div class="form-row">
           <div class="field">
-            <label id="lblMaxHeight">Max Stacking Height</label>
+            <label id="lblMaxHeight">최대 적재 한계 높이</label>
             <div style="display: flex; flex-direction: column; gap: 4px;">
               <div class="input-unit">
                 <input type="number" id="maxHeight" value="1650" min="500" max="3000" step="10" oninput="syncHeightSlider()">
@@ -990,53 +990,53 @@
             </div>
           </div>
           <div class="field">
-            <label id="lblMaxLoadWeight">Max Load Weight</label>
+            <label id="lblMaxLoadWeight">최대 하중 무게</label>
             <div class="input-unit">
               <input type="number" id="maxLoadWeight" value="950" min="1" step="10">
               <span class="unit unit-weight">kg</span>
             </div>
           </div>
           <div class="field" style="grid-column: span 2;">
-            <label id="lblPalletInclusion">Pallet Included</label>
+            <label id="lblPalletInclusion">팔레트 포함여부</label>
             <div style="padding: 4px 0;">
               <label class="checkbox-row">
                 <input type="checkbox" id="includePalletH" checked>
-                <span id="lblIncludeCheck">Include pallet height in total limit</span>
+                <span id="lblIncludeCheck">적재한계높이에 팔레트 높이 포함</span>
               </label>
             </div>
           </div>
         </div>
 
         <!-- CARTON BOX SPEC -->
-        <div class="form-group-title" id="txtGrpCarton">03 · CARTON SPEC</div>
+        <div class="form-group-title" id="txtGrpCarton">03 · 카톤박스 사양 CARTON SPEC</div>
         <div class="form-row">
           <div class="field" style="grid-column: span 2;">
             <label class="checkbox-row">
               <input type="checkbox" id="orientFree">
-              <span id="lblOrientCheck">Auto Orientation (3-axis rotate)</span>
+              <span id="lblOrientCheck">방향 무관 (3축 회전 자동최적화)</span>
             </label>
           </div>
           
           <div class="field dims-field">
-            <label id="lblBoxDims">Box Dimensions (L × W × H)</label>
+            <label id="lblBoxDims">박스 규격 (장 × 폭 × 고)</label>
             <div class="dims-inputs">
               <div class="dim-sub">
-                <span id="tagBoxL">L (mm)</span>
+                <span id="tagBoxL">장 (mm)</span>
                 <input type="number" id="boxL" value="480">
               </div>
               <div class="dim-sub">
-                <span id="tagBoxW">W (mm)</span>
+                <span id="tagBoxW">폭 (mm)</span>
                 <input type="number" id="boxW" value="380">
               </div>
               <div class="dim-sub">
-                <span id="tagBoxH">H (mm)</span>
+                <span id="tagBoxH">고 (mm)</span>
                 <input type="number" id="boxH" value="320">
               </div>
             </div>
           </div>
 
           <div class="field">
-            <label id="lblBoxGap">Box Clearance Gap</label>
+            <label id="lblBoxGap">박스 유격 간격</label>
             <div class="input-unit">
               <input type="number" id="boxGap" value="5" min="0">
               <span class="unit unit-len">mm</span>
@@ -1044,24 +1044,24 @@
           </div>
 
           <div class="field">
-            <label id="lblPcsPerBox">Pcs per Box</label>
+            <label id="lblPcsPerBox">제품 입수량</label>
             <div class="input-unit">
               <input type="number" id="pcsPerBox" value="10" min="1">
               <span class="unit">EA/Box</span>
             </div>
           </div>
           <div class="field">
-            <label id="lblStackRule">Stacking Rule</label>
+            <label id="lblStackRule">적재 방식</label>
             <div class="input-unit">
               <select id="stackRule">
-                <option value="interlock" selected id="optRuleInter">Interlocking (Alternating A/B)</option>
-                <option value="column" id="optRuleCol">Column Stack (Same Layer)</option>
+                <option value="interlock" selected id="optRuleInter">교차 적재 (Alternating A/B)</option>
+                <option value="column" id="optRuleCol">직층 적재 (Column Stack)</option>
               </select>
             </div>
           </div>
 
           <div class="field" style="grid-column: span 2;">
-            <label id="lblBoxWeight">Weight per Box</label>
+            <label id="lblBoxWeight">박스당 무게</label>
             <div class="input-unit">
               <input type="number" id="boxWeight" value="" min="0.1" step="0.1" placeholder="If blank, max stack regardless of limit">
               <span class="unit unit-weight">kg</span>
@@ -1071,7 +1071,7 @@
 
         <div class="card-footer">
           <button class="btn-calc" onclick="triggerCalculation()">
-            <span id="btnCalculate">Calculate Optimal Layout</span>
+            <span id="btnCalculate">최적 적재 계산하기 (Calculate)</span>
           </button>
         </div>
       </div>
@@ -1084,7 +1084,7 @@
     <div id="stepLoading" class="step-container hidden">
       <div class="loader-card">
         <div class="spinner"></div>
-        <p id="txtLoadingMsg">Computing the best stacking configuration...</p>
+        <p id="txtLoadingMsg">최적의 적재 레이아웃을 연산 중입니다...</p>
         
         <!-- Loading interstitial Ad Placeholder -->
         <div class="adsense-placeholder" style="margin-top: 40px; min-height: 250px;">
@@ -1103,48 +1103,48 @@
         <!-- Results Sidebar KPIs -->
         <div class="dashboard-panel">
           <div class="dashboard-title">
-            <span id="txtDshTitle">Optimization Results</span>
+            <span id="txtDshTitle">적재 분석 결과</span>
             <span class="n">DASHBOARD</span>
           </div>
 
           <!-- KPI: Boxes per Layer -->
           <div class="kpi-card">
-            <div class="kpi-label" id="lblKpiPerLayer">Boxes / Layer</div>
+            <div class="kpi-label" id="lblKpiPerLayer">적재 방수 (1단당)</div>
             <div class="kpi-value" id="kpiPerLayer">— <span>Box / Layer</span></div>
-            <div class="kpi-sub" id="txtSubPerLayer">Optimal box count placed per single layer</div>
+            <div class="kpi-sub" id="txtSubPerLayer">1단에 배치된 최적 박스 개수</div>
           </div>
 
           <!-- KPI: Stacking Layers -->
           <div class="kpi-card">
-            <div class="kpi-label" id="lblKpiLayers">Stack Layers</div>
+            <div class="kpi-label" id="lblKpiLayers">적재 단수</div>
             <div class="kpi-value" id="kpiLayers">— <span>Layers</span></div>
             <div class="kpi-sub" id="kpiHeightUse">Layers within max height</div>
           </div>
 
           <!-- KPI: Total Boxes -->
           <div class="kpi-card main">
-            <div class="kpi-label" id="lblKpiTotal">Total Boxes Stacked</div>
+            <div class="kpi-label" id="lblKpiTotal">총 적재 박스 수량</div>
             <div class="kpi-value large" id="kpiTotal">— <span>Box</span></div>
-            <div class="kpi-sub" id="kpiTotalSub">Boxes per layer × Layers</div>
+            <div class="kpi-sub" id="kpiTotalSub">단당 박스수 × 단수</div>
           </div>
 
           <!-- KPI: Total Products -->
           <div class="kpi-card accent">
-            <div class="kpi-label" id="lblKpiTotalPcs">Total Products Loaded</div>
+            <div class="kpi-label" id="lblKpiTotalPcs">총 제품 적재 수량</div>
             <div class="kpi-value accent-val" id="kpiTotalPcs">— <span>EA</span></div>
             <div class="kpi-sub" id="kpiTotalPcsSub">Total boxes × pcs per box</div>
           </div>
 
           <!-- KPI: Occupancy % -->
           <div class="kpi-card">
-            <div class="kpi-label" id="lblKpiOcc">Pallet Area Occupancy</div>
+            <div class="kpi-label" id="lblKpiOcc">파레트 면적 점유율</div>
             <div class="kpi-value" id="kpiOcc">— <span>%</span></div>
             <div class="kpi-sub" id="kpiPattern">Best efficiency pattern</div>
           </div>
 
           <!-- KPI: Total Stacking Weight -->
           <div class="kpi-card">
-            <div class="kpi-label" id="lblKpiWeight">Total Load Weight (Excl. Pallet)</div>
+            <div class="kpi-label" id="lblKpiWeight">파레트 총 무게 (파레트 제외)</div>
             <div class="kpi-value" id="kpiWeight">— <span>kg</span></div>
             <div class="kpi-sub" id="kpiWeightSub">No weight limit</div>
           </div>
@@ -1161,14 +1161,14 @@
           <!-- 3D VIEW CARD -->
           <div class="viz-card">
             <div class="viz-head">
-              <h3 id="txtTitle3D">3D VIEW · 45° Isometric Top View</h3>
+              <h3 id="txtTitle3D">3D VIEW · 45° 입체 탑뷰</h3>
               <span class="pattern-badge" id="patternBadge">—</span>
             </div>
             <svg class="viz" id="isoSvg" viewBox="0 0 860 560"></svg>
             <div class="legend">
-              <div class="li"><span class="sw" style="background:var(--cyan)"></span><span id="txtLegHor">Horizontal Box</span></div>
-              <div class="li"><span class="sw" style="background:var(--amber)"></span><span id="txtLegVer">Vertical Box</span></div>
-              <div class="li"><span class="sw" style="background:#5A3F1C;border:1px solid #7A5A22"></span><span id="txtLegPal">Pallet</span></div>
+              <div class="li"><span class="sw" style="background:var(--cyan)"></span><span id="txtLegHor">가로 배치</span></div>
+              <div class="li"><span class="sw" style="background:var(--amber)"></span><span id="txtLegVer">세로 배치</span></div>
+              <div class="li"><span class="sw" style="background:#5A3F1C;border:1px solid #7A5A22"></span><span id="txtLegPal">파레트</span></div>
             </div>
             <div class="orient-strip" id="orientStrip"></div>
           </div>
@@ -1177,15 +1177,15 @@
           <div class="result-grid-bottom">
             <div class="viz-card">
               <div class="viz-head">
-                <h3 id="txtTitle2D">TOP VIEW · Flat Layer Layout</h3>
+                <h3 id="txtTitle2D">TOP VIEW · 레이어 배치도 (평면)</h3>
               </div>
               <div id="topSvgContainer" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
                 <div style="flex: 1; min-width: 200px; text-align: center;">
-                  <div style="font-size: 11.5px; font-weight: 600; color: var(--ink-dim); margin-bottom: 6px;" id="labelLayerA">Layer A Layout</div>
+                  <div style="font-size: 11.5px; font-weight: 600; color: var(--ink-dim); margin-bottom: 6px;" id="labelLayerA">A층 배치도</div>
                   <svg class="viz" id="topSvg" viewBox="0 0 480 480" style="max-width: 320px; margin: 0 auto;"></svg>
                 </div>
                 <div id="layerBBlock" style="flex: 1; min-width: 200px; text-align: center;">
-                  <div style="font-size: 11.5px; font-weight: 600; color: var(--ink-dim); margin-bottom: 6px;" id="lblLayerB">Layer B Layout</div>
+                  <div style="font-size: 11.5px; font-weight: 600; color: var(--ink-dim); margin-bottom: 6px;" id="lblLayerB">B층 배치도</div>
                   <svg class="viz" id="topSvgB" viewBox="0 0 480 480" style="max-width: 320px; margin: 0 auto;"></svg>
                 </div>
               </div>
@@ -1193,7 +1193,7 @@
 
             <div class="viz-card">
               <div class="viz-head">
-                <h3 id="txtTitleSide">Section Summary (Side)</h3>
+                <h3 id="txtTitleSide">단면 요약 (옆면)</h3>
               </div>
               <svg class="viz" id="sideSvg" viewBox="0 0 240 480" style="max-height: 380px;"></svg>
             </div>
@@ -1202,9 +1202,9 @@
           <!-- BOTTOM ACTIONS -->
           <div class="btn-reset-container" style="display: flex; gap: 12px; justify-content: center; margin-top: 24px; flex-wrap: wrap;">
             <button class="btn-reset" onclick="resetCalculator()">
-              <span id="btnBackToInput">← Back &amp; Edit inputs</span>
+              <span id="btnBackToInput">← 다른 값 입력하여 재계산하기</span>
             </button>
-            <button class="btn-calc" onclick="savePdf()" style="max-width: 280px; background: linear-gradient(135deg, #10B981, #059669); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);" id="btnSavePdf">💾 Save PDF Report</button>
+            <button class="btn-calc" onclick="savePdf()" style="max-width: 280px; background: linear-gradient(135deg, #10B981, #059669); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);" id="btnSavePdf">💾 PDF 레포트 저장하기</button>
           </div>
 
         </div>
@@ -1216,14 +1216,14 @@
          get it without executing JS; switchLang() re-renders for en/zh)
          ============================================== -->
     <section class="seo-content" id="seoContent">
-      <h2 id="seoIntroH">What is the Pallet Loading Optimizer?</h2>
-      <p id="seoIntroP">The Pallet Loading Optimizer is a free web tool that works out how many carton boxes fit on a single layer, how many layers you can stack, and how much of the pallet footprint gets covered — all from your box and pallet dimensions. It evaluates grid, pinwheel and mixed-block patterns to find the arrangement that loads the most boxes, then draws the result as a 3D isometric view and flat layer diagrams. No install or sign-up needed, and the result can be saved as a PDF report.</p>
+      <h2 id="seoIntroH">팔레트 적재 최적화기란?</h2>
+      <p id="seoIntroP">팔레트 적재 최적화기는 카톤박스 규격과 팔레트 사이즈를 입력하면 1단에 몇 개가 들어가는지, 몇 단까지 쌓을 수 있는지, 팔레트 바닥면적을 얼마나 채우는지 자동으로 계산해 주는 무료 웹 도구입니다. 단일 격자·핀휠(바람개비)·혼합블록 패턴을 모두 검토해 가장 많이 실리는 배치를 찾아내고, 결과를 3D 입체도와 평면 배치도로 보여줍니다. 설치나 회원가입 없이 브라우저에서 바로 쓸 수 있고, 계산 결과는 PDF 리포트로 저장할 수 있습니다.</p>
 
-      <h2 id="seoStdH">Standard Pallet Size Comparison</h2>
-      <table class="seo-table" id="seoStdTable"><thead><tr><th>Pallet Type</th><th>Size (mm)</th><th>Main Region</th></tr></thead><tbody><tr><td>T11 (Asia Pallet)</td><td>1,100 × 1,100</td><td>Korea · Japan</td></tr><tr><td>Euro Pallet EPAL</td><td>1,200 × 800</td><td>Europe</td></tr><tr><td>US GMA Standard</td><td>1,219 × 1,016</td><td>North America (48 × 40 in)</td></tr><tr><td>ISO Industrial</td><td>1,200 × 1,000</td><td>Global standard</td></tr><tr><td>Australian Standard</td><td>1,165 × 1,165</td><td>Australia</td></tr></tbody></table>
+      <h2 id="seoStdH">표준 팔레트 규격 비교</h2>
+      <table class="seo-table" id="seoStdTable"><thead><tr><th>팔레트 종류</th><th>규격 (mm)</th><th>주요 사용 지역</th></tr></thead><tbody><tr><td>아주팔레트 T11</td><td>1,100 × 1,100</td><td>한국 · 일본</td></tr><tr><td>유로 팔레트 EPAL</td><td>1,200 × 800</td><td>유럽</td></tr><tr><td>미국 표준 GMA</td><td>1,219 × 1,016</td><td>북미 (48 × 40 in)</td></tr><tr><td>ISO 산업용</td><td>1,200 × 1,000</td><td>글로벌 표준</td></tr><tr><td>호주 표준</td><td>1,165 × 1,165</td><td>호주</td></tr></tbody></table>
 
-      <h2 id="seoFaqH">Frequently Asked Questions (FAQ)</h2>
-      <div class="seo-faq" id="seoFaqList"><details open><summary>How is pallet area occupancy calculated?</summary><p>It is the combined footprint of the boxes actually placed on one layer, divided by the pallet footprint. Four 480×380mm boxes on a 1,100×1,100mm pallet give (4 × 480 × 380) ÷ (1,100 × 1,100) = 60.3%. Clearance gaps between boxes are not area the boxes occupy, so they are excluded.</p></details><details><summary>What is the difference between a T11 and a Euro pallet?</summary><p>The T11 is a 1,100×1,100mm square pallet, the Korean and Japanese standard, while the Euro pallet (EPAL) is a 1,200×800mm rectangle, the European standard. Being square, the T11 lets you rotate boxes 90° freely, which favours interlocking and pinwheel patterns. The Euro pallet is sized to European truck and container widths for transport efficiency.</p></details><details><summary>How does interlocked stacking differ from column stacking?</summary><p>Column stacking places every layer in the same orientation, so box corners line up vertically for the highest compression strength — but the layers are not tied together and topple more easily. Interlocking alternates the arrangement between odd and even layers so they key into each other, reducing collapse in transit, though misaligned corners lower compression strength somewhat.</p></details><details><summary>Why should I set a box clearance gap?</summary><p>Real cartons often come out a few millimetres larger than their nominal size because of board thickness, joint tolerance and content bulge. Allowing a 3–5mm gap prevents the case where boxes fit on paper but not on the floor. The gap is applied when checking whether a layout fits, but is not counted in the area occupancy.</p></details><details><summary>When is the pinwheel pattern useful?</summary><p>It applies when the box length plus width is less than or equal to one side of the pallet. A 620×440mm box on a 1,100×1,100mm pallet gives 620+440=1,060 ≤ 1,100, so four boxes can be rotated into a pinwheel. It leaves a hole in the centre but often loads more boxes than a plain grid.</p></details><details><summary>How do I decide the maximum stacking height?</summary><p>Take the lowest of your container interior height, warehouse rack clearance and forklift specification. A 40ft standard container is about 2,390mm inside. Always check whether the pallet’s own height (typically 150mm) counts toward that limit — the “Include pallet height in total limit” option controls this.</p></details></div>
+      <h2 id="seoFaqH">자주 묻는 질문 (FAQ)</h2>
+      <div class="seo-faq" id="seoFaqList"><details open><summary>팔레트 면적 점유율은 어떻게 계산하나요?</summary><p>한 단에 실제로 놓인 박스들의 바닥면적 합을 팔레트 바닥면적으로 나눠 계산합니다. 예를 들어 1,100×1,100mm 팔레트에 480×380mm 박스를 4개 놓으면 (4 × 480 × 380) ÷ (1,100 × 1,100) = 60.3%가 됩니다. 박스 사이의 유격은 실제 박스가 차지하는 면적이 아니므로 점유율에서 제외됩니다.</p></details><details><summary>T11 팔레트와 유로 팔레트의 차이는 무엇인가요?</summary><p>T11은 1,100×1,100mm 정사각형으로 한국·일본 표준이고, 유로 팔레트(EPAL)는 1,200×800mm 직사각형으로 유럽 표준입니다. 정사각형인 T11은 박스를 90도 돌려 배치하기 쉬워 교차 적재와 핀휠 패턴에 유리합니다. 유로 팔레트는 유럽 트럭·컨테이너 내폭에 맞춰 설계되어 운송 효율이 높습니다.</p></details><details><summary>교차 적재와 직층 적재는 어떻게 다른가요?</summary><p>직층 적재(Column Stack)는 모든 단을 같은 방향으로 쌓는 방식으로, 박스 모서리가 수직으로 일치해 압축 강도가 가장 높지만 층간 결속력이 약해 무너지기 쉽습니다. 교차 적재(Interlock)는 홀수 단과 짝수 단의 배치를 서로 엇갈리게 해 층끼리 맞물리므로 운송 중 붕괴 위험이 줄지만, 모서리가 어긋나면서 압축 강도는 다소 떨어집니다.</p></details><details><summary>박스 유격(간격)은 왜 설정해야 하나요?</summary><p>실제 카톤박스는 골판지 두께, 접합 공차, 내용물 팽창 때문에 표기 치수보다 몇 mm 크게 나오는 경우가 많습니다. 유격을 3~5mm 정도 주면 계산상으로는 들어가는데 현장에서는 안 들어가는 상황을 막을 수 있습니다. 유격은 배치 가능 여부 계산에는 반영되지만, 면적 점유율에는 포함되지 않습니다.</p></details><details><summary>핀휠(바람개비) 패턴은 언제 유리한가요?</summary><p>박스의 가로와 세로를 더한 값이 팔레트 한 변보다 작거나 같을 때 쓸 수 있습니다. 예를 들어 1,100×1,100mm 팔레트에 620×440mm 박스라면 620+440=1,060 ≤ 1,100이므로 박스 4개를 바람개비 모양으로 돌려 배치할 수 있습니다. 중앙에 빈 공간이 생기지만 단순 격자보다 더 많은 박스가 실리는 경우가 많습니다.</p></details><details><summary>최대 적재 높이는 어떻게 정하나요?</summary><p>컨테이너 내부 높이, 창고 랙의 단높이, 지게차 사양 중 가장 낮은 값을 기준으로 정합니다. 40ft 표준 컨테이너의 내부 높이는 약 2,390mm입니다. 이때 팔레트 자체 높이(보통 150mm)를 한계 높이에 포함할지 반드시 확인해야 하며, 본 계산기의 ‘적재한계높이에 팔레트 높이 포함’ 옵션으로 조절할 수 있습니다.</p></details></div>
     </section>
 
     <!-- BOTTOM LEADERBOARD AD -->
@@ -1236,7 +1236,7 @@
   <!-- FOOTER -->
   <footer class="bottom-info">
     <p>© 2026 Pallet Loading Optimizer. All rights reserved.</p>
-    <p style="margin-top: 6px; opacity: 0.7;" id="txtFooterDesc">This simulator optimizes packaging layouts and pallet load distribution with precise gap clearance calculations.</p>
+    <p style="margin-top: 6px; opacity: 0.7;" id="txtFooterDesc">본 서비스는 인박스 조립 공차 및 팔레트 적재 효율을 시각적으로 극대화하는 무료 레이아웃 최적화 연산기입니다.</p>
   </footer>
 
   <!-- ========================================================
@@ -1250,14 +1250,14 @@
   "@graph": [
     {
       "@type": "WebApplication",
-      "@id": "https://pallet-loading-layout-optimizer.pages.dev/#app",
-      "name": "Pallet Loading Optimizer",
-      "url": "https://pallet-loading-layout-optimizer.pages.dev/",
-      "description": "Enter carton box dimensions and pallet size to compute the optimal load stacking pattern in 3D simulation. Supports interlocking, clearance spacing, and layers.",
+      "@id": "https://pallet-loading-layout-optimizer.pages.dev/ko/#app",
+      "name": "팔레트 적재 레이아웃 최적화기",
+      "url": "https://pallet-loading-layout-optimizer.pages.dev/ko/",
+      "description": "카톤박스 규격과 팔레트 사이즈를 입력하여 최적의 적재 효율을 3D 시뮬레이션으로 계산합니다. 교차 적재, 박스 간격 설정 및 적재 단수 계산 지원.",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "All",
       "browserRequirements": "Requires JavaScript",
-      "inLanguage": "en",
+      "inLanguage": "ko",
       "isAccessibleForFree": true,
       "offers": {
         "@type": "Offer",
@@ -1265,65 +1265,65 @@
         "priceCurrency": "USD"
       },
       "featureList": [
-        "Carton inner and outer size from product dimensions",
-        "Automatic arrangement search for maximum pallet load",
-        "Carton weight limit constraint",
-        "RSC (A1) dieline drawing with cut and crease lines",
-        "3D carton content and pallet stacking views",
-        "Grid, pinwheel and mixed-block pallet patterns",
-        "PDF report and dieline PDF export"
+        "제품 규격으로 카톤 내경·외경 산출",
+        "팔레트 적재 최대화를 위한 배열 자동 탐색",
+        "카톤 최대 중량 제한 반영",
+        "RSC(A1형) 칼선 전개도 (자르는 선·접는 선)",
+        "카톤 내부 적입도 및 3D 팔레트 적재 시뮬레이션",
+        "단일그리드·핀휠·혼합블록 적재 패턴",
+        "PDF 보고서 및 칼선 PDF 저장"
       ]
     },
     {
       "@type": "FAQPage",
-      "@id": "https://pallet-loading-layout-optimizer.pages.dev/#faq",
+      "@id": "https://pallet-loading-layout-optimizer.pages.dev/ko/#faq",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "How is pallet area occupancy calculated?",
+          "name": "팔레트 면적 점유율은 어떻게 계산하나요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "It is the combined footprint of the boxes actually placed on one layer, divided by the pallet footprint. Four 480×380mm boxes on a 1,100×1,100mm pallet give (4 × 480 × 380) ÷ (1,100 × 1,100) = 60.3%. Clearance gaps between boxes are not area the boxes occupy, so they are excluded."
+            "text": "한 단에 실제로 놓인 박스들의 바닥면적 합을 팔레트 바닥면적으로 나눠 계산합니다. 예를 들어 1,100×1,100mm 팔레트에 480×380mm 박스를 4개 놓으면 (4 × 480 × 380) ÷ (1,100 × 1,100) = 60.3%가 됩니다. 박스 사이의 유격은 실제 박스가 차지하는 면적이 아니므로 점유율에서 제외됩니다."
           }
         },
         {
           "@type": "Question",
-          "name": "What is the difference between a T11 and a Euro pallet?",
+          "name": "T11 팔레트와 유로 팔레트의 차이는 무엇인가요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The T11 is a 1,100×1,100mm square pallet, the Korean and Japanese standard, while the Euro pallet (EPAL) is a 1,200×800mm rectangle, the European standard. Being square, the T11 lets you rotate boxes 90° freely, which favours interlocking and pinwheel patterns. The Euro pallet is sized to European truck and container widths for transport efficiency."
+            "text": "T11은 1,100×1,100mm 정사각형으로 한국·일본 표준이고, 유로 팔레트(EPAL)는 1,200×800mm 직사각형으로 유럽 표준입니다. 정사각형인 T11은 박스를 90도 돌려 배치하기 쉬워 교차 적재와 핀휠 패턴에 유리합니다. 유로 팔레트는 유럽 트럭·컨테이너 내폭에 맞춰 설계되어 운송 효율이 높습니다."
           }
         },
         {
           "@type": "Question",
-          "name": "How does interlocked stacking differ from column stacking?",
+          "name": "교차 적재와 직층 적재는 어떻게 다른가요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Column stacking places every layer in the same orientation, so box corners line up vertically for the highest compression strength — but the layers are not tied together and topple more easily. Interlocking alternates the arrangement between odd and even layers so they key into each other, reducing collapse in transit, though misaligned corners lower compression strength somewhat."
+            "text": "직층 적재(Column Stack)는 모든 단을 같은 방향으로 쌓는 방식으로, 박스 모서리가 수직으로 일치해 압축 강도가 가장 높지만 층간 결속력이 약해 무너지기 쉽습니다. 교차 적재(Interlock)는 홀수 단과 짝수 단의 배치를 서로 엇갈리게 해 층끼리 맞물리므로 운송 중 붕괴 위험이 줄지만, 모서리가 어긋나면서 압축 강도는 다소 떨어집니다."
           }
         },
         {
           "@type": "Question",
-          "name": "Why should I set a box clearance gap?",
+          "name": "박스 유격(간격)은 왜 설정해야 하나요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Real cartons often come out a few millimetres larger than their nominal size because of board thickness, joint tolerance and content bulge. Allowing a 3–5mm gap prevents the case where boxes fit on paper but not on the floor. The gap is applied when checking whether a layout fits, but is not counted in the area occupancy."
+            "text": "실제 카톤박스는 골판지 두께, 접합 공차, 내용물 팽창 때문에 표기 치수보다 몇 mm 크게 나오는 경우가 많습니다. 유격을 3~5mm 정도 주면 계산상으로는 들어가는데 현장에서는 안 들어가는 상황을 막을 수 있습니다. 유격은 배치 가능 여부 계산에는 반영되지만, 면적 점유율에는 포함되지 않습니다."
           }
         },
         {
           "@type": "Question",
-          "name": "When is the pinwheel pattern useful?",
+          "name": "핀휠(바람개비) 패턴은 언제 유리한가요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "It applies when the box length plus width is less than or equal to one side of the pallet. A 620×440mm box on a 1,100×1,100mm pallet gives 620+440=1,060 ≤ 1,100, so four boxes can be rotated into a pinwheel. It leaves a hole in the centre but often loads more boxes than a plain grid."
+            "text": "박스의 가로와 세로를 더한 값이 팔레트 한 변보다 작거나 같을 때 쓸 수 있습니다. 예를 들어 1,100×1,100mm 팔레트에 620×440mm 박스라면 620+440=1,060 ≤ 1,100이므로 박스 4개를 바람개비 모양으로 돌려 배치할 수 있습니다. 중앙에 빈 공간이 생기지만 단순 격자보다 더 많은 박스가 실리는 경우가 많습니다."
           }
         },
         {
           "@type": "Question",
-          "name": "How do I decide the maximum stacking height?",
+          "name": "최대 적재 높이는 어떻게 정하나요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Take the lowest of your container interior height, warehouse rack clearance and forklift specification. A 40ft standard container is about 2,390mm inside. Always check whether the pallet’s own height (typically 150mm) counts toward that limit — the “Include pallet height in total limit” option controls this."
+            "text": "컨테이너 내부 높이, 창고 랙의 단높이, 지게차 사양 중 가장 낮은 값을 기준으로 정합니다. 40ft 표준 컨테이너의 내부 높이는 약 2,390mm입니다. 이때 팔레트 자체 높이(보통 150mm)를 한계 높이에 포함할지 반드시 확인해야 하며, 본 계산기의 ‘적재한계높이에 팔레트 높이 포함’ 옵션으로 조절할 수 있습니다."
           }
         }
       ]
@@ -1360,5 +1360,6 @@
           이렇게 하면 일반 사용자가 F12 개발자도구로 소스를 보아도 
           알고리즘 구조를 100% 해독하기가 불가능해집니다.
        ======================================================== -->
+  <script>try{switchLang("ko");}catch(e){}</script>
 </body>
 </html>

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- SEO -->
-  <title id="seoTitle">Pallet Loading Optimizer &amp; Carton Stacking 3D Simulator</title>
+  <title id="seoTitle">托盘装载优化器与纸箱堆叠3D仿真模拟器</title>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2965119835410946"
      crossorigin="anonymous"></script>
-  <meta name="description" id="seoDesc" content="Enter carton box dimensions and pallet size to compute the optimal load stacking pattern in 3D simulation. Supports interlocking, clearance spacing, and layers.">
+  <meta name="description" id="seoDesc" content="输入纸箱尺寸 and 托盘尺寸，以在3D仿真中计算出最佳装载堆叠方案。支持交叉堆叠、间隙间距设定 and 层数计算。">
   <!-- meta keywords intentionally omitted: Google has ignored it for ranking
        since 2009, so it only leaks keyword strategy to competitors. -->
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <link rel="canonical" href="https://pallet-loading-layout-optimizer.pages.dev/">
+  <link rel="canonical" href="https://pallet-loading-layout-optimizer.pages.dev/zh/">
   <link rel="alternate" hreflang="en" href="https://pallet-loading-layout-optimizer.pages.dev/">
   <link rel="alternate" hreflang="ko" href="https://pallet-loading-layout-optimizer.pages.dev/ko/">
   <link rel="alternate" hreflang="zh" href="https://pallet-loading-layout-optimizer.pages.dev/zh/">
@@ -29,10 +29,10 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Pallet Loading Optimizer">
-  <meta property="og:url" content="https://pallet-loading-layout-optimizer.pages.dev/">
-  <meta property="og:title" id="ogTitle" content="Pallet Loading Optimizer & Carton Stacking 3D Simulator">
-  <meta property="og:description" id="ogDesc" content="Enter carton box dimensions and pallet size to compute the optimal load stacking pattern in 3D simulation. Supports interlocking, clearance spacing, and layers.">
-  <meta property="og:locale" id="ogLocale" content="en_US">
+  <meta property="og:url" content="https://pallet-loading-layout-optimizer.pages.dev/zh/">
+  <meta property="og:title" id="ogTitle" content="托盘装载优化器与纸箱堆叠3D仿真模拟器">
+  <meta property="og:description" id="ogDesc" content="输入纸箱尺寸 and 托盘尺寸，以在3D仿真中计算出最佳装载堆叠方案。支持交叉堆叠、间隙间距设定 and 层数计算。">
+  <meta property="og:locale" id="ogLocale" content="zh_CN">
   <meta property="og:image" content="https://pallet-loading-layout-optimizer.pages.dev/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -40,8 +40,8 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" id="twTitle" content="Pallet Loading Optimizer & Carton Stacking 3D Simulator">
-  <meta name="twitter:description" id="twDesc" content="Enter carton box dimensions and pallet size to compute the optimal load stacking pattern in 3D simulation. Supports interlocking, clearance spacing, and layers.">
+  <meta name="twitter:title" id="twTitle" content="托盘装载优化器与纸箱堆叠3D仿真模拟器">
+  <meta name="twitter:description" id="twDesc" content="输入纸箱尺寸 and 托盘尺寸，以在3D仿真中计算出最佳装载堆叠方案。支持交叉堆叠、间隙间距设定 and 层数计算。">
   <meta name="twitter:image" content="https://pallet-loading-layout-optimizer.pages.dev/og-image.png">
 
   <!-- Google Fonts -->
@@ -881,7 +881,7 @@
     <div class="brand">
       <div class="brand-logo">P</div>
       <div class="brand-text">
-        <h1 id="txtHeaderBrand">Pallet Loading Layout Optimizer</h1>
+        <h1 id="txtHeaderBrand">托盘装载排版优化器</h1>
         <span id="txtHeaderSub">Pallet Loading Optimizer </span>
       </div>
     </div>
@@ -889,8 +889,8 @@
          crawlers must be able to follow them -->
     <div class="lang-selector">
       <a class="lang-btn" href="/ko/" id="btnLangKo" hreflang="ko">🇰🇷 ko</a>
-      <a class="lang-btn active" href="/" id="btnLangEn" hreflang="en">🇺🇸 en</a>
-      <a class="lang-btn" href="/zh/" id="btnLangZh" hreflang="zh">🇨🇳 zh</a>
+      <a class="lang-btn" href="/" id="btnLangEn" hreflang="en">🇺🇸 en</a>
+      <a class="lang-btn active" href="/zh/" id="btnLangZh" hreflang="zh">🇨🇳 zh</a>
     </div>
   </header>
 
@@ -913,15 +913,15 @@
     <div id="stepInput" class="step-container">
       <div class="input-card">
         <div class="card-header">
-          <h2 id="txtFormTitle">Input Stacking Specs</h2>
-          <p id="txtFormSub">Enter box and pallet dimensions to calculate optimal efficiency.</p>
+          <h2 id="txtFormTitle">输入堆叠规格</h2>
+          <p id="txtFormSub">输入箱子和托盘尺寸以计算最佳效率。</p>
         </div>
         
         <!-- UNIT SETTINGS -->
-        <div class="form-group-title" id="txtGrpUnits">00 · UNIT SETTINGS</div>
+        <div class="form-group-title" id="txtGrpUnits">00 · 基本单位设置 UNIT SETTINGS</div>
         <div class="form-row">
           <div class="field">
-            <label id="lblLenUnit">Length Unit</label>
+            <label id="lblLenUnit">长度单位 (Length Unit)</label>
             <div class="input-unit">
               <select id="lenUnit" onchange="changeUnits()">
                 <option value="mm" selected>mm (Millimeters)</option>
@@ -931,7 +931,7 @@
             </div>
           </div>
           <div class="field">
-            <label id="lblWeightUnit">Weight Unit</label>
+            <label id="lblWeightUnit">重量单位 (Weight Unit)</label>
             <div class="input-unit">
               <select id="weightUnit" onchange="changeUnits()">
                 <option value="kg" selected>kg (Kilograms)</option>
@@ -942,23 +942,23 @@
         </div>
 
         <!-- PALLET SPEC -->
-        <div class="form-group-title" id="txtGrpPallet">01 · PALLET INFO</div>
+        <div class="form-group-title" id="txtGrpPallet">01 · 托盘信息 PALLET INFO</div>
         <div class="form-row">
           <div class="field">
-            <label id="lblPalletType">Pallet Type</label>
+            <label id="lblPalletType">托盘类型</label>
             <div class="input-unit">
               <select id="palletType">
-                <option value="T11" selected id="optPalletT11">T11 / KR·JP Standard (1100×1100 mm)</option>
-                <option value="euro" id="optPalletEuro">Euro Pallet EPAL / Europe Standard (1200×800 mm)</option>
-                <option value="us" id="optPalletUS">US Standard GMA / North America (1219×1016 mm / 48×40 in)</option>
-                <option value="iso" id="optPalletISO">ISO Industrial / Global Standard (1200×1000 mm)</option>
-                <option value="aus" id="optPalletAus">Australian Standard Pallet (1165×1165 mm)</option>
-                <option value="custom" id="optPalletCustom">Custom Size</option>
+                <option value="T11" selected id="optPalletT11">T11 / 韩日标准 (1100×1100 mm)</option>
+                <option value="euro" id="optPalletEuro">欧洲标准 EPAL / 欧标托盘 (1200×800 mm)</option>
+                <option value="us" id="optPalletUS">美国标准 GMA / 北美托盘 (1219×1016 mm / 48×40 in)</option>
+                <option value="iso" id="optPalletISO">ISO 工业级 / 全球标准 (1200×1000 mm)</option>
+                <option value="aus" id="optPalletAus">澳大利亚标准托盘 (1165×1165 mm)</option>
+                <option value="custom" id="optPalletCustom">手动设定尺寸 (Custom)</option>
               </select>
             </div>
           </div>
           <div class="field">
-            <label id="lblPalletDims">Pallet Size (L × W × H)</label>
+            <label id="lblPalletDims">托盘尺寸 (L × W × H)</label>
             <div class="dims-inputs">
               <div class="dim-sub">
                 <span id="tagPalletL">L (mm)</span>
@@ -977,10 +977,10 @@
         </div>
 
         <!-- HEIGHT & WEIGHT LIMIT -->
-        <div class="form-group-title" id="txtGrpHeight">02 · HEIGHT &amp; LIMIT</div>
+        <div class="form-group-title" id="txtGrpHeight">02 · 高度与重量限制 HEIGHT &amp; LIMIT</div>
         <div class="form-row">
           <div class="field">
-            <label id="lblMaxHeight">Max Stacking Height</label>
+            <label id="lblMaxHeight">最大装载高度限制</label>
             <div style="display: flex; flex-direction: column; gap: 4px;">
               <div class="input-unit">
                 <input type="number" id="maxHeight" value="1650" min="500" max="3000" step="10" oninput="syncHeightSlider()">
@@ -990,53 +990,53 @@
             </div>
           </div>
           <div class="field">
-            <label id="lblMaxLoadWeight">Max Load Weight</label>
+            <label id="lblMaxLoadWeight">最大承重重量</label>
             <div class="input-unit">
               <input type="number" id="maxLoadWeight" value="950" min="1" step="10">
               <span class="unit unit-weight">kg</span>
             </div>
           </div>
           <div class="field" style="grid-column: span 2;">
-            <label id="lblPalletInclusion">Pallet Included</label>
+            <label id="lblPalletInclusion">包含托盘高度</label>
             <div style="padding: 4px 0;">
               <label class="checkbox-row">
                 <input type="checkbox" id="includePalletH" checked>
-                <span id="lblIncludeCheck">Include pallet height in total limit</span>
+                <span id="lblIncludeCheck">在高度限制中包含托盘自身高度</span>
               </label>
             </div>
           </div>
         </div>
 
         <!-- CARTON BOX SPEC -->
-        <div class="form-group-title" id="txtGrpCarton">03 · CARTON SPEC</div>
+        <div class="form-group-title" id="txtGrpCarton">03 · 纸箱规格 CARTON SPEC</div>
         <div class="form-row">
           <div class="field" style="grid-column: span 2;">
             <label class="checkbox-row">
               <input type="checkbox" id="orientFree">
-              <span id="lblOrientCheck">Auto Orientation (3-axis rotate)</span>
+              <span id="lblOrientCheck">自动旋转优化（3轴自由翻转）</span>
             </label>
           </div>
           
           <div class="field dims-field">
-            <label id="lblBoxDims">Box Dimensions (L × W × H)</label>
+            <label id="lblBoxDims">纸箱规格 (长 × 宽 × 高)</label>
             <div class="dims-inputs">
               <div class="dim-sub">
-                <span id="tagBoxL">L (mm)</span>
+                <span id="tagBoxL">长 (mm)</span>
                 <input type="number" id="boxL" value="480">
               </div>
               <div class="dim-sub">
-                <span id="tagBoxW">W (mm)</span>
+                <span id="tagBoxW">宽 (mm)</span>
                 <input type="number" id="boxW" value="380">
               </div>
               <div class="dim-sub">
-                <span id="tagBoxH">H (mm)</span>
+                <span id="tagBoxH">高 (mm)</span>
                 <input type="number" id="boxH" value="320">
               </div>
             </div>
           </div>
 
           <div class="field">
-            <label id="lblBoxGap">Box Clearance Gap</label>
+            <label id="lblBoxGap">箱体间隙距离</label>
             <div class="input-unit">
               <input type="number" id="boxGap" value="5" min="0">
               <span class="unit unit-len">mm</span>
@@ -1044,24 +1044,24 @@
           </div>
 
           <div class="field">
-            <label id="lblPcsPerBox">Pcs per Box</label>
+            <label id="lblPcsPerBox">每箱产品数</label>
             <div class="input-unit">
               <input type="number" id="pcsPerBox" value="10" min="1">
               <span class="unit">EA/Box</span>
             </div>
           </div>
           <div class="field">
-            <label id="lblStackRule">Stacking Rule</label>
+            <label id="lblStackRule">堆叠规则</label>
             <div class="input-unit">
               <select id="stackRule">
-                <option value="interlock" selected id="optRuleInter">Interlocking (Alternating A/B)</option>
-                <option value="column" id="optRuleCol">Column Stack (Same Layer)</option>
+                <option value="interlock" selected id="optRuleInter">交叉堆叠 (Alternating A/B)</option>
+                <option value="column" id="optRuleCol">直柱堆叠 (Column Stack)</option>
               </select>
             </div>
           </div>
 
           <div class="field" style="grid-column: span 2;">
-            <label id="lblBoxWeight">Weight per Box</label>
+            <label id="lblBoxWeight">单箱重量</label>
             <div class="input-unit">
               <input type="number" id="boxWeight" value="" min="0.1" step="0.1" placeholder="If blank, max stack regardless of limit">
               <span class="unit unit-weight">kg</span>
@@ -1071,7 +1071,7 @@
 
         <div class="card-footer">
           <button class="btn-calc" onclick="triggerCalculation()">
-            <span id="btnCalculate">Calculate Optimal Layout</span>
+            <span id="btnCalculate">开始计算装载方案</span>
           </button>
         </div>
       </div>
@@ -1084,7 +1084,7 @@
     <div id="stepLoading" class="step-container hidden">
       <div class="loader-card">
         <div class="spinner"></div>
-        <p id="txtLoadingMsg">Computing the best stacking configuration...</p>
+        <p id="txtLoadingMsg">正在计算最完美的装载堆放方案...</p>
         
         <!-- Loading interstitial Ad Placeholder -->
         <div class="adsense-placeholder" style="margin-top: 40px; min-height: 250px;">
@@ -1103,48 +1103,48 @@
         <!-- Results Sidebar KPIs -->
         <div class="dashboard-panel">
           <div class="dashboard-title">
-            <span id="txtDshTitle">Optimization Results</span>
+            <span id="txtDshTitle">装载分析结果</span>
             <span class="n">DASHBOARD</span>
           </div>
 
           <!-- KPI: Boxes per Layer -->
           <div class="kpi-card">
-            <div class="kpi-label" id="lblKpiPerLayer">Boxes / Layer</div>
+            <div class="kpi-label" id="lblKpiPerLayer">单层装载量</div>
             <div class="kpi-value" id="kpiPerLayer">— <span>Box / Layer</span></div>
-            <div class="kpi-sub" id="txtSubPerLayer">Optimal box count placed per single layer</div>
+            <div class="kpi-sub" id="txtSubPerLayer">单层摆放的常规最佳箱数</div>
           </div>
 
           <!-- KPI: Stacking Layers -->
           <div class="kpi-card">
-            <div class="kpi-label" id="lblKpiLayers">Stack Layers</div>
+            <div class="kpi-label" id="lblKpiLayers">堆叠层数</div>
             <div class="kpi-value" id="kpiLayers">— <span>Layers</span></div>
             <div class="kpi-sub" id="kpiHeightUse">Layers within max height</div>
           </div>
 
           <!-- KPI: Total Boxes -->
           <div class="kpi-card main">
-            <div class="kpi-label" id="lblKpiTotal">Total Boxes Stacked</div>
+            <div class="kpi-label" id="lblKpiTotal">总装载箱数</div>
             <div class="kpi-value large" id="kpiTotal">— <span>Box</span></div>
-            <div class="kpi-sub" id="kpiTotalSub">Boxes per layer × Layers</div>
+            <div class="kpi-sub" id="kpiTotalSub">单层箱数 × 层数</div>
           </div>
 
           <!-- KPI: Total Products -->
           <div class="kpi-card accent">
-            <div class="kpi-label" id="lblKpiTotalPcs">Total Products Loaded</div>
+            <div class="kpi-label" id="lblKpiTotalPcs">总产品数量</div>
             <div class="kpi-value accent-val" id="kpiTotalPcs">— <span>EA</span></div>
             <div class="kpi-sub" id="kpiTotalPcsSub">Total boxes × pcs per box</div>
           </div>
 
           <!-- KPI: Occupancy % -->
           <div class="kpi-card">
-            <div class="kpi-label" id="lblKpiOcc">Pallet Area Occupancy</div>
+            <div class="kpi-label" id="lblKpiOcc">托盘面积占用率</div>
             <div class="kpi-value" id="kpiOcc">— <span>%</span></div>
             <div class="kpi-sub" id="kpiPattern">Best efficiency pattern</div>
           </div>
 
           <!-- KPI: Total Stacking Weight -->
           <div class="kpi-card">
-            <div class="kpi-label" id="lblKpiWeight">Total Load Weight (Excl. Pallet)</div>
+            <div class="kpi-label" id="lblKpiWeight">托盘货物总重 (不含托盘)</div>
             <div class="kpi-value" id="kpiWeight">— <span>kg</span></div>
             <div class="kpi-sub" id="kpiWeightSub">No weight limit</div>
           </div>
@@ -1161,14 +1161,14 @@
           <!-- 3D VIEW CARD -->
           <div class="viz-card">
             <div class="viz-head">
-              <h3 id="txtTitle3D">3D VIEW · 45° Isometric Top View</h3>
+              <h3 id="txtTitle3D">3D VIEW · 45°立体透视图</h3>
               <span class="pattern-badge" id="patternBadge">—</span>
             </div>
             <svg class="viz" id="isoSvg" viewBox="0 0 860 560"></svg>
             <div class="legend">
-              <div class="li"><span class="sw" style="background:var(--cyan)"></span><span id="txtLegHor">Horizontal Box</span></div>
-              <div class="li"><span class="sw" style="background:var(--amber)"></span><span id="txtLegVer">Vertical Box</span></div>
-              <div class="li"><span class="sw" style="background:#5A3F1C;border:1px solid #7A5A22"></span><span id="txtLegPal">Pallet</span></div>
+              <div class="li"><span class="sw" style="background:var(--cyan)"></span><span id="txtLegHor">横向箱体</span></div>
+              <div class="li"><span class="sw" style="background:var(--amber)"></span><span id="txtLegVer">纵向箱体</span></div>
+              <div class="li"><span class="sw" style="background:#5A3F1C;border:1px solid #7A5A22"></span><span id="txtLegPal">托盘</span></div>
             </div>
             <div class="orient-strip" id="orientStrip"></div>
           </div>
@@ -1177,15 +1177,15 @@
           <div class="result-grid-bottom">
             <div class="viz-card">
               <div class="viz-head">
-                <h3 id="txtTitle2D">TOP VIEW · Flat Layer Layout</h3>
+                <h3 id="txtTitle2D">TOP VIEW · 平面图（俯视）</h3>
               </div>
               <div id="topSvgContainer" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
                 <div style="flex: 1; min-width: 200px; text-align: center;">
-                  <div style="font-size: 11.5px; font-weight: 600; color: var(--ink-dim); margin-bottom: 6px;" id="labelLayerA">Layer A Layout</div>
+                  <div style="font-size: 11.5px; font-weight: 600; color: var(--ink-dim); margin-bottom: 6px;" id="labelLayerA">A层堆叠图</div>
                   <svg class="viz" id="topSvg" viewBox="0 0 480 480" style="max-width: 320px; margin: 0 auto;"></svg>
                 </div>
                 <div id="layerBBlock" style="flex: 1; min-width: 200px; text-align: center;">
-                  <div style="font-size: 11.5px; font-weight: 600; color: var(--ink-dim); margin-bottom: 6px;" id="lblLayerB">Layer B Layout</div>
+                  <div style="font-size: 11.5px; font-weight: 600; color: var(--ink-dim); margin-bottom: 6px;" id="lblLayerB">B层堆叠图</div>
                   <svg class="viz" id="topSvgB" viewBox="0 0 480 480" style="max-width: 320px; margin: 0 auto;"></svg>
                 </div>
               </div>
@@ -1193,7 +1193,7 @@
 
             <div class="viz-card">
               <div class="viz-head">
-                <h3 id="txtTitleSide">Section Summary (Side)</h3>
+                <h3 id="txtTitleSide">侧视剖面图（侧面）</h3>
               </div>
               <svg class="viz" id="sideSvg" viewBox="0 0 240 480" style="max-height: 380px;"></svg>
             </div>
@@ -1202,9 +1202,9 @@
           <!-- BOTTOM ACTIONS -->
           <div class="btn-reset-container" style="display: flex; gap: 12px; justify-content: center; margin-top: 24px; flex-wrap: wrap;">
             <button class="btn-reset" onclick="resetCalculator()">
-              <span id="btnBackToInput">← Back &amp; Edit inputs</span>
+              <span id="btnBackToInput">← 返回重新输入数据</span>
             </button>
-            <button class="btn-calc" onclick="savePdf()" style="max-width: 280px; background: linear-gradient(135deg, #10B981, #059669); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);" id="btnSavePdf">💾 Save PDF Report</button>
+            <button class="btn-calc" onclick="savePdf()" style="max-width: 280px; background: linear-gradient(135deg, #10B981, #059669); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);" id="btnSavePdf">💾 保存 PDF 报告</button>
           </div>
 
         </div>
@@ -1216,14 +1216,14 @@
          get it without executing JS; switchLang() re-renders for en/zh)
          ============================================== -->
     <section class="seo-content" id="seoContent">
-      <h2 id="seoIntroH">What is the Pallet Loading Optimizer?</h2>
-      <p id="seoIntroP">The Pallet Loading Optimizer is a free web tool that works out how many carton boxes fit on a single layer, how many layers you can stack, and how much of the pallet footprint gets covered — all from your box and pallet dimensions. It evaluates grid, pinwheel and mixed-block patterns to find the arrangement that loads the most boxes, then draws the result as a 3D isometric view and flat layer diagrams. No install or sign-up needed, and the result can be saved as a PDF report.</p>
+      <h2 id="seoIntroH">什么是托盘装载优化器？</h2>
+      <p id="seoIntroP">托盘装载优化器是一款免费在线工具，只需输入纸箱与托盘尺寸，即可自动计算每层可放多少箱、可堆叠多少层，以及托盘底面积的利用率。它会同时评估网格、风车和混合块三种排列方式，找出装载数量最多的方案，并以3D立体图和平面布置图展示结果。无需安装或注册，计算结果可保存为PDF报告。</p>
 
-      <h2 id="seoStdH">Standard Pallet Size Comparison</h2>
-      <table class="seo-table" id="seoStdTable"><thead><tr><th>Pallet Type</th><th>Size (mm)</th><th>Main Region</th></tr></thead><tbody><tr><td>T11 (Asia Pallet)</td><td>1,100 × 1,100</td><td>Korea · Japan</td></tr><tr><td>Euro Pallet EPAL</td><td>1,200 × 800</td><td>Europe</td></tr><tr><td>US GMA Standard</td><td>1,219 × 1,016</td><td>North America (48 × 40 in)</td></tr><tr><td>ISO Industrial</td><td>1,200 × 1,000</td><td>Global standard</td></tr><tr><td>Australian Standard</td><td>1,165 × 1,165</td><td>Australia</td></tr></tbody></table>
+      <h2 id="seoStdH">标准托盘规格对比</h2>
+      <table class="seo-table" id="seoStdTable"><thead><tr><th>托盘类型</th><th>规格 (mm)</th><th>主要使用地区</th></tr></thead><tbody><tr><td>T11 托盘</td><td>1,100 × 1,100</td><td>韩国 · 日本</td></tr><tr><td>欧标托盘 EPAL</td><td>1,200 × 800</td><td>欧洲</td></tr><tr><td>美标 GMA</td><td>1,219 × 1,016</td><td>北美 (48 × 40 in)</td></tr><tr><td>ISO 工业用</td><td>1,200 × 1,000</td><td>全球通用</td></tr><tr><td>澳洲标准</td><td>1,165 × 1,165</td><td>澳大利亚</td></tr></tbody></table>
 
-      <h2 id="seoFaqH">Frequently Asked Questions (FAQ)</h2>
-      <div class="seo-faq" id="seoFaqList"><details open><summary>How is pallet area occupancy calculated?</summary><p>It is the combined footprint of the boxes actually placed on one layer, divided by the pallet footprint. Four 480×380mm boxes on a 1,100×1,100mm pallet give (4 × 480 × 380) ÷ (1,100 × 1,100) = 60.3%. Clearance gaps between boxes are not area the boxes occupy, so they are excluded.</p></details><details><summary>What is the difference between a T11 and a Euro pallet?</summary><p>The T11 is a 1,100×1,100mm square pallet, the Korean and Japanese standard, while the Euro pallet (EPAL) is a 1,200×800mm rectangle, the European standard. Being square, the T11 lets you rotate boxes 90° freely, which favours interlocking and pinwheel patterns. The Euro pallet is sized to European truck and container widths for transport efficiency.</p></details><details><summary>How does interlocked stacking differ from column stacking?</summary><p>Column stacking places every layer in the same orientation, so box corners line up vertically for the highest compression strength — but the layers are not tied together and topple more easily. Interlocking alternates the arrangement between odd and even layers so they key into each other, reducing collapse in transit, though misaligned corners lower compression strength somewhat.</p></details><details><summary>Why should I set a box clearance gap?</summary><p>Real cartons often come out a few millimetres larger than their nominal size because of board thickness, joint tolerance and content bulge. Allowing a 3–5mm gap prevents the case where boxes fit on paper but not on the floor. The gap is applied when checking whether a layout fits, but is not counted in the area occupancy.</p></details><details><summary>When is the pinwheel pattern useful?</summary><p>It applies when the box length plus width is less than or equal to one side of the pallet. A 620×440mm box on a 1,100×1,100mm pallet gives 620+440=1,060 ≤ 1,100, so four boxes can be rotated into a pinwheel. It leaves a hole in the centre but often loads more boxes than a plain grid.</p></details><details><summary>How do I decide the maximum stacking height?</summary><p>Take the lowest of your container interior height, warehouse rack clearance and forklift specification. A 40ft standard container is about 2,390mm inside. Always check whether the pallet’s own height (typically 150mm) counts toward that limit — the “Include pallet height in total limit” option controls this.</p></details></div>
+      <h2 id="seoFaqH">常见问题 (FAQ)</h2>
+      <div class="seo-faq" id="seoFaqList"><details open><summary>托盘面积占用率是如何计算的？</summary><p>将一层中实际摆放的所有纸箱底面积之和，除以托盘底面积。例如在1,100×1,100mm托盘上放置4个480×380mm的纸箱，即 (4 × 480 × 380) ÷ (1,100 × 1,100) = 60.3%。纸箱之间的间隙并非纸箱实际占用的面积，因此不计入占用率。</p></details><details><summary>T11托盘与欧标托盘有什么区别？</summary><p>T11为1,100×1,100mm正方形，是韩国和日本的标准；欧标托盘（EPAL）为1,200×800mm长方形，是欧洲标准。T11因为是正方形，纸箱旋转90度摆放很方便，适合交错堆叠和风车排列。欧标托盘则按欧洲卡车和集装箱内宽设计，运输效率更高。</p></details><details><summary>交错堆叠与直列堆叠有何不同？</summary><p>直列堆叠（Column Stack）每层朝向相同，纸箱四角垂直对齐，抗压强度最高，但层与层之间没有咬合，容易倒塌。交错堆叠（Interlock）让奇数层与偶数层的排列相互错开，层间彼此咬合，可降低运输途中的倒塌风险，但由于边角错位，抗压强度会有所下降。</p></details><details><summary>为什么要设置纸箱间隙？</summary><p>实际纸箱受瓦楞板厚度、粘合公差和内容物膨胀影响，往往比标称尺寸大几毫米。预留3~5mm间隙可以避免“理论上放得下、现场却放不进去”的情况。间隙会计入能否排布的判断，但不计入面积占用率。</p></details><details><summary>风车排列在什么情况下更有利？</summary><p>当纸箱的长与宽之和小于或等于托盘边长时即可使用。例如1,100×1,100mm托盘配620×440mm纸箱，620+440=1,060 ≤ 1,100，因此可将4个纸箱旋转排成风车状。虽然中央会留出空隙，但通常比普通网格排列装得更多。</p></details><details><summary>最大堆叠高度该如何确定？</summary><p>以集装箱内高、仓库货架层高和叉车规格中的最小值为准。40尺标准集装箱内高约为2,390mm。此时务必确认托盘自身高度（通常150mm）是否计入该限高——可通过本工具的“堆叠限高包含托盘高度”选项进行调整。</p></details></div>
     </section>
 
     <!-- BOTTOM LEADERBOARD AD -->
@@ -1236,7 +1236,7 @@
   <!-- FOOTER -->
   <footer class="bottom-info">
     <p>© 2026 Pallet Loading Optimizer. All rights reserved.</p>
-    <p style="margin-top: 6px; opacity: 0.7;" id="txtFooterDesc">This simulator optimizes packaging layouts and pallet load distribution with precise gap clearance calculations.</p>
+    <p style="margin-top: 6px; opacity: 0.7;" id="txtFooterDesc">本在线工具为您提供纸箱装箱间隙与托盘合理装载率的精准3D数据计算与图形仿真。</p>
   </footer>
 
   <!-- ========================================================
@@ -1250,14 +1250,14 @@
   "@graph": [
     {
       "@type": "WebApplication",
-      "@id": "https://pallet-loading-layout-optimizer.pages.dev/#app",
-      "name": "Pallet Loading Optimizer",
-      "url": "https://pallet-loading-layout-optimizer.pages.dev/",
-      "description": "Enter carton box dimensions and pallet size to compute the optimal load stacking pattern in 3D simulation. Supports interlocking, clearance spacing, and layers.",
+      "@id": "https://pallet-loading-layout-optimizer.pages.dev/zh/#app",
+      "name": "托盘装载排版优化器",
+      "url": "https://pallet-loading-layout-optimizer.pages.dev/zh/",
+      "description": "输入纸箱尺寸 and 托盘尺寸，以在3D仿真中计算出最佳装载堆叠方案。支持交叉堆叠、间隙间距设定 and 层数计算。",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "All",
       "browserRequirements": "Requires JavaScript",
-      "inLanguage": "en",
+      "inLanguage": "zh",
       "isAccessibleForFree": true,
       "offers": {
         "@type": "Offer",
@@ -1265,65 +1265,65 @@
         "priceCurrency": "USD"
       },
       "featureList": [
-        "Carton inner and outer size from product dimensions",
-        "Automatic arrangement search for maximum pallet load",
-        "Carton weight limit constraint",
-        "RSC (A1) dieline drawing with cut and crease lines",
-        "3D carton content and pallet stacking views",
-        "Grid, pinwheel and mixed-block pallet patterns",
-        "PDF report and dieline PDF export"
+        "根据产品尺寸计算纸箱内径与外径",
+        "自动搜索托盘装载最大化的排列方案",
+        "纸箱最大重量限制",
+        "RSC（A1型）刀模展开图（裁切线·折线）",
+        "纸箱内部装填图与3D托盘装载仿真",
+        "网格·风车·混合块装载排列",
+        "PDF报告与刀模PDF导出"
       ]
     },
     {
       "@type": "FAQPage",
-      "@id": "https://pallet-loading-layout-optimizer.pages.dev/#faq",
+      "@id": "https://pallet-loading-layout-optimizer.pages.dev/zh/#faq",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "How is pallet area occupancy calculated?",
+          "name": "托盘面积占用率是如何计算的？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "It is the combined footprint of the boxes actually placed on one layer, divided by the pallet footprint. Four 480×380mm boxes on a 1,100×1,100mm pallet give (4 × 480 × 380) ÷ (1,100 × 1,100) = 60.3%. Clearance gaps between boxes are not area the boxes occupy, so they are excluded."
+            "text": "将一层中实际摆放的所有纸箱底面积之和，除以托盘底面积。例如在1,100×1,100mm托盘上放置4个480×380mm的纸箱，即 (4 × 480 × 380) ÷ (1,100 × 1,100) = 60.3%。纸箱之间的间隙并非纸箱实际占用的面积，因此不计入占用率。"
           }
         },
         {
           "@type": "Question",
-          "name": "What is the difference between a T11 and a Euro pallet?",
+          "name": "T11托盘与欧标托盘有什么区别？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The T11 is a 1,100×1,100mm square pallet, the Korean and Japanese standard, while the Euro pallet (EPAL) is a 1,200×800mm rectangle, the European standard. Being square, the T11 lets you rotate boxes 90° freely, which favours interlocking and pinwheel patterns. The Euro pallet is sized to European truck and container widths for transport efficiency."
+            "text": "T11为1,100×1,100mm正方形，是韩国和日本的标准；欧标托盘（EPAL）为1,200×800mm长方形，是欧洲标准。T11因为是正方形，纸箱旋转90度摆放很方便，适合交错堆叠和风车排列。欧标托盘则按欧洲卡车和集装箱内宽设计，运输效率更高。"
           }
         },
         {
           "@type": "Question",
-          "name": "How does interlocked stacking differ from column stacking?",
+          "name": "交错堆叠与直列堆叠有何不同？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Column stacking places every layer in the same orientation, so box corners line up vertically for the highest compression strength — but the layers are not tied together and topple more easily. Interlocking alternates the arrangement between odd and even layers so they key into each other, reducing collapse in transit, though misaligned corners lower compression strength somewhat."
+            "text": "直列堆叠（Column Stack）每层朝向相同，纸箱四角垂直对齐，抗压强度最高，但层与层之间没有咬合，容易倒塌。交错堆叠（Interlock）让奇数层与偶数层的排列相互错开，层间彼此咬合，可降低运输途中的倒塌风险，但由于边角错位，抗压强度会有所下降。"
           }
         },
         {
           "@type": "Question",
-          "name": "Why should I set a box clearance gap?",
+          "name": "为什么要设置纸箱间隙？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Real cartons often come out a few millimetres larger than their nominal size because of board thickness, joint tolerance and content bulge. Allowing a 3–5mm gap prevents the case where boxes fit on paper but not on the floor. The gap is applied when checking whether a layout fits, but is not counted in the area occupancy."
+            "text": "实际纸箱受瓦楞板厚度、粘合公差和内容物膨胀影响，往往比标称尺寸大几毫米。预留3~5mm间隙可以避免“理论上放得下、现场却放不进去”的情况。间隙会计入能否排布的判断，但不计入面积占用率。"
           }
         },
         {
           "@type": "Question",
-          "name": "When is the pinwheel pattern useful?",
+          "name": "风车排列在什么情况下更有利？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "It applies when the box length plus width is less than or equal to one side of the pallet. A 620×440mm box on a 1,100×1,100mm pallet gives 620+440=1,060 ≤ 1,100, so four boxes can be rotated into a pinwheel. It leaves a hole in the centre but often loads more boxes than a plain grid."
+            "text": "当纸箱的长与宽之和小于或等于托盘边长时即可使用。例如1,100×1,100mm托盘配620×440mm纸箱，620+440=1,060 ≤ 1,100，因此可将4个纸箱旋转排成风车状。虽然中央会留出空隙，但通常比普通网格排列装得更多。"
           }
         },
         {
           "@type": "Question",
-          "name": "How do I decide the maximum stacking height?",
+          "name": "最大堆叠高度该如何确定？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Take the lowest of your container interior height, warehouse rack clearance and forklift specification. A 40ft standard container is about 2,390mm inside. Always check whether the pallet’s own height (typically 150mm) counts toward that limit — the “Include pallet height in total limit” option controls this."
+            "text": "以集装箱内高、仓库货架层高和叉车规格中的最小值为准。40尺标准集装箱内高约为2,390mm。此时务必确认托盘自身高度（通常150mm）是否计入该限高——可通过本工具的“堆叠限高包含托盘高度”选项进行调整。"
           }
         }
       ]
@@ -1360,5 +1360,6 @@
           이렇게 하면 일반 사용자가 F12 개발자도구로 소스를 보아도 
           알고리즘 구조를 100% 해독하기가 불가능해집니다.
        ======================================================== -->
+  <script>try{switchLang("zh");}catch(e){}</script>
 </body>
 </html>
