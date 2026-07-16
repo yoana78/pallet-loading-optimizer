@@ -152,6 +152,26 @@
       color: var(--ink);
     }
 
+
+    /* Cross-link to the sibling tool. Deliberately styled as navigation rather
+       than as a banner: an ad-shaped block on a page carrying AdSense units
+       invites clicks the visitor did not mean to make. */
+    .header-right { display: flex; align-items: center; gap: 14px; }
+    .xsite-btn {
+      display: flex; align-items: center; gap: 6px; text-decoration: none;
+      background: rgba(217, 119, 6, 0.08); border: 1px solid var(--amber);
+      border-radius: 20px; padding: 6px 12px; white-space: nowrap;
+      font-size: 12px; font-weight: 600; color: var(--amber); transition: all 0.2s;
+    }
+    .xsite-btn:hover { background: var(--amber); color: #FFFFFF; }
+    .xsite-btn .xs-arrow { font-size: 11px; opacity: 0.75; }
+    /* On a narrow screen the label pushes the language buttons off-screen, so
+       let the right-hand group wrap instead of clipping. */
+    @media (max-width: 560px) {
+      header { flex-wrap: wrap; gap: 10px; }
+      .header-right { width: 100%; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    }
+
     /* Layout Wrapper */
     .container {
       max-width: 1200px;
@@ -885,12 +905,17 @@
         <span id="txtHeaderSub">Pallet Loading Optimizer </span>
       </div>
     </div>
-    <!-- real links, not JS toggles: each language is its own indexable URL and
-         crawlers must be able to follow them -->
-    <div class="lang-selector">
-      <a class="lang-btn" href="/ko/" id="btnLangKo" hreflang="ko">🇰🇷 ko</a>
-      <a class="lang-btn" href="/" id="btnLangEn" hreflang="en">🇺🇸 en</a>
-      <a class="lang-btn active" href="/zh/" id="btnLangZh" hreflang="zh">🇨🇳 zh</a>
+    <div class="header-right">
+      <a class="xsite-btn" id="btnCrossSite" href="https://carton-size-optimizer.pages.dev/zh/">
+        <span aria-hidden="true">📦</span><span id="txtCrossSite">纸箱尺寸设计器</span><span class="xs-arrow" aria-hidden="true">↗</span>
+      </a>
+      <!-- real links, not JS toggles: each language is its own indexable URL and
+           crawlers must be able to follow them -->
+      <div class="lang-selector">
+        <a class="lang-btn" href="/ko/" id="btnLangKo" hreflang="ko">🇰🇷 ko</a>
+        <a class="lang-btn" href="/" id="btnLangEn" hreflang="en">🇺🇸 en</a>
+        <a class="lang-btn active" href="/zh/" id="btnLangZh" hreflang="zh">🇨🇳 zh</a>
+      </div>
     </div>
   </header>
 
