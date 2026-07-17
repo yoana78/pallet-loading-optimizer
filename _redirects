@@ -1,0 +1,7 @@
+# 301 migration: pallet-loading-layout-optimizer.pages.dev -> cubefreight.pages.dev/pallet/
+/ko/*        https://cubefreight.pages.dev/pallet/ko/   301
+/zh/*        https://cubefreight.pages.dev/pallet/zh/   301
+/about/*     https://cubefreight.pages.dev/about/       301
+/privacy/*   https://cubefreight.pages.dev/privacy/     301
+/contact/*   https://cubefreight.pages.dev/contact/     301
+/*           https://cubefreight.pages.dev/pallet/      301
